@@ -12,6 +12,7 @@ public class MembershipLevel {
 
     @Column(name = "name")
     private String name;
+
     @Column(name = "monthly_cost")
     private double monthlyCost;
 

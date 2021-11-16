@@ -13,6 +13,7 @@ public class ParkingSpotAllocation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
+
     @ManyToOne
     @JoinColumn(name ="member_id",referencedColumnName = "id")
     private Member member;
