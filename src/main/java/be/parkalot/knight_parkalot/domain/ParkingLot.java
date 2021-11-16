@@ -7,6 +7,8 @@ import javax.persistence.*;
 public class ParkingLot {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name")

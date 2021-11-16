@@ -8,6 +8,8 @@ import javax.persistence.*;
 @Table(name = "division")
 public class Division {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
     @Column(name = "division_Name")

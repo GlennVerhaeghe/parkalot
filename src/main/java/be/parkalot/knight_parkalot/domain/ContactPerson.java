@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class ContactPerson {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Embedded

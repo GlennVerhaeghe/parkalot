@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Table(name = "member")
 public class Member {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
 
     @Embedded
