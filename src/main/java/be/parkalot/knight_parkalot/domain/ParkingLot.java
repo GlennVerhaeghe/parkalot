@@ -28,6 +28,10 @@ public class ParkingLot {
     @Column(name = "price_per_hour")
     private double pricePerHour;
 
+    @ManyToOne
+    @JoinColumn(name = "parking_lot_category_id", referencedColumnName = "id")
+    private ParkingLotCategory parkingLotCategory;
+
     public ParkingLot() {
     }
 
