@@ -32,6 +32,10 @@ public class ParkingLot {
     @JoinColumn(name = "parking_lot_category_id", referencedColumnName = "id")
     private ParkingLotCategory parkingLotCategory;
 
+    @ManyToOne
+    @JoinColumn(name = "division_id", referencedColumnName = "id")
+    private Division division;
+
     public ParkingLot() {
     }
 
