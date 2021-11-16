@@ -1,0 +1,139 @@
+    create table address (
+       id int4 not null,
+        house_number varchar(255),
+        street_name varchar(255),
+        postal_code int4,
+        primary key (id)
+    );
+
+    create table contact_person (
+       id int4 not null,
+        email varchar(255),
+        mobile_number varchar(255),
+        first_name varchar(255),
+        last_name varchar(255),
+        telephone_number varchar(255),
+        address_id int4,
+        primary key (id)
+    );
+
+    create table division (
+       id int4 not null,
+        first_name varchar(255),
+        last_name varchar(255),
+        division_name varchar(255),
+        original_name varchar(255),
+        parent_id int4,
+        primary key (id)
+    );
+
+    create table license_plate (
+       number varchar(255) not null,
+        country_code varchar(255),
+        primary key (number)
+    );
+
+    create table member (
+       id int4 not null,
+        email varchar(255),
+        first_name varchar(255),
+        last_name varchar(255),
+        registration_date date,
+        telephone_number varchar(255),
+        address_id int4,
+        license_plate_number varchar(255),
+        membership_level_id int4,
+        primary key (id)
+    );
+
+    create table membership_level (
+       id int4 not null,
+        max_allowed_allocation_hours int4,
+        monthly_cost float8,
+        name varchar(255),
+        reduction_percentage float8,
+        primary key (id)
+    );
+
+    create table parking_lot (
+       id int4 not null,
+        name varchar(255),
+        max_capacity int4,
+        price_per_hour float8,
+        address_id int4,
+        contact_id int4,
+        primary key (id)
+    );
+
+    create table parking_lot_category (
+       id int4 not null,
+        name varchar(255),
+        primary key (id)
+    );
+
+    create table parking_spot_allocation (
+       id int4 not null,
+        ending_time timestamp,
+        starting_time timestamp,
+        stop_now boolean,
+        license_plate_number varchar(255),
+        member_id int4,
+        parking_lot_id int4,
+        primary key (id)
+    );
+
+    create table postal_code (
+       code int4 not null,
+        city varchar(255),
+        primary key (code)
+    );
+
+    alter table address
+       add constraint FKi1jae8qiom7xtsi95e6svqbky
+       foreign key (postal_code)
+       references postal_code;
+
+    alter table contact_person
+       add constraint FKl942h98cldm2x1dl88qlwn91d
+       foreign key (address_id)
+       references address;
+
+    alter table division
+       add constraint FKov2bn1vsi0rx72e2d6aeyhg41
+       foreign key (parent_id)
+       references division;
+
+    alter table member
+       add constraint FKe949jkrgjkwq2hxgj3ow03bpm
+       foreign key (address_id)
+       references address;
+
+    alter table member
+       add constraint FKlfokdpckk3etxrgskgsx9nd0t
+       foreign key (license_plate_number)
+       references license_plate;
+
+    alter table member
+       add constraint FKm3wtei43p3fslgjgilv8ihgno
+       foreign key (membership_level_id)
+       references membership_level;
+
+    alter table parking_lot
+       add constraint FKbam4b6h5qpwm0mikctp110fu7
+       foreign key (contact_id)
+       references contact_person;
+
+    alter table parking_spot_allocation
+       add constraint FKl48mx94wh71ixcxucr5nat1wj
+       foreign key (license_plate_number)
+       references license_plate;
+
+    alter table parking_spot_allocation
+       add constraint FKojw6tuhmmowydj8chdfoicg1l
+       foreign key (member_id)
+       references member;
+
+    alter table parking_spot_allocation
+       add constraint FKo8wg8owxj51ox0k1m6pt1w6of
+       foreign key (parking_lot_id)
+       references parking_lot;

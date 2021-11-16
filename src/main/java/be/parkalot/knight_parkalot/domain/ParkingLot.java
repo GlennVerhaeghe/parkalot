@@ -28,8 +28,6 @@ public class ParkingLot {
     @Column(name = "price_per_hour")
     private double pricePerHour;
 
-
-
     public ParkingLot() {
     }
 
