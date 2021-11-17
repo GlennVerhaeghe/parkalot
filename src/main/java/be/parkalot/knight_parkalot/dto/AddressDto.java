@@ -1,16 +1,15 @@
 package be.parkalot.knight_parkalot.dto;
 
-import be.parkalot.knight_parkalot.domain.PostalCode;
 
 public class AddressDto {
     private final String streetName;
     private final String houseNumber;
-    private final PostalCode postalCode;
+    private final PostalCodeDto postalCodeDto;
 
-    public AddressDto(String streetName, String houseNumber, PostalCode postalCode) {
+    public AddressDto(String streetName, String houseNumber, PostalCodeDto postalCodeDto) {
         this.streetName = streetName;
         this.houseNumber = houseNumber;
-        this.postalCode = postalCode;
+        this.postalCodeDto = postalCodeDto;
     }
 
     public String getStreetName() {
@@ -21,7 +20,7 @@ public class AddressDto {
         return houseNumber;
     }
 
-    public PostalCode getPostalCode() {
-        return postalCode;
+    public PostalCodeDto getPostalCodeDto() {
+        return postalCodeDto;
     }
 }

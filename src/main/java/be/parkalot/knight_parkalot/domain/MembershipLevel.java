@@ -25,6 +25,13 @@ public class MembershipLevel {
     public MembershipLevel() {
     }
 
+    public MembershipLevel(String name, double monthlyCost, double reductionPercentage, int maxAllowedAllocationHours) {
+        this.name = name;
+        this.monthlyCost = monthlyCost;
+        this.reductionPercentage = reductionPercentage;
+        this.maxAllowedAllocationHours = maxAllowedAllocationHours;
+    }
+
     public int getId() {
         return id;
     }

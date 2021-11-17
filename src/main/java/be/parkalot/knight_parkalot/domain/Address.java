@@ -17,10 +17,16 @@ public class Address {
     private String houseNumber;
 
     @ManyToOne
-    @JoinColumn(name = "postal_code",referencedColumnName = "code")
+    @JoinColumn(name = "postal_code", referencedColumnName = "code")
     private PostalCode postalCode;
 
     public Address() {
+    }
+
+    public Address(String streetName, String houseNumber, PostalCode postalCode) {
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.postalCode = postalCode;
     }
 
     public int getId() {

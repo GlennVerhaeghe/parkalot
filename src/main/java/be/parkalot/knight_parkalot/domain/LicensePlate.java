@@ -16,6 +16,11 @@ public class LicensePlate {
     public LicensePlate() {
     }
 
+    public LicensePlate(String number, String countryCode) {
+        this.number = number;
+        this.countryCode = countryCode;
+    }
+
     public String getNumber() {
         return number;
     }
