@@ -10,10 +10,10 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(name = "streetName")
+    @Column(name = "street_name")
     private String streetName;
 
-    @Column(name = "houseNumber")
+    @Column(name = "house_number")
     private String houseNumber;
 
     @ManyToOne
