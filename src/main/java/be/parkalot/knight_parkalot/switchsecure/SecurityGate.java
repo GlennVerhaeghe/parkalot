@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 @RequestScope
 public class SecurityGate implements HandlerInterceptor {
-    public static final String JWT_SECRET = "GoGoSwitchfully";
+    public static final String JWT_SECRET = "GoGoParkalot";
     Logger logger = LoggerFactory.getLogger(SecurityGate.class);
 
     private final UserSecurityInformation userSecurityInformation;
