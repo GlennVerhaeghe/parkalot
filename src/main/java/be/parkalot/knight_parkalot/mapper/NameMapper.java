@@ -10,4 +10,8 @@ public class NameMapper {
     public Name toEntity(CreateNameDto nameDto) {
         return new Name(nameDto.getFirstName(), nameDto.getLastName());
     }
+
+    public CreateNameDto toDto(Name name) {
+        return new CreateNameDto(name.getFirstName(), name.getLastName());
+    }
 }
