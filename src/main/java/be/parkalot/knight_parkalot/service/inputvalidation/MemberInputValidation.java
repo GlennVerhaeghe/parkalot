@@ -22,19 +22,15 @@ public class MemberInputValidation {
         if (createMemberDto.getNameDto() == null) {
             throw new MissingMemberArgumentsException("User name has to be provided");
         }
-
         if (createMemberDto.getNameDto().getFirstName() == null) {
             throw new MissingMemberArgumentsException("First name has to be provided");
         }
-
         if (createMemberDto.getNameDto().getLastName() == null) {
             throw new MissingMemberArgumentsException("Last name has to be provided");
         }
-
         if (createMemberDto.getAddressDto() == null) {
             throw new MissingMemberArgumentsException("Address has to be provided");
         }
-
         if (createMemberDto.getAddressDto().getStreetName() == null) {
             throw new MissingMemberArgumentsException("Street name has to be provided");
         }
@@ -50,9 +46,17 @@ public class MemberInputValidation {
         if (createMemberDto.getAddressDto().getPostalCodeDto().getCity() == null) {
             throw new MissingMemberArgumentsException("City has to be provided");
         }
-
         if (createMemberDto.getTelephoneNumber() == null) {
             throw new MissingMemberArgumentsException("City has to be provided");
+        }
+        if(createMemberDto.getLicensePlateDto() == null){
+            throw new MissingMemberArgumentsException("License plate has to be provided");
+        }
+        if(createMemberDto.getLicensePlateDto().getNumber() == null){
+            throw new MissingMemberArgumentsException("License plate number has to be provided");
+        }
+        if(createMemberDto.getLicensePlateDto().getCountryCode() == null){
+            throw new MissingMemberArgumentsException("License plate Country code has to be provided");
         }
     }
 

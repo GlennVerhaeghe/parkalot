@@ -1,6 +1,7 @@
 package be.parkalot.knight_parkalot.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name="license_plate")
@@ -27,5 +28,22 @@ public class LicensePlate {
 
     public String getCountryCode() {
         return countryCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        LicensePlate that = (LicensePlate) o;
+        return Objects.equals(number, that.number) && Objects.equals(countryCode, that.countryCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, countryCode);
     }
 }

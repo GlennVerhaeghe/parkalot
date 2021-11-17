@@ -1,6 +1,7 @@
 package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
+import be.parkalot.knight_parkalot.domain.PostalCode;
 import be.parkalot.knight_parkalot.dto.CreateMemberDto;
 import be.parkalot.knight_parkalot.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,9 @@ public class MemberMapper {
         this.membershipLevelMapper = membershipLevelMapper;
     }
 
-    public Member toEntity(CreateMemberDto createMemberDto, MembershipLevel membershipLevel) {
+    public Member toEntity(CreateMemberDto createMemberDto, MembershipLevel membershipLevel, PostalCode postalCode) {
         return new Member(nameMapper.toEntity(createMemberDto.getNameDto()),
-                addressMapper.toEntity(createMemberDto.getAddressDto()),
+                addressMapper.toEntity(createMemberDto.getAddressDto(), postalCode),
                 createMemberDto.getTelephoneNumber(),
                 createMemberDto.getEmail(),
                 licensePlateMapper.toEntity(createMemberDto.getLicensePlateDto()),

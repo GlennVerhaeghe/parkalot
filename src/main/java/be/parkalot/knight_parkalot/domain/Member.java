@@ -16,7 +16,7 @@ public class Member {
     @Embedded
     private Name name;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
@@ -27,14 +27,14 @@ public class Member {
     @Column(name = "email")
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "license_plate_number", referencedColumnName = "number")
     private LicensePlate licensePlate;
 
     @Column(name = "registration_date", columnDefinition = "DATE")
     private LocalDate registrationDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "membership_level_id", referencedColumnName = "id")
     private MembershipLevel membershipLevel;
 

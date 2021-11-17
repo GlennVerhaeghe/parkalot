@@ -1,6 +1,7 @@
 package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.Address;
+import be.parkalot.knight_parkalot.domain.PostalCode;
 import be.parkalot.knight_parkalot.dto.AddressDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,8 +16,8 @@ public class AddressMapper {
         this.postalCodeMapper = postalCodeMapper;
     }
 
-    public Address toEntity(AddressDto addressDto) {
-        return new Address(addressDto.getStreetName(), addressDto.getHouseNumber(), postalCodeMapper.toEntity(addressDto.getPostalCodeDto()));
+    public Address toEntity(AddressDto addressDto, PostalCode postalCode) {
+        return new Address(addressDto.getStreetName(), addressDto.getHouseNumber(), postalCode);
     }
 
     public AddressDto toDto(Address address) {

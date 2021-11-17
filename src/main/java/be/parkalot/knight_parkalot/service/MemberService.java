@@ -2,19 +2,28 @@ package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
+import be.parkalot.knight_parkalot.domain.PostalCode;
 import be.parkalot.knight_parkalot.dto.CreateMemberDto;
+import be.parkalot.knight_parkalot.dto.LicensePlateDto;
 import be.parkalot.knight_parkalot.dto.MemberDto;
+import be.parkalot.knight_parkalot.dto.PostalCodeDto;
 import be.parkalot.knight_parkalot.exceptions.DatabaseProblemException;
+import be.parkalot.knight_parkalot.exceptions.NotUniqueException;
+import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
 import be.parkalot.knight_parkalot.mapper.MemberMapper;
+import be.parkalot.knight_parkalot.mapper.PostalCodeMapper;
 import be.parkalot.knight_parkalot.repository.MemberRepository;
 import be.parkalot.knight_parkalot.repository.MembershipLevelRepository;
+import be.parkalot.knight_parkalot.repository.PostalCodeRepository;
 import be.parkalot.knight_parkalot.service.inputvalidation.MemberInputValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class MemberService {
 
     private static final int MEMBERSHIP_LEVEL_DEFAULT_BRONZE_VALUE = 1;
@@ -31,16 +40,30 @@ public class MemberService {
     }
 
     public MemberDto registerMember(CreateMemberDto createMemberDto) {
+        logger.info("registerMember() called");
+        assertValidMemberDto(createMemberDto);
+        assertIsMailUnique(createMemberDto.getEmail());
+        assertLicensePlateIsUnique(createMemberDto.getLicensePlateDto());
+
 
         MembershipLevel membershipLevel = getMembershipLevel(createMemberDto.getMembershipLevelID());
-        assertValidMemberDto(createMemberDto);
-        Member member = memberRepository.save(memberMapper.toEntity(createMemberDto, membershipLevel));
+        PostalCode postalCode = getPostalCode(createMemberDto.getAddressDto().getPostalCodeDto());
+
+        Member member = memberRepository.save(memberMapper.toEntity(createMemberDto, membershipLevel, postalCode));
         return memberMapper.toDto(member);
     }
 
     public void assertValidMemberDto(CreateMemberDto createMemberDto) {
         MemberInputValidation memberInputValidation = new MemberInputValidation(createMemberDto);
         memberInputValidation.validate();
+    }
+
+    private PostalCode getPostalCode(PostalCodeDto postalCodeDto) {
+        logger.info("getPostalCode called");
+
+        Optional<PostalCode> postalCodeOptional = postalCodeRepository.findById(postalCodeDto.getCode());
+
+        return postalCodeOptional.orElseGet(() -> postalCodeMapper.toEntity(postalCodeDto));
     }
 
     private MembershipLevel getMembershipLevel(int membershipId) {
@@ -54,6 +77,22 @@ public class MemberService {
                 return membershipLevelDefault.get();
             }
             throw new DatabaseProblemException("Default value not available in the database");
+        }
+    }
+
+    private void assertIsMailUnique(String email) {
+        logger.info("assertIsMailUnique called");
+
+        if (memberRepository.findByEmail(email) != null) {
+            throw new NotUniqueException("Email address already exists.");
+        }
+    }
+
+    private void assertLicensePlateIsUnique(LicensePlateDto licensePlateDto) {
+        logger.info("assertLicensePlateIsUnique() called");
+
+        if (memberRepository.findByLicensePlate(licensePlateMapper.toEntity(licensePlateDto)) != null) {
+            throw new NotUniqueException("License plate is already registered.");
         }
     }
 }
