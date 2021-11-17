@@ -3,7 +3,9 @@ package be.parkalot.knight_parkalot.mapper;
 import be.parkalot.knight_parkalot.domain.Address;
 import be.parkalot.knight_parkalot.dto.AddressDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AddressMapper {
 
     private PostalCodeMapper postalCodeMapper;

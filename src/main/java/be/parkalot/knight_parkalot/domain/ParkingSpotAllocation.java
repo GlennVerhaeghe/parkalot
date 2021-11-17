@@ -26,10 +26,10 @@ public class ParkingSpotAllocation {
     @JoinColumn(name = "parking_lot_id",referencedColumnName = "id")
     private ParkingLot parkingLot;
 
-    @Column(name = "starting_time")
+    @Column(name = "starting_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime startingTime;
 
-    @Column(name = "ending_time")
+    @Column(name = "ending_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime endingTime;
 
     @Column(name = "stop_now")

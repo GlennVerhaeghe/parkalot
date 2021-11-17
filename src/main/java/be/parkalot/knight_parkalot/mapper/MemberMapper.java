@@ -3,7 +3,9 @@ package be.parkalot.knight_parkalot.mapper;
 import be.parkalot.knight_parkalot.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import be.parkalot.knight_parkalot.domain.Member;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MemberMapper {
 
     private final NameMapper nameMapper;

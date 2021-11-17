@@ -31,7 +31,7 @@ public class Member {
     @JoinColumn(name = "license_plate_number", referencedColumnName = "number")
     private LicensePlate licensePlate;
 
-    @Column(name = "registration_date")
+    @Column(name = "registration_date", columnDefinition = "DATE")
     private LocalDate registrationDate;
 
     @ManyToOne

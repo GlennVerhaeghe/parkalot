@@ -2,7 +2,9 @@ package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.LicensePlate;
 import be.parkalot.knight_parkalot.dto.LicensePlateDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LicensePlateMapper {
 
     public LicensePlate toEntity(LicensePlateDto licensePlateDto) {
