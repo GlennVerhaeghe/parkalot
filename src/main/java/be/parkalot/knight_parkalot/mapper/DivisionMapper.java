@@ -3,27 +3,37 @@ package be.parkalot.knight_parkalot.mapper;
 import be.parkalot.knight_parkalot.domain.Division;
 import be.parkalot.knight_parkalot.domain.Name;
 import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
-import be.parkalot.knight_parkalot.repository.DivisionRepository;
+import be.parkalot.knight_parkalot.dto.DivisionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class DivisionMapper {
-    private final DivisionRepository divisionRepository;
     private final NameMapper nameMapper;
 
     @Autowired
-    public DivisionMapper(DivisionRepository divisionRepository, NameMapper nameMapper) {
-        this.divisionRepository = divisionRepository;
+    public DivisionMapper(NameMapper nameMapper) {
         this.nameMapper = nameMapper;
     }
 
-    public Division toEntity(CreateDivisionDto divisionDto) {
+    public Division toEntity(CreateDivisionDto divisionDto, Division parent) {
         Name directorName = nameMapper.toEntity(divisionDto.getDirectorName());
-        if (divisionDto.getParentId() == null || divisionDto.getParentId() == 0) {
-            return Division.createDivision(divisionDto.getName(), divisionDto.getOldName(), directorName);
-        }
-        Division parent = divisionRepository.getById(divisionDto.getParentId());
-        return Division.createSubDivision(divisionDto.getName(), divisionDto.getOldName(), directorName, parent);
+        return new Division(divisionDto.getName(), divisionDto.getOldName(), directorName, parent);
     }
+
+    public DivisionDto toDto(Division division) {
+        return new DivisionDto.Builder()
+                .withId(division.getId())
+                .withName(division.getDivisionName())
+                .withOldName(division.getOriginalName())
+                .withDirectorName(nameMapper.toDto(division.getDirectorName()))
+                .withParentId(division.getParentId())
+                .build();
+    }
+
 }

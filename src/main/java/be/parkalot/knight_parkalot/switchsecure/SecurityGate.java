@@ -1,12 +1,15 @@
 package be.parkalot.knight_parkalot.switchsecure;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,9 +17,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
+@RequestScope
 public class SecurityGate implements HandlerInterceptor {
-    public static final String JWT_SECRET = "GoGoSwitchfully";
+    public static final String JWT_SECRET = "GoGoParkalot";
     Logger logger = LoggerFactory.getLogger(SecurityGate.class);
+
+    private final UserSecurityInformation userSecurityInformation;
+
+    public SecurityGate(@Qualifier("getUsernameAndRoleFromJWT")UserSecurityInformation userSecurityInformation) {
+        this.userSecurityInformation = userSecurityInformation;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -38,7 +48,9 @@ public class SecurityGate implements HandlerInterceptor {
 
 
         // if JWT does NOT contain the correct role
-        if (jwtMatchSecurityGuardRole(role, request)) {
+        if(jwtMatchSecurityGuardRole(role, request)) {
+            userSecurityInformation.setRole(getRoleFromJwtToken(getJWT(request)));
+            userSecurityInformation.setName(getUserNameFromJwtToken(getJWT(request)));
             return true;
         } else {
             response.sendError(401);
@@ -48,7 +60,7 @@ public class SecurityGate implements HandlerInterceptor {
     }
 
     private boolean jwtMatchSecurityGuardRole(SecurityGuard.ApiUserRole value, HttpServletRequest request) {
-        if (getJWT(request) == null) {
+        if(getJWT(request) == null) {
             return false;
         }
         try {
@@ -60,7 +72,7 @@ public class SecurityGate implements HandlerInterceptor {
             return false;
         }
         return value.name().equals(getRoleFromJwtToken(getJWT(request)))
-                || SecurityGuard.ApiUserRole.ADMIN.name().equals(getRoleFromJwtToken(getJWT(request)));
+               || SecurityGuard.ApiUserRole.MANAGER.name().equals(getRoleFromJwtToken(getJWT(request))) ;
 
 
     }
@@ -69,7 +81,7 @@ public class SecurityGate implements HandlerInterceptor {
         String headerAuth = request.getHeader("Authorization");
 
         if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
-            return headerAuth.substring(7, headerAuth.length());
+            return headerAuth.substring(7);
         }
 
         return null;
@@ -89,13 +101,13 @@ public class SecurityGate implements HandlerInterceptor {
         }
     }
 
-//    private String getUserNameFromJwtToken(String token) {
-//        return Jwts.parser()
-//                .setSigningKey(JWT_SECRET)
-//                .parseClaimsJws(token)
-//                .getBody()
-//                .getSubject();
-//    }
+    private String getUserNameFromJwtToken(String token) {
+        Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
+        JWTVerifier verifier = JWT.require(algorithm)
+                .build();
+        DecodedJWT jwt = verifier.verify(token);
+        return jwt.getSubject();
+    }
 
     private String getRoleFromJwtToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
@@ -104,4 +116,6 @@ public class SecurityGate implements HandlerInterceptor {
         DecodedJWT jwt = verifier.verify(token);
         return jwt.getClaim("role").asString();
     }
+
+
 }

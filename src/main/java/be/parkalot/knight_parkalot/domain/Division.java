@@ -20,21 +20,14 @@ public class Division {
     @Embedded
     private Name directorName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_id",referencedColumnName = "id")
     private Division parentDivision;
-
-    public static Division createSubDivision(String divisionName, String originalName, Name directorName, Division parentDivision) {
-        return new Division(divisionName, originalName, directorName, parentDivision);
-    }
-    public static Division createDivision(String divisionName, String originalName, Name directorName) {
-        return new Division(divisionName, originalName, directorName, null);
-    }
 
     public Division() {
     }
 
-    private Division(String divisionName, String originalName, Name directorName, Division parentDivision) {
+    public Division(String divisionName, String originalName, Name directorName, Division parentDivision) {
         this.divisionName = divisionName;
         this.originalName = originalName;
         this.directorName = directorName;
@@ -59,6 +52,13 @@ public class Division {
 
     public Division getParentDivision() {
         return parentDivision;
+    }
+
+    public int getParentId() {
+        if (parentDivision == null) {
+            return 0;
+        }
+        return parentDivision.getId();
     }
 
     @Override
