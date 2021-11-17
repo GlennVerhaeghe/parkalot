@@ -9,4 +9,9 @@ public class MemberService {
 
         return memberDto;
     }
+
+    public boolean assertValidMemberDto(MemberDto memberDto) {
+        MemberInputValidation memberInputValidation = new MemberInputValidation(memberDto);
+        return memberInputValidation.validate();
+    }
 }
