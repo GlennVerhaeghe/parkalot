@@ -60,6 +60,13 @@
             <version>1.5.11</version>
         </dependency>
 
+        <!-- needed for the SwitchSecure HomeMadeSecurity -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.18.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
