@@ -1,7 +1,5 @@
 package be.parkalot.knight_parkalot.domain;
 
-import org.hibernate.annotations.Parent;
-
 import javax.persistence.*;
 
 @Entity
@@ -26,6 +24,13 @@ public class Division {
     private Division parentDivision;
 
     public Division() {
+    }
+
+    public Division(String divisionName, String originalName, Name directorName, Division parentDivision) {
+        this.divisionName = divisionName;
+        this.originalName = originalName;
+        this.directorName = directorName;
+        this.parentDivision = parentDivision;
     }
 
     public int getId() {
