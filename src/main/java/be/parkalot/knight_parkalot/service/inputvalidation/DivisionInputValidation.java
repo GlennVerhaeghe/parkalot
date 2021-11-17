@@ -1,8 +1,6 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
 import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
-import be.parkalot.knight_parkalot.repository.DivisionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
