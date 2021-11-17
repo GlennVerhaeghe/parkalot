@@ -20,7 +20,7 @@ public class DivisionMapper {
 
     public Division toEntity(CreateDivisionDto divisionDto) {
         Name directorName = nameMapper.toEntity(divisionDto.getDirectorName());
-        if (divisionDto.getParentId() == null) {
+        if (divisionDto.getParentId() == null || divisionDto.getParentId() == 0) {
             return Division.createDivision(divisionDto.getName(), divisionDto.getOldName(), directorName);
         }
         Division parent = divisionRepository.getById(divisionDto.getParentId());
