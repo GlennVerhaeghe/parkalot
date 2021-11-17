@@ -17,7 +17,7 @@ public class Address {
     private String houseNumber;
 
     @ManyToOne
-    @JoinColumn(name = "postal_code",referencedColumnName = "code")
+    @JoinColumn(name = "postal_code", referencedColumnName = "code")
     private PostalCode postalCode;
 
     public Address() {

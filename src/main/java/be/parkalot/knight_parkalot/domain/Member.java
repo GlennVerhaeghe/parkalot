@@ -17,28 +17,38 @@ public class Member {
     private Name name;
 
     @ManyToOne
-    @JoinColumn(name = "address_id",referencedColumnName = "id")
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    @Column(name ="telephone_number")
+    @Column(name = "telephone_number")
     private String telephoneNumber;
 
 
     @Column(name = "email")
-    private String email ;
+    private String email;
 
     @OneToOne
-    @JoinColumn(name = "license_plate_number",referencedColumnName = "number")
+    @JoinColumn(name = "license_plate_number", referencedColumnName = "number")
     private LicensePlate licensePlate;
 
     @Column(name = "registration_date")
     private LocalDate registrationDate;
 
     @ManyToOne
-    @JoinColumn(name = "membership_level_id",referencedColumnName = "id")
+    @JoinColumn(name = "membership_level_id", referencedColumnName = "id")
     private MembershipLevel membershipLevel;
 
     public Member() {
+    }
+
+    public Member(Name name, Address address, String telephoneNumber, String email, LicensePlate licensePlate, LocalDate registrationDate, MembershipLevel membershipLevel) {
+        this.name = name;
+        this.address = address;
+        this.telephoneNumber = telephoneNumber;
+        this.email = email;
+        this.licensePlate = licensePlate;
+        this.registrationDate = registrationDate;
+        this.membershipLevel = membershipLevel;
     }
 
     public int getId() {

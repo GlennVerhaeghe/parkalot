@@ -18,6 +18,11 @@ public class PostalCode {
     public PostalCode() {
     }
 
+    public PostalCode(int code, String city) {
+        this.code = code;
+        this.city = city;
+    }
+
     public int getCode() {
         return code;
     }
