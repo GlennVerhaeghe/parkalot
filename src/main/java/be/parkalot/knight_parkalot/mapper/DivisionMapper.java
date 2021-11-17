@@ -7,6 +7,11 @@ import be.parkalot.knight_parkalot.dto.DivisionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class DivisionMapper {
     private final NameMapper nameMapper;
@@ -30,4 +35,5 @@ public class DivisionMapper {
                 .withParentId(division.getParentId())
                 .build();
     }
+
 }

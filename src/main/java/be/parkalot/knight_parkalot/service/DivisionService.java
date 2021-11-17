@@ -9,6 +9,9 @@ import be.parkalot.knight_parkalot.service.inputvalidation.DivisionInputValidati
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DivisionService {
 
@@ -41,5 +44,9 @@ public class DivisionService {
             throw new IllegalArgumentException("No division found with id: " + divisionDto.getParentId());
         }
         return true;
+    }
+
+    public List<DivisionDto> getAllDivisions() {
+        return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
     }
 }

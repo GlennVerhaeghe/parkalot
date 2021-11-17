@@ -8,14 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 @RestController
@@ -30,6 +26,13 @@ public class DivisionController {
         this.service = service;
     }
 
+
+    @GetMapping(produces = "application/json")
+    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
+    public List<DivisionDto> showOverviewOfAllDivisions() {
+        return service.getAllDivisions();
+    }
+
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
@@ -37,8 +40,9 @@ public class DivisionController {
         return service.createNewDivision(divisionDto);
     }
 
+
     @ExceptionHandler(IllegalArgumentException.class)
-    public void handleIllegalArgumentException(IllegalArgumentException exception,  HttpServletResponse response) throws Exception {
+    public void handleIllegalArgumentException(IllegalArgumentException exception, HttpServletResponse response) throws Exception {
         logger.error(exception.getMessage());
         response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
