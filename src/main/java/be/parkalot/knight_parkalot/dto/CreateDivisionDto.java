@@ -4,9 +4,9 @@ public class CreateDivisionDto {
     private String name;
     private String oldName;
     private CreateNameDto directorName;
-    private int parentId;
+    private Integer parentId;
 
-    public CreateDivisionDto(String name, String oldName, CreateNameDto directorName, int parentId) {
+    public CreateDivisionDto(String name, String oldName, CreateNameDto directorName, Integer parentId) {
         this.name = name;
         this.oldName = oldName;
         this.directorName = directorName;
@@ -25,7 +25,7 @@ public class CreateDivisionDto {
         return directorName;
     }
 
-    public int getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 }

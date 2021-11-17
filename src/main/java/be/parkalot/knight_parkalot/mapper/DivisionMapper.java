@@ -19,8 +19,12 @@ public class DivisionMapper {
     }
 
     public Division toEntity(CreateDivisionDto divisionDto) {
-        Division parent = divisionRepository.getById(divisionDto.getParentId());
         Name directorName = nameMapper.toEntity(divisionDto.getDirectorName());
-        return new Division(divisionDto.getName(), divisionDto.getOldName(), directorName, parent);
+
+        if (divisionDto.getParentId() != null) {
+            Division parent = divisionRepository.getById(divisionDto.getParentId());
+            return Division.createSubDivision(divisionDto.getName(), divisionDto.getOldName(), directorName, parent);
+        }
+        return Division.createDivision(divisionDto.getName(), divisionDto.getOldName(), directorName);
     }
 }

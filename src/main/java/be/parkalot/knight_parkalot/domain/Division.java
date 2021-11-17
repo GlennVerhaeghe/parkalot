@@ -1,6 +1,7 @@
 package be.parkalot.knight_parkalot.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "division")
@@ -23,10 +24,17 @@ public class Division {
     @JoinColumn(name = "parent_id",referencedColumnName = "id")
     private Division parentDivision;
 
+    public static Division createSubDivision(String divisionName, String originalName, Name directorName, Division parentDivision) {
+        return new Division(divisionName, originalName, directorName, parentDivision);
+    }
+    public static Division createDivision(String divisionName, String originalName, Name directorName) {
+        return new Division(divisionName, originalName, directorName, null);
+    }
+
     public Division() {
     }
 
-    public Division(String divisionName, String originalName, Name directorName, Division parentDivision) {
+    private Division(String divisionName, String originalName, Name directorName, Division parentDivision) {
         this.divisionName = divisionName;
         this.originalName = originalName;
         this.directorName = directorName;
@@ -51,5 +59,18 @@ public class Division {
 
     public Division getParentDivision() {
         return parentDivision;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Division division = (Division) o;
+        return id == division.id && Objects.equals(divisionName, division.divisionName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, divisionName);
     }
 }
