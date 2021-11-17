@@ -1,23 +1,19 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
 import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
-import org.springframework.stereotype.Component;
 
-@Component
 public class DivisionInputValidation {
 
-    public void validate(CreateDivisionDto createDivisionDto) {
+    public void validateDivisionInput(CreateDivisionDto createDivisionDto) {
 
-        if (createDivisionDto.getName() == null) {
+        if (createDivisionDto.getName() == null || createDivisionDto.getName().isBlank()) {
             throw new IllegalArgumentException("Please fill the name");
         }
 
-        if (createDivisionDto.getDirectorName() == null) {
+        if (createDivisionDto.getDirectorName() == null || createDivisionDto.getDirectorName().getLastName() == null
+                || createDivisionDto.getDirectorName().getLastName().isBlank()) {
             throw new IllegalArgumentException("Please fill the Director name");
         }
 
-        if (createDivisionDto.getOldName() == null) {
-            throw new IllegalArgumentException("Please fill the Old division name");
-        }
     }
 }

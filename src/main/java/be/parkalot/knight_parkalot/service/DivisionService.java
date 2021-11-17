@@ -5,6 +5,7 @@ import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
 import be.parkalot.knight_parkalot.dto.DivisionDto;
 import be.parkalot.knight_parkalot.mapper.DivisionMapper;
 import be.parkalot.knight_parkalot.repository.DivisionRepository;
+import be.parkalot.knight_parkalot.service.inputvalidation.DivisionInputValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,16 +14,18 @@ public class DivisionService {
 
     private final DivisionRepository repository;
     private final DivisionMapper mapper;
+    private final DivisionInputValidation inputValidation;
 
     @Autowired
     public DivisionService(DivisionRepository repository, DivisionMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
+        inputValidation = new DivisionInputValidation();
     }
 
     public DivisionDto createNewDivision(CreateDivisionDto divisionDto) {
         Division parent = null;
-
+        inputValidation.validateDivisionInput(divisionDto);
         if (isForSubDivision(divisionDto)) {
             parent = repository.getById(divisionDto.getParentId());
         }
