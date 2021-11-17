@@ -5,11 +5,9 @@ import be.parkalot.knight_parkalot.domain.Name;
 import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
 import be.parkalot.knight_parkalot.dto.CreateNameDto;
 import be.parkalot.knight_parkalot.mapper.DivisionMapper;
-import be.parkalot.knight_parkalot.mapper.NameMapper;
 import be.parkalot.knight_parkalot.repository.DivisionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -30,8 +28,8 @@ class DivisionServiceTest {
     @Test
     void createNewDivision_whenDivisionDtoValid_thenCallSaveToRepo() {
         //given
-        Division mappedDivision = new Division("TestName", "TestOldName",
-                new Name("TestFirstName", "TestLastName"), null);
+        Division mappedDivision = Division.createDivision("TestName", "TestOldName",
+                new Name("TestFirstName", "TestLastName"));
         CreateDivisionDto createDivisionDto = new CreateDivisionDto("TestName", "TestOldName",
                 new CreateNameDto("TestFirstName", "TestLastName"), 0);
         Mockito.when(mockDivisionMapper.toEntity(createDivisionDto)).thenReturn(mappedDivision);

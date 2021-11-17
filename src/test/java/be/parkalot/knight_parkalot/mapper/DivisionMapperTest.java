@@ -29,7 +29,7 @@ class DivisionMapperTest {
         Mockito.when(mockRepository.getById(Mockito.anyInt())).thenReturn(null);
         //when
         Division result = mapper.toEntity(new CreateDivisionDto("TestName", "TestOldName",
-                new CreateNameDto("TestFirstName", "TestLastName"), 0));
+                new CreateNameDto("TestFirstName", "TestLastName"), null));
         //then
         assertNotNull(result);
     }
