@@ -23,14 +23,14 @@ public class MemberMapper {
         this.membershipLevelMapper = membershipLevelMapper;
     }
 
-    public Member toEntity(MemberDto memberDto) {
-        return new Member(nameMapper.toEntity(memberDto.getNameDto()),
-                addressMapper.toEntity(memberDto.getAddressDto()),
-                memberDto.getTelephoneNumber(),
-                memberDto.getEmail(),
-                licensePlateMapper.toEntity(memberDto.getLicensePlateDto()),
-                memberDto.getRegistrationDate(),
-                membershipLevelMapper.toEntity(memberDto.getMembershipLevelDto()));
+    public Member toEntity(CreateMemberDto createMemberDto, MembershipLevel membershipLevel) {
+        return new Member(nameMapper.toEntity(createMemberDto.getNameDto()),
+                addressMapper.toEntity(createMemberDto.getAddressDto()),
+                createMemberDto.getTelephoneNumber(),
+                createMemberDto.getEmail(),
+                licensePlateMapper.toEntity(createMemberDto.getLicensePlateDto()),
+                createMemberDto.getRegistrationDate(),
+                membershipLevel);
     }
 
     public MemberDto toDto(Member member) {

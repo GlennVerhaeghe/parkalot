@@ -4,8 +4,10 @@ import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.dto.CreateMemberDto;
 import be.parkalot.knight_parkalot.dto.MemberDto;
+import be.parkalot.knight_parkalot.exceptions.DatabaseProblemException;
 import be.parkalot.knight_parkalot.mapper.MemberMapper;
 import be.parkalot.knight_parkalot.repository.MemberRepository;
+import be.parkalot.knight_parkalot.repository.MembershipLevelRepository;
 import be.parkalot.knight_parkalot.service.inputvalidation.MemberInputValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,13 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
+    private final MembershipLevelRepository membershipLevelRepository;
 
     @Autowired
-    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper) {
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, MembershipLevelRepository membershipLevelRepository) {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
+        this.membershipLevelRepository = membershipLevelRepository;
     }
 
     public MemberDto registerMember(CreateMemberDto createMemberDto) {
