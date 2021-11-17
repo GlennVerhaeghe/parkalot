@@ -1,36 +1,59 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
-import be.parkalot.knight_parkalot.dto.MemberDto;
+import be.parkalot.knight_parkalot.dto.CreateMemberDto;
+import be.parkalot.knight_parkalot.exceptions.MissingMemberArgumentsException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MemberInputValidation {
 
-    private final MemberDto memberDto;
+    private final CreateMemberDto createMemberDto;
 
-    public MemberInputValidation(MemberDto memberDto) {
-        this.memberDto = memberDto;
+    public MemberInputValidation(CreateMemberDto createMemberDto) {
+        this.createMemberDto = createMemberDto;
     }
 
-    public boolean validate() {
-        if (!isEmailValid(memberDto.getEmail())) {
-            //throw exception
+    public void validate() {
+        if (!isEmailValid(createMemberDto.getEmail())) {
+            throw new MissingMemberArgumentsException("Email has to be valid");
         }
 
-        if (memberDto.getNameDto() == null) {
-            //throw exception
+        if (createMemberDto.getNameDto() == null) {
+            throw new MissingMemberArgumentsException("User name has to be provided");
         }
 
-        if (memberDto.getNameDto().getFirstName() == null) {
-            //throw exception
+        if (createMemberDto.getNameDto().getFirstName() == null) {
+            throw new MissingMemberArgumentsException("First name has to be provided");
         }
 
-        if (memberDto.getNameDto().getLastName() == null) {
-            //throw exception
+        if (createMemberDto.getNameDto().getLastName() == null) {
+            throw new MissingMemberArgumentsException("Last name has to be provided");
         }
 
-        return true;
+        if (createMemberDto.getAddressDto() == null) {
+            throw new MissingMemberArgumentsException("Address has to be provided");
+        }
+
+        if (createMemberDto.getAddressDto().getStreetName() == null) {
+            throw new MissingMemberArgumentsException("Street name has to be provided");
+        }
+        if (createMemberDto.getAddressDto().getHouseNumber() == null) {
+            throw new MissingMemberArgumentsException("House number has to be provided");
+        }
+        if (createMemberDto.getAddressDto().getPostalCodeDto() == null) {
+            throw new MissingMemberArgumentsException("Postal Code and city have to be provided");
+        }
+        if (createMemberDto.getAddressDto().getPostalCodeDto().getCode() == 0) {
+            throw new MissingMemberArgumentsException("Postal code has to be provided");
+        }
+        if (createMemberDto.getAddressDto().getPostalCodeDto().getCity() == null) {
+            throw new MissingMemberArgumentsException("City has to be provided");
+        }
+
+        if (createMemberDto.getTelephoneNumber() == null) {
+            throw new MissingMemberArgumentsException("City has to be provided");
+        }
     }
 
     private boolean isEmailValid(String email) {
