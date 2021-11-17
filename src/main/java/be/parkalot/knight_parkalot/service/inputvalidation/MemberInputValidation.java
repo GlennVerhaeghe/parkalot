@@ -18,7 +18,6 @@ public class MemberInputValidation {
         if (!isEmailValid(createMemberDto.getEmail())) {
             throw new MissingMemberArgumentsException("Email has to be valid");
         }
-
         if (createMemberDto.getNameDto() == null) {
             throw new MissingMemberArgumentsException("User name has to be provided");
         }

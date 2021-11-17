@@ -1,5 +1,6 @@
 package be.parkalot.knight_parkalot.service;
 
+import be.parkalot.knight_parkalot.domain.LicensePlate;
 import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.domain.PostalCode;
@@ -16,6 +17,8 @@ import be.parkalot.knight_parkalot.repository.MemberRepository;
 import be.parkalot.knight_parkalot.repository.MembershipLevelRepository;
 import be.parkalot.knight_parkalot.repository.PostalCodeRepository;
 import be.parkalot.knight_parkalot.service.inputvalidation.MemberInputValidation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,12 +34,19 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final MembershipLevelRepository membershipLevelRepository;
+    private final LicensePlateMapper licensePlateMapper;
+    private final PostalCodeRepository postalCodeRepository;
+    private final PostalCodeMapper postalCodeMapper;
+    private final Logger logger = LoggerFactory.getLogger(MemberService.class);
 
     @Autowired
-    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, MembershipLevelRepository membershipLevelRepository) {
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, MembershipLevelRepository membershipLevelRepository, LicensePlateMapper licensePlateMapper, PostalCodeRepository postalCodeRepository, PostalCodeMapper postalCodeMapper) {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.membershipLevelRepository = membershipLevelRepository;
+        this.licensePlateMapper = licensePlateMapper;
+        this.postalCodeRepository = postalCodeRepository;
+        this.postalCodeMapper = postalCodeMapper;
     }
 
     public MemberDto registerMember(CreateMemberDto createMemberDto) {
@@ -54,8 +64,10 @@ public class MemberService {
     }
 
     public void assertValidMemberDto(CreateMemberDto createMemberDto) {
+        logger.info("assertValidMemberDto called");
         MemberInputValidation memberInputValidation = new MemberInputValidation(createMemberDto);
         memberInputValidation.validate();
+
     }
 
     private PostalCode getPostalCode(PostalCodeDto postalCodeDto) {
@@ -67,6 +79,8 @@ public class MemberService {
     }
 
     private MembershipLevel getMembershipLevel(int membershipId) {
+        logger.info("getMembershipLevel() called");
+
         Optional<MembershipLevel> membershipLevelOptional = membershipLevelRepository.findById(membershipId);
 
         if (membershipLevelOptional.isPresent()) {

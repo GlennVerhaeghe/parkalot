@@ -2,8 +2,8 @@ package be.parkalot.knight_parkalot.dto;
 
 public class LicensePlateDto {
 
-    private String number;
-    private String countryCode;
+    private final String number;
+    private final String countryCode;
 
     public LicensePlateDto(String number, String countryCode) {
         this.number = number;

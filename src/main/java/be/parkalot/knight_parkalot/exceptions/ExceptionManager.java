@@ -19,4 +19,16 @@ public class ExceptionManager {
         response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
 
+    @ExceptionHandler(NotUniqueException.class)
+    protected void notUniqueException(NotUniqueException exception, HttpServletResponse response) throws Exception {
+        logger.error(exception.getMessage());
+        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(DatabaseProblemException.class)
+    protected void databaseProblemException(DatabaseProblemException exception, HttpServletResponse response) throws Exception {
+        logger.error(exception.getMessage());
+        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
+
 }
