@@ -55,7 +55,6 @@ public class MemberService {
         assertIsMailUnique(createMemberDto.getEmail());
         assertLicensePlateIsUnique(createMemberDto.getLicensePlateDto());
 
-
         MembershipLevel membershipLevel = getMembershipLevel(createMemberDto.getMembershipLevelID());
         PostalCode postalCode = getPostalCode(createMemberDto.getAddressDto().getPostalCodeDto());
 
@@ -67,20 +66,16 @@ public class MemberService {
         logger.info("assertValidMemberDto called");
         MemberInputValidation memberInputValidation = new MemberInputValidation(createMemberDto);
         memberInputValidation.validate();
-
     }
 
     private PostalCode getPostalCode(PostalCodeDto postalCodeDto) {
         logger.info("getPostalCode called");
-
         Optional<PostalCode> postalCodeOptional = postalCodeRepository.findById(postalCodeDto.getCode());
-
-        return postalCodeOptional.orElseGet(() -> postalCodeMapper.toEntity(postalCodeDto));
+        return postalCodeOptional.orElseGet(() -> postalCodeRepository.save(postalCodeMapper.toEntity(postalCodeDto)));
     }
 
     private MembershipLevel getMembershipLevel(int membershipId) {
         logger.info("getMembershipLevel() called");
-
         Optional<MembershipLevel> membershipLevelOptional = membershipLevelRepository.findById(membershipId);
 
         if (membershipLevelOptional.isPresent()) {
