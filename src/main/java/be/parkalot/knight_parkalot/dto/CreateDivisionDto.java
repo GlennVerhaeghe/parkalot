@@ -6,7 +6,12 @@ public class CreateDivisionDto {
     private CreateNameDto directorName;
     private int parentId;
 
-
+    public CreateDivisionDto(String name, String oldName, CreateNameDto directorName, int parentId) {
+        this.name = name;
+        this.oldName = oldName;
+        this.directorName = directorName;
+        this.parentId = parentId;
+    }
 
     public String getName() {
         return name;
