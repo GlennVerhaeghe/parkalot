@@ -22,10 +22,21 @@ public class DivisionService {
 
     public DivisionDto createNewDivision(CreateDivisionDto divisionDto) {
         Division parent = null;
-        if (repository.existsById(divisionDto.getParentId())) {
+
+        if (isForSubDivision(divisionDto)) {
             parent = repository.getById(divisionDto.getParentId());
         }
         Division division = mapper.toEntity(divisionDto, parent);
         return mapper.toDto(repository.save(division));
+    }
+
+    private boolean isForSubDivision(CreateDivisionDto divisionDto) {
+        if (divisionDto.getParentId() == 0) {
+            return false;
+        }
+        if (!repository.existsById(divisionDto.getParentId())) {
+            throw new IllegalArgumentException("No division found with id: " + divisionDto.getParentId());
+        }
+        return true;
     }
 }

@@ -24,20 +24,20 @@ class DivisionServiceTest {
         mockDivisionMapper = Mockito.mock(DivisionMapper.class);
         divisionService = new DivisionService(mockRepository, mockDivisionMapper);
     }
-//
-//    @Test
-//    void createNewDivision_whenDivisionDtoValid_thenCallSaveToRepo() {
-//        //given
-//        Division mappedDivision = Division.createDivision("TestName", "TestOldName",
-//                new Name("TestFirstName", "TestLastName"));
-//        CreateDivisionDto createDivisionDto = new CreateDivisionDto("TestName", "TestOldName",
-//                new CreateNameDto("TestFirstName", "TestLastName"), 0);
-//        Mockito.when(mockDivisionMapper.toEntity(createDivisionDto)).thenReturn(mappedDivision);
-//
-//        //when
-//        divisionService.createNewDivision(createDivisionDto);
-//        //the
-//        Mockito.verify(mockDivisionMapper, Mockito.times(1)).toEntity(createDivisionDto);
-//        Mockito.verify(mockRepository, Mockito.times(1)).save(mappedDivision);
-//    }
+
+    @Test
+    void createNewDivision_whenDivisionDtoValid_thenCallSaveToRepo() {
+        //given
+        Division mappedDivision = new Division("TestName", "TestOldName",
+                new Name("TestFirstName", "TestLastName"), null);
+        CreateDivisionDto createDivisionDto = new CreateDivisionDto("TestName", "TestOldName",
+                new CreateNameDto("TestFirstName", "TestLastName"), 0);
+        Mockito.when(mockDivisionMapper.toEntity(createDivisionDto, null)).thenReturn(mappedDivision);
+
+        //when
+        divisionService.createNewDivision(createDivisionDto);
+        //the
+        Mockito.verify(mockDivisionMapper, Mockito.times(1)).toEntity(createDivisionDto, null);
+        Mockito.verify(mockRepository, Mockito.times(1)).save(mappedDivision);
+    }
 }
