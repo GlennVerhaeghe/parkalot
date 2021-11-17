@@ -4,6 +4,7 @@ import org.apache.tomcat.jni.Local;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table(name = "member")
@@ -81,5 +82,22 @@ public class Member {
 
     public MembershipLevel getMembershipLevel() {
         return membershipLevel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Member member = (Member) o;
+        return id == member.id && Objects.equals(name, member.name) && Objects.equals(address, member.address) && Objects.equals(telephoneNumber, member.telephoneNumber) && Objects.equals(email, member.email) && Objects.equals(licensePlate, member.licensePlate) && Objects.equals(registrationDate, member.registrationDate) && Objects.equals(membershipLevel, member.membershipLevel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, address, telephoneNumber, email, licensePlate, registrationDate, membershipLevel);
     }
 }
