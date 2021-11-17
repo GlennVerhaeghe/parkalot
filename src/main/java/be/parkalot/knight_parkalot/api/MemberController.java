@@ -1,5 +1,6 @@
 package be.parkalot.knight_parkalot.api;
 
+import be.parkalot.knight_parkalot.dto.CreateMemberDto;
 import be.parkalot.knight_parkalot.dto.MemberDto;
 import be.parkalot.knight_parkalot.service.MemberService;
 import org.slf4j.Logger;
@@ -24,8 +25,8 @@ public class MemberController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public MemberDto registerMember(@RequestBody MemberDto memberDto) {
+    public MemberDto registerMember(@RequestBody CreateMemberDto createMemberDto) {
         logger.info("registerMember() called");
-        return memberService.registerMember(memberDto);
+        return memberService.registerMember(createMemberDto);
     }
 }

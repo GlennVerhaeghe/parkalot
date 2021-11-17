@@ -1,5 +1,7 @@
 package be.parkalot.knight_parkalot.mapper;
 
+import be.parkalot.knight_parkalot.domain.MembershipLevel;
+import be.parkalot.knight_parkalot.dto.CreateMemberDto;
 import be.parkalot.knight_parkalot.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import be.parkalot.knight_parkalot.domain.Member;
