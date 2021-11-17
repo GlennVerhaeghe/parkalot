@@ -2,14 +2,20 @@ package be.parkalot.knight_parkalot.api;
 
 import be.parkalot.knight_parkalot.domain.Division;
 import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
+import be.parkalot.knight_parkalot.dto.DivisionDto;
 import be.parkalot.knight_parkalot.service.DivisionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
 
 
 @RestController
@@ -17,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DivisionController {
 
     private final DivisionService service;
+    private final Logger logger = LoggerFactory.getLogger(DivisionController.class);
 
     @Autowired
     public DivisionController(DivisionService service) {
@@ -25,8 +32,14 @@ public class DivisionController {
 
     @PostMapping(consumes = "application/json", produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public Division createNewDivision(@RequestBody CreateDivisionDto divisionDto) {
+    public DivisionDto createNewDivision(@RequestBody CreateDivisionDto divisionDto) {
         return service.createNewDivision(divisionDto);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void handleIllegalArgumentException(IllegalArgumentException exception,  HttpServletResponse response) throws Exception {
+        logger.error(exception.getMessage());
+        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
 
 }
