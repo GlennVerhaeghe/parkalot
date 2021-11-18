@@ -13,8 +13,8 @@ public class ExceptionManager {
 
     private final Logger logger = LoggerFactory.getLogger(ExceptionManager.class);
 
-    @ExceptionHandler(MissingMemberArgumentsException.class)
-    protected void missingMemberArgumentsException(MissingMemberArgumentsException exception, HttpServletResponse response) throws Exception {
+    @ExceptionHandler(MissingArgumentsException.class)
+    protected void missingMemberArgumentsException(MissingArgumentsException exception, HttpServletResponse response) throws Exception {
         logger.error(exception.getMessage());
         response.sendError(exception.getStatus().value(), exception.getMessage());
     }

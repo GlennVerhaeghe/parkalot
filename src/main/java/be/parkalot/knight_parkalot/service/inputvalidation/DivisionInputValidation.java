@@ -4,16 +4,17 @@ import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
 
 public class DivisionInputValidation {
 
-    public void validateDivisionInput(CreateDivisionDto createDivisionDto) {
+    private final CreateDivisionDto createDivisionDto;
+    private final NameInputValidation nameInputValidation;
 
-        if (createDivisionDto.getName() == null || createDivisionDto.getName().isBlank()) {
-            throw new IllegalArgumentException("Please fill the name");
-        }
+    public DivisionInputValidation(CreateDivisionDto createDivisionDto) {
+        this.createDivisionDto = createDivisionDto;
+        this.nameInputValidation = new NameInputValidation(createDivisionDto.getDirectorName());
+    }
 
-        if (createDivisionDto.getDirectorName() == null || createDivisionDto.getDirectorName().getLastName() == null
-                || createDivisionDto.getDirectorName().getLastName().isBlank()) {
-            throw new IllegalArgumentException("Please fill the Director name");
-        }
+    public void validate() {
+
+        nameInputValidation.validate();
 
     }
 }

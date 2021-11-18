@@ -2,7 +2,7 @@ package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.dto.*;
-import be.parkalot.knight_parkalot.exceptions.MissingMemberArgumentsException;
+import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
 import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
 import be.parkalot.knight_parkalot.mapper.MemberMapper;
 import be.parkalot.knight_parkalot.mapper.PostalCodeMapper;
@@ -70,7 +70,7 @@ class MemberServiceTest {
                 new LicensePlateDto("1-ABC-985", "FR"),
                 1);
         //then
-        assertThrows(MissingMemberArgumentsException.class, () -> memberService.registerMember(testDto));
+        assertThrows(MissingArgumentsException.class, () -> memberService.registerMember(testDto));
     }
 
     @Test
@@ -83,7 +83,7 @@ class MemberServiceTest {
                 new LicensePlateDto("1-ABC-985", "FR"),
                 1);
         //then
-        assertThrows(MissingMemberArgumentsException.class, () -> memberService.registerMember(testDto));
+        assertThrows(MissingArgumentsException.class, () -> memberService.registerMember(testDto));
     }
 
   /*  @Test

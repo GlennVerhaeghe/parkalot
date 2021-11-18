@@ -1,7 +1,5 @@
 package be.parkalot.knight_parkalot.domain;
 
-import jdk.jfr.Enabled;
-
 import javax.persistence.*;
 
 @Entity

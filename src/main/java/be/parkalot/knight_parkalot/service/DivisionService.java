@@ -18,18 +18,17 @@ public class DivisionService {
 
     private final DivisionRepository repository;
     private final DivisionMapper mapper;
-    private final DivisionInputValidation inputValidation;
 
     @Autowired
     public DivisionService(DivisionRepository repository, DivisionMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
-        inputValidation = new DivisionInputValidation();
     }
 
     public DivisionDto createNewDivision(CreateDivisionDto divisionDto) {
         Division parent = null;
-        inputValidation.validateDivisionInput(divisionDto);
+        DivisionInputValidation inputValidation = new DivisionInputValidation(divisionDto);
+        inputValidation.validate();
         if (isForSubDivision(divisionDto)) {
             parent = repository.getById(divisionDto.getParentId());
         }
