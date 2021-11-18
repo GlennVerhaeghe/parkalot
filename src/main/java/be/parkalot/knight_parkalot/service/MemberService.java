@@ -108,9 +108,8 @@ public class MemberService {
         return memberRepository.findAll().stream().map(memberMapper::toRetrieveMemberDto).collect(Collectors.toList());
     }
 
-    public MemberDto getMemberById(int memberId) {
-        assertIdExistsInDatabase(memberId);
-        return memberMapper.toDto(memberRepository.findById(memberId).get());
+    public MemberDto getMemberDtoById(int memberId) {
+        return memberMapper.toDto(getMemberById(memberId));
     }
 
     private Member getMemberById(int memberId) {

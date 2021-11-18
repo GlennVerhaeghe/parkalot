@@ -42,11 +42,19 @@ public class MemberController {
         return memberService.getAllMembers();
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{memberId}")
+    @GetMapping(path = "/{memberId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public MemberDto getMember(@PathVariable int memberId) {
         logger.info("getMember() called");
-        return memberService.getMemberById(memberId);
+        return memberService.getMemberDtoById(memberId);
+    }
+
+    @PatchMapping(path = "/{memberId}")
+    @ResponseStatus(HttpStatus.OK)
+    @SecurityGuard(SecurityGuard.ApiUserRole.MEMBER)
+    public MemberDto changeMembershipLevel(@PathVariable int memberId, @RequestParam int newMembershipLevelId) {
+        logger.info("changeMembershipLevel() called");
+        return memberService.changeMembershipLevel(memberId, newMembershipLevelId);
     }
 }
