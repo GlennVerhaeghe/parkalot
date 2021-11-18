@@ -3,7 +3,6 @@ package be.parkalot.knight_parkalot.service;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.dto.*;
 import be.parkalot.knight_parkalot.exceptions.MissingMemberArgumentsException;
-import be.parkalot.knight_parkalot.exceptions.NotUniqueException;
 import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
 import be.parkalot.knight_parkalot.mapper.MemberMapper;
 import be.parkalot.knight_parkalot.mapper.PostalCodeMapper;
@@ -48,7 +47,7 @@ class MemberServiceTest {
     @Test
     void addNewMember_whenAllInfoIsCorrect_ThenSaveToRepo() {
         //given
-        CreateMemberDto testDto = new CreateMemberDto(new CreateNameDto("Jean", "Paul"),
+        CreateMemberDto testDto = new CreateMemberDto(new NameDto("Jean", "Paul"),
                 new AddressDto("Beerstraat", "69", new PostalCodeDto(1000, "Brussel")),
                 "0469696969",
                 "69@soixanteneuf.be",
@@ -64,7 +63,7 @@ class MemberServiceTest {
     @Test
     void addNewMember_whenMissingFirstName_throwsException() {
         //given
-        CreateMemberDto testDto = new CreateMemberDto(new CreateNameDto(null, "Paul"),
+        CreateMemberDto testDto = new CreateMemberDto(new NameDto(null, "Paul"),
                 new AddressDto("Beerstraat", "69", new PostalCodeDto(1000, "Brussel")),
                 "0469696969",
                 "69@soixanteneuf.be",
@@ -77,7 +76,7 @@ class MemberServiceTest {
     @Test
     void addNewMember_whenMissingPostalCode_throwsException() {
         //given
-        CreateMemberDto testDto = new CreateMemberDto(new CreateNameDto(null, "Paul"),
+        CreateMemberDto testDto = new CreateMemberDto(new NameDto(null, "Paul"),
                 new AddressDto("Beerstraat", "69", null),
                 "0469696969",
                 "69@soixanteneuf.be",

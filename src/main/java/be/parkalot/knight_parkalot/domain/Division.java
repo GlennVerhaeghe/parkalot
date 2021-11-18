@@ -7,8 +7,9 @@ import java.util.Objects;
 @Table(name = "division")
 public class Division {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @SequenceGenerator(name = "division_seq", sequenceName = "DIVISION_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "division_seq")
     private int id;
 
     @Column(name = "division_Name")

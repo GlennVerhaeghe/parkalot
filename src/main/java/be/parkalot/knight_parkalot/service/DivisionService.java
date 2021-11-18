@@ -40,10 +40,14 @@ public class DivisionService {
         if (divisionDto.getParentId() == 0) {
             return false;
         }
-        if (!repository.existsById(divisionDto.getParentId())) {
-            throw new IllegalArgumentException("No division found with id: " + divisionDto.getParentId());
-        }
+        assertIdExistsInDatabase(divisionDto.getParentId());
         return true;
+    }
+
+    private void assertIdExistsInDatabase(int id) {
+        if (!repository.existsById(id)) {
+            throw new DivisionNotFoundException("No division found with id: " + id);
+        }
     }
 
     public List<DivisionDto> getAllDivisions() {

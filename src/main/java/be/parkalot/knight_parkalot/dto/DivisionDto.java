@@ -3,8 +3,8 @@ package be.parkalot.knight_parkalot.dto;
 public class DivisionDto {
     private int id;
     private String name;
-    private String oldName;
-    private CreateNameDto directorName;
+    private String originalName;
+    private NameDto directorName;
     private int parentId;
 
     public DivisionDto() {
@@ -13,7 +13,7 @@ public class DivisionDto {
     private DivisionDto(Builder builder) {
         id = builder.id;
         name = builder.name;
-        oldName = builder.oldName;
+        originalName = builder.originalName;
         directorName = builder.directorName;
         parentId = builder.parentId;
     }
@@ -26,11 +26,11 @@ public class DivisionDto {
         return name;
     }
 
-    public String getOldName() {
-        return oldName;
+    public String getOriginalName() {
+        return originalName;
     }
 
-    public CreateNameDto getDirectorName() {
+    public NameDto getDirectorName() {
         return directorName;
     }
 
@@ -41,8 +41,8 @@ public class DivisionDto {
     public static class Builder {
         private int id;
         private String name;
-        private String oldName;
-        private CreateNameDto directorName;
+        private String originalName;
+        private NameDto directorName;
         private int parentId;
 
         public Builder withId(int id) {
@@ -60,7 +60,7 @@ public class DivisionDto {
             return this;
         }
 
-        public Builder withDirectorName(CreateNameDto directorName) {
+        public Builder withDirectorName(NameDto directorName) {
             this.directorName = directorName;
             return this;
         }
