@@ -44,9 +44,9 @@ public class DivisionService {
         return true;
     }
 
-    private void assertIdExistsInDatabase(int id) {
-        if (!repository.existsById(id)) {
-            throw new DivisionNotFoundException("No division found with id: " + id);
+    private void assertIdExistsInDatabase(int divisionId) {
+        if (!repository.existsById(divisionId)) {
+            throw new DivisionNotFoundException("No division found with id: " + divisionId);
         }
     }
 

@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/parkinglots")
 public class ParkingLotController {
@@ -32,4 +34,17 @@ public class ParkingLotController {
         return parkingLotService.createNewParkingLot(createParkingLotDto);
     }
 
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
+    public List<ParkingLotDto> getAllParkingLots() {
+        logger.info("getAllParkingLots() called");
+        return parkingLotService.getAllParkingLots();
+    }
+
+    @GetMapping(path = "/{parkingLotId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
+    public ParkingLotDto getAParkingLot(@PathVariable int parkingLotId) {
+        logger.info("getAParkingLot() called for id: " + parkingLotId);
+        return parkingLotService.getParkingLotById(parkingLotId);
+    }
 }

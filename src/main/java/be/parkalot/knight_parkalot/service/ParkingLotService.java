@@ -7,6 +7,7 @@ import be.parkalot.knight_parkalot.domain.PostalCode;
 import be.parkalot.knight_parkalot.dto.CreateParkingLotDto;
 import be.parkalot.knight_parkalot.dto.ParkingLotDto;
 import be.parkalot.knight_parkalot.exceptions.ParkingLotCategoryNotFoundException;
+import be.parkalot.knight_parkalot.exceptions.ParkingLotNotFoundException;
 import be.parkalot.knight_parkalot.mapper.ParkingLotMapper;
 import be.parkalot.knight_parkalot.repository.ParkingLotCategoryRepository;
 import be.parkalot.knight_parkalot.repository.ParkingLotRepository;
@@ -16,6 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -69,4 +73,19 @@ public class ParkingLotService {
         }
     }
 
+    public List<ParkingLotDto> getAllParkingLots() {
+        return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    public ParkingLotDto getParkingLotById(int parkingLotID) {
+        assertIdExistsInDatabase(parkingLotID);
+        return mapper.toDto(repository.getById(parkingLotID));
+    }
+
+    private void assertIdExistsInDatabase(int parkingLotID) {
+        logger.info("assertIdExistsInDatabase called");
+        if (!repository.existsById(parkingLotID)) {
+            throw new ParkingLotNotFoundException("No Parking found with id: " + parkingLotID);
+        }
+    }
 }
