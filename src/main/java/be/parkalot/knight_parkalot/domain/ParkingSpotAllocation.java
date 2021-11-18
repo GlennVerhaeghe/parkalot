@@ -33,8 +33,8 @@ public class ParkingSpotAllocation {
     @Column(name = "ending_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime endingTime;
 
-    @Column(name = "stop_now")
-    private boolean stopNow;
+    @Column(name = "inactive")
+    private boolean inactive;
 
     public ParkingSpotAllocation() {
     }
@@ -70,7 +70,7 @@ public class ParkingSpotAllocation {
         return endingTime;
     }
 
-    public boolean isStopNow() {
-        return stopNow;
+    public boolean isInactive() {
+        return inactive;
     }
 }

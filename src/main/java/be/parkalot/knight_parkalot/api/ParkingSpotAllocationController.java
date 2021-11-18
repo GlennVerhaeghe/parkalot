@@ -27,6 +27,7 @@ public class ParkingSpotAllocationController {
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    @SecurityGuard(SecurityGuard.ApiUserRole.MEMBER)
     public ParkingSpotAllocationDto startAllocating(@RequestBody CreateParkingSpotAllocationDto createParkingSpotAllocationDto) {
         logger.info("startAllocating() called");
         return parkingSpotAllocationService.startAllocating(createParkingSpotAllocationDto);

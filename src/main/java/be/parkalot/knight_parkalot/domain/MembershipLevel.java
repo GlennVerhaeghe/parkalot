@@ -5,6 +5,11 @@ import javax.persistence.*;
 @Entity
 @Table(name="membership_level")
 public class MembershipLevel {
+
+    public static final int BRONZE_ID = 1;
+    public static final int SILVER_ID = 2;
+    public static final int GOLD_ID = 3;
+
     @Id
     @Column(name = "id")
     @SequenceGenerator(name = "membership_level_seq", sequenceName = "MEMBERSHIP_LEVEL_ID_SEQ", allocationSize = 1)

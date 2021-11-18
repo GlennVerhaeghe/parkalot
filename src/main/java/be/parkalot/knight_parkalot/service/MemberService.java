@@ -29,8 +29,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class MemberService {
 
-    private static final int MEMBERSHIP_LEVEL_DEFAULT_BRONZE_VALUE = 1;
-
     private final Logger logger = LoggerFactory.getLogger(MemberService.class);
 
     private final MemberRepository memberRepository;
@@ -74,7 +72,7 @@ public class MemberService {
         if (membershipLevelOptional.isPresent()) {
             return membershipLevelOptional.get();
         } else {
-            Optional<MembershipLevel> membershipLevelDefault = membershipLevelRepository.findById(MEMBERSHIP_LEVEL_DEFAULT_BRONZE_VALUE);
+            Optional<MembershipLevel> membershipLevelDefault = membershipLevelRepository.findById(MembershipLevel.BRONZE_ID);
             if (membershipLevelDefault.isPresent()) {
                 return membershipLevelDefault.get();
             }
