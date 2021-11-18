@@ -36,6 +36,7 @@ public class ParkingLotController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public List<ParkingLotDto> getAllParkingLots() {
         logger.info("getAllParkingLots() called");
@@ -43,6 +44,7 @@ public class ParkingLotController {
     }
 
     @GetMapping(path = "/{parkingLotId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public ParkingLotDetailsDto getAParkingLot(@PathVariable int parkingLotId) {
         logger.info("getAParkingLot() called for id: " + parkingLotId);

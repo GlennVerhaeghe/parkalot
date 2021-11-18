@@ -83,6 +83,10 @@ public class Member {
         return membershipLevel;
     }
 
+    public void setMembershipLevel(MembershipLevel membershipLevel) {
+        this.membershipLevel = membershipLevel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

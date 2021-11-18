@@ -27,6 +27,7 @@ public class DivisionController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public List<DivisionDto> showOverviewOfAllDivisions() {
         logger.info("showOverviewOfAllDivisions() called.");
@@ -35,6 +36,7 @@ public class DivisionController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{divisionId}")
+    @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public DivisionDto getDivision(@PathVariable int divisionId){
         return service.getDivisionDtoById(divisionId);

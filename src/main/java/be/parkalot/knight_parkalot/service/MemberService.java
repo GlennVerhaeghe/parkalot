@@ -104,7 +104,6 @@ public class MemberService {
         }
     }
 
-
     public List<RetrieveMemberDto> getAllMembers() {
         return memberRepository.findAll().stream().map(memberMapper::toRetrieveMemberDto).collect(Collectors.toList());
     }
@@ -112,5 +111,17 @@ public class MemberService {
     public MemberDto getMemberById(int memberId) {
         assertIdExistsInDatabase(memberId);
         return memberMapper.toDto(memberRepository.findById(memberId).get());
+    }
+
+    private Member getMemberById(int memberId) {
+        assertIdExistsInDatabase(memberId);
+        return memberRepository.findById(memberId).get();
+    }
+
+    public MemberDto changeMembershipLevel(int memberId, int newMembershipLevelId) {
+        MembershipLevel membershipLevel = getMembershipLevel(newMembershipLevelId);
+        Member member = getMemberById(memberId);
+        member.setMembershipLevel(membershipLevel);
+        return memberMapper.toDto(member);
     }
 }
