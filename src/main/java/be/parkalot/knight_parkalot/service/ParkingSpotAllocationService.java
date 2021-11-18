@@ -15,6 +15,8 @@ import be.parkalot.knight_parkalot.repository.ParkingSpotAllocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ParkingSpotAllocationService {
 
@@ -33,16 +35,10 @@ public class ParkingSpotAllocationService {
 
     public ParkingSpotAllocationDto startAllocating(CreateParkingSpotAllocationDto createParkingSpotAllocationDto) {
 
-        // Check 0 -> Parking lot exists
         assertParkingLotExists(createParkingSpotAllocationDto.getParkingLotId());
-        // Check 1 -> Check if not full
         assertParkingLotHasFreeSpots(createParkingSpotAllocationDto.getParkingLotId());
-        // Check 2 -> MemberId exists
         assertMemberExists(createParkingSpotAllocationDto.getMemberId());
-        // Check 3.a -> License plate = member's license plate
-        // Check 3.b -> Membership = gold
         assertLicensePlateIsValid(createParkingSpotAllocationDto.getMemberId(), createParkingSpotAllocationDto.getLicensePlateNumber());
-
 
         Member member = memberRepository.getById(createParkingSpotAllocationDto.getMemberId());
         LicensePlate licensePlate = member.getLicensePlate();
@@ -83,6 +79,42 @@ public class ParkingSpotAllocationService {
     private void assertParkingLotExists(int parkingLotId) {
         if (!parkingLotRepository.existsById(parkingLotId)) {
             throw new ParkingLotException("No parking lot with this id is found");
+        }
+    }
+
+    public List<ParkingSpotAllocationDto> getAll(int limit, String status, boolean descending) {
+        assertLimitGreaterThanOrEqualToZero(limit);
+        assertStatusIsValid(status);
+
+        List<ParkingSpotAllocation> result;
+
+        if(descending) {
+            result = parkingSpotAllocationRepository.findAllOrderByStartingTimeDesc();
+        } else {
+            result = parkingSpotAllocationRepository.findAllOrderByStartingTimeAsc();
+        }
+
+        if(status.equalsIgnoreCase("active")) {
+            result = result.stream().filter(p -> !p.isStopNow()).toList();
+        } else if (status.equalsIgnoreCase("passive")) {
+            result = result.stream().filter(ParkingSpotAllocation::isStopNow).toList();
+        }
+
+        if(limit != 0) {
+            result = result.stream().limit(limit).toList();
+        }
+        return result.stream().map(parkingSpotAllocationMapper::toDto).toList();
+    }
+
+    private void assertStatusIsValid(String status) {
+        if(status != null && !status.equalsIgnoreCase("all") && !status.equalsIgnoreCase("active") && !status.equalsIgnoreCase("passive")) {
+            throw new IllegalArgumentException("No valid status");
+        }
+    }
+
+    public void assertLimitGreaterThanOrEqualToZero(int limit) {
+        if(limit<0) {
+            throw new IllegalArgumentException("Limit must be greater than 0");
         }
     }
 }
