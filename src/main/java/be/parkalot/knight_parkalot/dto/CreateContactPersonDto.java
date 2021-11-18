@@ -1,5 +1,7 @@
 package be.parkalot.knight_parkalot.dto;
 
+import java.util.Objects;
+
 public class CreateContactPersonDto {
 
     private NameDto nameDto;
@@ -7,6 +9,14 @@ public class CreateContactPersonDto {
     private String telephoneNumber;
     private String email;
     private AddressDto addressDto;
+
+    public CreateContactPersonDto(NameDto nameDto, String mobilePhoneNumber, String telephoneNumber, String email, AddressDto addressDto) {
+        this.nameDto = nameDto;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+        this.telephoneNumber = telephoneNumber;
+        this.email = email;
+        this.addressDto = addressDto;
+    }
 
     public NameDto getNameDto() {
         return nameDto;

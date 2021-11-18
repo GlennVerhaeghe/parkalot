@@ -1,5 +1,7 @@
 package be.parkalot.knight_parkalot.dto;
 
+import java.util.Objects;
+
 public class ContactPersonDto {
     private int id;
     private NameDto name;
@@ -42,6 +44,19 @@ public class ContactPersonDto {
 
     public AddressDto getAddressDto() {
         return addressDto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactPersonDto that = (ContactPersonDto) o;
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(mobilePhoneNumber, that.mobilePhoneNumber) && Objects.equals(telephoneNumber, that.telephoneNumber) && Objects.equals(email, that.email) && Objects.equals(addressDto, that.addressDto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, mobilePhoneNumber, telephoneNumber, email, addressDto);
     }
 
     public static class Builder {
