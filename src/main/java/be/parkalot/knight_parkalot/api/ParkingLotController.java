@@ -2,6 +2,7 @@ package be.parkalot.knight_parkalot.api;
 
 
 import be.parkalot.knight_parkalot.dto.CreateParkingLotDto;
+import be.parkalot.knight_parkalot.dto.ParkingLotDetailsDto;
 import be.parkalot.knight_parkalot.dto.ParkingLotDto;
 import be.parkalot.knight_parkalot.service.ParkingLotService;
 import be.parkalot.knight_parkalot.switchsecure.SecurityGuard;
@@ -29,7 +30,7 @@ public class ParkingLotController {
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
-    public ParkingLotDto createParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
+    public ParkingLotDetailsDto createParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
         logger.info("createParkingLot() called");
         return parkingLotService.createNewParkingLot(createParkingLotDto);
     }
@@ -43,7 +44,7 @@ public class ParkingLotController {
 
     @GetMapping(path = "/{parkingLotId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
-    public ParkingLotDto getAParkingLot(@PathVariable int parkingLotId) {
+    public ParkingLotDetailsDto getAParkingLot(@PathVariable int parkingLotId) {
         logger.info("getAParkingLot() called for id: " + parkingLotId);
         return parkingLotService.getParkingLotById(parkingLotId);
     }
