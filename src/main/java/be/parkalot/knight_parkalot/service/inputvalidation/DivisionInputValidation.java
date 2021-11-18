@@ -1,6 +1,7 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
 import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
+import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
 
 public class DivisionInputValidation {
 
@@ -13,8 +14,9 @@ public class DivisionInputValidation {
     }
 
     public void validate() {
-
+        if (createDivisionDto.getName() == null || createDivisionDto.getName().isBlank()) {
+            throw new MissingArgumentsException("Division name has to be provided.");
+        }
         nameInputValidation.validate();
-
     }
 }
