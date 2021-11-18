@@ -11,33 +11,58 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @DataJpaTest
 class DivisionServiceTest {
 
-    private DivisionService divisionService;
+    private DivisionService service;
     private DivisionRepository mockRepository;
-    private DivisionMapper mockDivisionMapper;
+    private DivisionMapper mockMapper;
 
     @BeforeEach
     void setUp() {
         mockRepository = Mockito.mock(DivisionRepository.class);
-        mockDivisionMapper = Mockito.mock(DivisionMapper.class);
-        divisionService = new DivisionService(mockRepository, mockDivisionMapper);
+        mockMapper = Mockito.mock(DivisionMapper.class);
+        service = new DivisionService(mockRepository, mockMapper);
     }
 
     @Test
-    void createNewDivision_whenDivisionDtoValid_thenCallSaveToRepo() {
+    void createNewDivision_whenDivisionDtoValid_thenCallMethodsSaveToRepo() {
         //given
-        Division mappedDivision = new Division("TestName", "TestOldName",
-                new Name("TestFirstName", "TestLastName"), null);
         CreateDivisionDto createDivisionDto = new CreateDivisionDto("TestName", "TestOldName",
                 new CreateNameDto("TestFirstName", "TestLastName"), 0);
-        Mockito.when(mockDivisionMapper.toEntity(createDivisionDto, null)).thenReturn(mappedDivision);
-
+        Division mappedDivision = new Division("TestName", "TestOldName",
+                new Name("TestFirstName", "TestLastName"), null);
+        Mockito.when(mockMapper.toEntity(createDivisionDto, null)).thenReturn(mappedDivision);
+        Mockito.when(mockRepository.save(Mockito.any(Division.class))).thenReturn(new Division());
         //when
-        divisionService.createNewDivision(createDivisionDto);
-        //the
-        Mockito.verify(mockDivisionMapper, Mockito.times(1)).toEntity(createDivisionDto, null);
+        service.createNewDivision(createDivisionDto);
+        //then
+        Mockito.verify(mockMapper, Mockito.times(1)).toEntity(createDivisionDto, null);
         Mockito.verify(mockRepository, Mockito.times(1)).save(mappedDivision);
+        Mockito.verify(mockMapper, Mockito.times(1)).toDto(Mockito.any(Division.class));
+    }
+
+    @Test
+    void createNewDivision_whenParentIdNotExists_thenThrowException() {
+        //given
+        CreateDivisionDto dto = new CreateDivisionDto("TestName", "TestOGName",
+                new CreateNameDto("firstName", "lastName"), 5);
+        //when
+        Mockito.when(mockRepository.existsById(5)).thenReturn(false);
+        //then
+        assertThrows(IllegalArgumentException.class, () -> service.createNewDivision(dto));
+    }
+
+    @Test
+    void createNewDivision_whenParentIdIsZero_thenParentIsNull() {
+        //given
+        CreateDivisionDto dto = new CreateDivisionDto("TestName", "TestOGName",
+                new CreateNameDto("firstName", "lastName"), 0);
+        //when
+        service.createNewDivision(dto);
+        //then
+        Mockito.verify(mockMapper).toEntity(dto, null);
     }
 }
