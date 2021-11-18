@@ -61,9 +61,9 @@ class MemberServiceTest {
     }
 
     @Test
-    void addNewMember_whenMissingFirstName_throwsException() {
+    void addNewMember_whenMissingLastName_throwsException() {
         //given
-        CreateMemberDto testDto = new CreateMemberDto(new NameDto(null, "Paul"),
+        CreateMemberDto testDto = new CreateMemberDto(new NameDto("Test", null),
                 new AddressDto("Beerstraat", "69", new PostalCodeDto(1000, "Brussel")),
                 "0469696969",
                 "69@soixanteneuf.be",
