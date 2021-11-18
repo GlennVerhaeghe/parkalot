@@ -1,7 +1,5 @@
 package be.parkalot.knight_parkalot.domain;
 
-import org.apache.tomcat.jni.Local;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -10,8 +8,9 @@ import java.util.Objects;
 @Table(name = "member")
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @SequenceGenerator(name = "member_seq", sequenceName = "MEMBER_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
     private int id;
 
     @Embedded

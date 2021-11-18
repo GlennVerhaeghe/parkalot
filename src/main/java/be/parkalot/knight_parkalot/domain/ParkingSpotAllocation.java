@@ -10,8 +10,9 @@ import java.time.LocalDateTime;
 public class ParkingSpotAllocation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @SequenceGenerator(name = "allocation_seq", sequenceName = "ALLOCATION_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "allocation_seq")
     private int id;
 
     @ManyToOne
