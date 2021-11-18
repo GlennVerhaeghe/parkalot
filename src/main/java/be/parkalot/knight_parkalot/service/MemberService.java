@@ -4,10 +4,7 @@ import be.parkalot.knight_parkalot.domain.LicensePlate;
 import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.CreateMemberDto;
-import be.parkalot.knight_parkalot.dto.LicensePlateDto;
-import be.parkalot.knight_parkalot.dto.MemberDto;
-import be.parkalot.knight_parkalot.dto.PostalCodeDto;
+import be.parkalot.knight_parkalot.dto.*;
 import be.parkalot.knight_parkalot.exceptions.DatabaseProblemException;
 import be.parkalot.knight_parkalot.exceptions.NotUniqueException;
 import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
@@ -23,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -103,5 +102,9 @@ public class MemberService {
         if (memberRepository.findByLicensePlate(licensePlateMapper.toEntity(licensePlateDto)) != null) {
             throw new NotUniqueException("License plate is already registered.");
         }
+    }
+
+    public List<RetrieveMemberDto> getAllMembers() {
+        return memberRepository.findAll().stream().map(memberMapper::toRetrieveMemberDto).collect(Collectors.toList());
     }
 }
