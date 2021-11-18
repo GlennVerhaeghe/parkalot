@@ -9,7 +9,6 @@ public class CreateMemberDto {
     private final String telephoneNumber;
     private final String email;
     private final LicensePlateDto licensePlateDto;
-    private final LocalDate registrationDate;
     private final int membershipLevelID;
 
     public CreateMemberDto(NameDto nameDto, AddressDto addressDto, String telephoneNumber, String email, LicensePlateDto licensePlateDto, int membershipLevelID) {
@@ -18,7 +17,6 @@ public class CreateMemberDto {
         this.telephoneNumber = telephoneNumber;
         this.email = email;
         this.licensePlateDto = licensePlateDto;
-        this.registrationDate = LocalDate.now();
         this.membershipLevelID = membershipLevelID;
     }
 
@@ -42,9 +40,7 @@ public class CreateMemberDto {
         return licensePlateDto;
     }
 
-    public LocalDate getRegistrationDate() {
-        return registrationDate;
-    }
+
 
     public int getMembershipLevelID() {
         return membershipLevelID;
