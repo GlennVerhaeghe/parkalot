@@ -23,7 +23,7 @@ public class ContactPerson {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 

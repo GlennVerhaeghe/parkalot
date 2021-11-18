@@ -20,7 +20,7 @@ public class DivisionService {
     private final DivisionMapper mapper;
 
     @Autowired
-    public DivisionService(DivisionRepository repository, DivisionMapper mapper, PostalCodeService postalCodeService) {
+    public DivisionService(DivisionRepository repository, DivisionMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }

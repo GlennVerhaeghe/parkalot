@@ -19,11 +19,11 @@ public class ParkingLot {
     @Column(name = "max_capacity")
     private int maxCapacity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_id",referencedColumnName = "id")
     private ContactPerson contactPerson;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id",referencedColumnName = "id")
     private Address address;
 
