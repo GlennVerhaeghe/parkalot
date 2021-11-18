@@ -55,8 +55,8 @@ public class DivisionDto {
             return this;
         }
 
-        public Builder withOldName(String oldName) {
-            this.oldName = oldName;
+        public Builder withOldName(String originalName) {
+            this.originalName = originalName;
             return this;
         }
 

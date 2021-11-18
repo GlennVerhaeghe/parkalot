@@ -16,26 +16,31 @@ public class ExceptionManager {
     @ExceptionHandler(MissingMemberArgumentsException.class)
     protected void missingMemberArgumentsException(MissingMemberArgumentsException exception, HttpServletResponse response) throws Exception {
         logger.error(exception.getMessage());
-        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+        response.sendError(exception.getStatus().value(), exception.getMessage());
     }
 
     @ExceptionHandler(NotUniqueException.class)
     protected void notUniqueException(NotUniqueException exception, HttpServletResponse response) throws Exception {
         logger.error(exception.getMessage());
-        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+        response.sendError(exception.getStatus().value(), exception.getMessage());
     }
 
     @ExceptionHandler(DatabaseProblemException.class)
     protected void databaseProblemException(DatabaseProblemException exception, HttpServletResponse response) throws Exception {
         logger.error(exception.getMessage());
-        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+        response.sendError(exception.getStatus().value(), exception.getMessage());
     }
-
 
     @ExceptionHandler(IllegalArgumentException.class)
     public void handleIllegalArgumentException(IllegalArgumentException exception, HttpServletResponse response) throws Exception {
         logger.error(exception.getMessage());
         response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(DivisionNotFoundException.class)
+    public void divisionNotFoundException(DivisionNotFoundException exception, HttpServletResponse response) throws Exception {
+        logger.error(exception.getMessage());
+        response.sendError(exception.getStatus().value(), exception.getMessage());
     }
 
 }

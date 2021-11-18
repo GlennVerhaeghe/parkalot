@@ -26,14 +26,14 @@ public class DivisionController {
     }
 
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public List<DivisionDto> showOverviewOfAllDivisions() {
         logger.info("showOverviewOfAllDivisions() called.");
         return service.getAllDivisions();
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public DivisionDto createNewDivision(@RequestBody CreateDivisionDto divisionDto) {
