@@ -83,8 +83,10 @@ public class ParkingSpotAllocationService {
     }
 
     public List<ParkingSpotAllocationDto> getAll(Integer limit, String status, boolean descending) {
-        assertLimitGreaterThanOrEqualToZero(limit);
-        assertStatusIsValid(status);
+        int realLimit = limit == null ? 0 : limit;
+        assertLimitGreaterThanOrEqualToZero(realLimit);
+        String realStatus = status == null ? "all" : status;
+        assertStatusIsValid(realStatus);
 
         List<ParkingSpotAllocation> result;
 
@@ -94,20 +96,20 @@ public class ParkingSpotAllocationService {
             result = parkingSpotAllocationRepository.findByOrderByStartingTimeAsc();
         }
 
-        if(status.equalsIgnoreCase("active")) {
+        if(realStatus.equalsIgnoreCase("active")) {
             result = result.stream().filter(p -> !p.isStopNow()).toList();
-        } else if (status.equalsIgnoreCase("passive")) {
+        } else if (realStatus.equalsIgnoreCase("passive")) {
             result = result.stream().filter(ParkingSpotAllocation::isStopNow).toList();
         }
 
-        if(limit != 0) {
-            result = result.stream().limit(limit).toList();
+        if(realLimit != 0) {
+            result = result.stream().limit(realLimit).toList();
         }
         return result.stream().map(parkingSpotAllocationMapper::toDto).toList();
     }
 
     private void assertStatusIsValid(String status) {
-        if(status != null && !status.equalsIgnoreCase("all") && !status.equalsIgnoreCase("active") && !status.equalsIgnoreCase("passive")) {
+        if(!status.equalsIgnoreCase("all") && !status.equalsIgnoreCase("active") && !status.equalsIgnoreCase("passive")) {
             throw new IllegalArgumentException("No valid status");
         }
     }
