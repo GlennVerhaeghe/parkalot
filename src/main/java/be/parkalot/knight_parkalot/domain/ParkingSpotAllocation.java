@@ -39,8 +39,7 @@ public class ParkingSpotAllocation {
     public ParkingSpotAllocation() {
     }
 
-    public ParkingSpotAllocation(int id, Member member, LicensePlate licensePlate, ParkingLot parkingLot) {
-        this.id = id;
+    public ParkingSpotAllocation(Member member, LicensePlate licensePlate, ParkingLot parkingLot) {
         this.member = member;
         this.licensePlate = licensePlate;
         this.parkingLot = parkingLot;

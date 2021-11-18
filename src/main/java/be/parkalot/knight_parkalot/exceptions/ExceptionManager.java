@@ -55,10 +55,6 @@ public class ExceptionManager {
         response.sendError(exception.getStatus().value(), exception.getMessage());
     }
 
-    @ExceptionHandler(ParkingLotException.class)
-    protected void parkingLotNotFoundException(ParkingLotException exception, HttpServletResponse response) throws Exception {
-        logger.error(exception.getMessage());
-        response.sendError(exception.getStatus().value(), exception.getMessage());
-    }
+
 
 }
