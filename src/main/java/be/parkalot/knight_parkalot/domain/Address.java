@@ -1,6 +1,7 @@
 package be.parkalot.knight_parkalot.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "address")
@@ -44,5 +45,18 @@ public class Address {
 
     public PostalCode getPostalCode() {
         return postalCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return id == address.id && Objects.equals(streetName, address.streetName) && Objects.equals(houseNumber, address.houseNumber) && Objects.equals(postalCode, address.postalCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, streetName, houseNumber, postalCode);
     }
 }

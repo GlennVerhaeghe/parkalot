@@ -1,6 +1,5 @@
 package be.parkalot.knight_parkalot.dto;
 
-
 import java.util.Objects;
 
 public class AddressDto {
@@ -24,5 +23,18 @@ public class AddressDto {
 
     public PostalCodeDto getPostalCodeDto() {
         return postalCodeDto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddressDto that = (AddressDto) o;
+        return Objects.equals(streetName, that.streetName) && Objects.equals(houseNumber, that.houseNumber) && Objects.equals(postalCodeDto, that.postalCodeDto);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(streetName, houseNumber, postalCodeDto);
     }
 }

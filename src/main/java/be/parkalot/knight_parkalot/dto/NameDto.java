@@ -1,8 +1,8 @@
 package be.parkalot.knight_parkalot.dto;
 
 public class NameDto {
-    private String firstName;
-    private String lastName;
+    private final String firstName;
+    private final String lastName;
 
     public NameDto(String firstName, String lastName) {
         this.firstName = firstName;

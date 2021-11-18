@@ -1,10 +1,10 @@
 package be.parkalot.knight_parkalot.dto;
 
 public class CreateDivisionDto {
-    private String name;
-    private String originalName;
-    private NameDto directorName;
-    private int parentId;
+    private final String name;
+    private final String originalName;
+    private final NameDto directorName;
+    private final int parentId;
 
     public CreateDivisionDto(String name, String originalName, NameDto directorName, int parentId) {
         this.name = name;

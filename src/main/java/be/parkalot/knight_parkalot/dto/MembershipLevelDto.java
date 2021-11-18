@@ -2,10 +2,10 @@ package be.parkalot.knight_parkalot.dto;
 
 public class MembershipLevelDto {
 
-    private String name;
-    private double monthlyCost;
-    private double reductionPercentage;
-    private int maxAllowedAllocationHours;
+    private final String name;
+    private final double monthlyCost;
+    private final double reductionPercentage;
+    private final int maxAllowedAllocationHours;
 
     public MembershipLevelDto(String name, double monthlyCost, double reductionPercentage, int maxAllowedAllocationHours) {
         this.name = name;
