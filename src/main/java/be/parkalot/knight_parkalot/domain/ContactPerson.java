@@ -30,6 +30,14 @@ public class ContactPerson {
     public ContactPerson() {
     }
 
+    public ContactPerson(Name name, String mobilePhoneNumber, String telephoneNumber, String email, Address address) {
+        this.name = name;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+        this.telephoneNumber = telephoneNumber;
+        this.email = email;
+        this.address = address;
+    }
+
     public int getId() {
         return id;
     }

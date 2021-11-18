@@ -37,7 +37,7 @@ public class DivisionController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{divisionId}")
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public DivisionDto getDivision(@PathVariable int divisionId){
-        return service.getDivisionById(divisionId);
+        return service.getDivisionDtoById(divisionId);
     }
 
 

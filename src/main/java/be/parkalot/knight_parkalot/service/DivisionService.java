@@ -20,7 +20,7 @@ public class DivisionService {
     private final DivisionMapper mapper;
 
     @Autowired
-    public DivisionService(DivisionRepository repository, DivisionMapper mapper) {
+    public DivisionService(DivisionRepository repository, DivisionMapper mapper, PostalCodeService postalCodeService) {
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -54,8 +54,13 @@ public class DivisionService {
         return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
-    public DivisionDto getDivisionById(int divisionId) {
-        assertIdExistsInDatabase(divisionId);
-        return mapper.toDto(repository.findById(divisionId).get());
+    public DivisionDto getDivisionDtoById(int divisionId) {
+        return mapper.toDto(getDivisionById(divisionId));
     }
+
+    public Division getDivisionById(int divisionId) {
+        assertIdExistsInDatabase(divisionId);
+        return repository.findById(divisionId).get();
+    }
+
 }

@@ -8,7 +8,6 @@ import be.parkalot.knight_parkalot.mapper.MemberMapper;
 import be.parkalot.knight_parkalot.mapper.PostalCodeMapper;
 import be.parkalot.knight_parkalot.repository.MemberRepository;
 import be.parkalot.knight_parkalot.repository.MembershipLevelRepository;
-import be.parkalot.knight_parkalot.repository.PostalCodeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,8 +26,8 @@ class MemberServiceTest {
     private MemberRepository mockMemberRepository;
     @Autowired
     private MembershipLevelRepository mockMembershipLevelRepository;
-    private PostalCodeRepository mockPostalCodeRepository;
     private LicensePlateMapper licensePlateMapper;
+    private PostalCodeService postalCodeService;
     private PostalCodeMapper postalCodeMapper;
     private MemberMapper memberMapper;
 
@@ -36,12 +35,12 @@ class MemberServiceTest {
     void setUp() {
         mockMemberRepository = Mockito.mock(MemberRepository.class);
         //mockMembershipLevelRepository = Mockito.mock(MembershipLevelRepository.class);
-        mockPostalCodeRepository = Mockito.mock(PostalCodeRepository.class);
         licensePlateMapper = new LicensePlateMapper();
-        postalCodeMapper = new PostalCodeMapper();
         memberMapper = Mockito.mock(MemberMapper.class);
+        postalCodeService = Mockito.mock(PostalCodeService.class);
+        postalCodeMapper = new PostalCodeMapper();
 
-        memberService = new MemberService(mockMemberRepository, memberMapper, mockMembershipLevelRepository, licensePlateMapper, mockPostalCodeRepository, postalCodeMapper);
+        memberService = new MemberService(mockMemberRepository, memberMapper, mockMembershipLevelRepository, licensePlateMapper, postalCodeService);
     }
 
     @Test

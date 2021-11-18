@@ -24,7 +24,7 @@ public class ContactPersonDto {
         return id;
     }
 
-    public NameDto getName() {
+    public NameDto getNameDto() {
         return name;
     }
 

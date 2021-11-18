@@ -6,7 +6,6 @@ import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.domain.PostalCode;
 import be.parkalot.knight_parkalot.dto.*;
 import be.parkalot.knight_parkalot.exceptions.DatabaseProblemException;
-import be.parkalot.knight_parkalot.exceptions.DivisionNotFoundException;
 import be.parkalot.knight_parkalot.exceptions.MemberNotFoundException;
 import be.parkalot.knight_parkalot.exceptions.NotUniqueException;
 import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
@@ -32,22 +31,21 @@ public class MemberService {
 
     private static final int MEMBERSHIP_LEVEL_DEFAULT_BRONZE_VALUE = 1;
 
+    private final Logger logger = LoggerFactory.getLogger(MemberService.class);
+
     private final MemberRepository memberRepository;
     private final MemberMapper memberMapper;
     private final MembershipLevelRepository membershipLevelRepository;
     private final LicensePlateMapper licensePlateMapper;
-    private final PostalCodeRepository postalCodeRepository;
-    private final PostalCodeMapper postalCodeMapper;
-    private final Logger logger = LoggerFactory.getLogger(MemberService.class);
+    private final PostalCodeService postalCodeService;
 
     @Autowired
-    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, MembershipLevelRepository membershipLevelRepository, LicensePlateMapper licensePlateMapper, PostalCodeRepository postalCodeRepository, PostalCodeMapper postalCodeMapper) {
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, MembershipLevelRepository membershipLevelRepository, LicensePlateMapper licensePlateMapper, PostalCodeService postalCodeService) {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
         this.membershipLevelRepository = membershipLevelRepository;
         this.licensePlateMapper = licensePlateMapper;
-        this.postalCodeRepository = postalCodeRepository;
-        this.postalCodeMapper = postalCodeMapper;
+        this.postalCodeService = postalCodeService;
     }
 
     public MemberDto registerMember(CreateMemberDto createMemberDto) {
@@ -57,7 +55,7 @@ public class MemberService {
         assertLicensePlateIsUnique(createMemberDto.getLicensePlateDto());
 
         MembershipLevel membershipLevel = getMembershipLevel(createMemberDto.getMembershipLevelID());
-        PostalCode postalCode = getPostalCode(createMemberDto.getAddressDto().getPostalCodeDto());
+        PostalCode postalCode = postalCodeService.getPostalCode(createMemberDto.getAddressDto().getPostalCodeDto());
 
         Member member = memberRepository.save(memberMapper.toEntity(createMemberDto, membershipLevel, postalCode));
         return memberMapper.toDto(member);
@@ -67,12 +65,6 @@ public class MemberService {
         logger.info("assertValidMemberDto called");
         MemberInputValidation memberInputValidation = new MemberInputValidation(createMemberDto);
         memberInputValidation.validate();
-    }
-
-    private PostalCode getPostalCode(PostalCodeDto postalCodeDto) {
-        logger.info("getPostalCode called");
-        Optional<PostalCode> postalCodeOptional = postalCodeRepository.findById(postalCodeDto.getCode());
-        return postalCodeOptional.orElseGet(() -> postalCodeRepository.save(postalCodeMapper.toEntity(postalCodeDto)));
     }
 
     private MembershipLevel getMembershipLevel(int membershipId) {

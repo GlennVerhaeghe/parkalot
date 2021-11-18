@@ -49,4 +49,10 @@ public class ExceptionManager {
         response.sendError(exception.getStatus().value(), exception.getMessage());
     }
 
+    @ExceptionHandler(ParkingLotCategoryNotFoundException.class)
+    protected void handleParkingLotCategoryNotFound(ParkingLotCategoryNotFoundException exception, HttpServletResponse response) throws Exception {
+        logger.error(exception.getMessage());
+        response.sendError(exception.getStatus().value(), exception.getMessage());
+    }
+
 }
