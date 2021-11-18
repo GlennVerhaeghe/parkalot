@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkingSpotAllocationService {
 
-    private final int TEMP_VAR_TAKEN_PLACES = 20;
+    private static final int TEMP_VAR_TAKEN_PLACES = 20;
 
     private final ParkingSpotAllocationMapper parkingSpotAllocationMapper;
     private final ParkingSpotAllocationRepository parkingSpotAllocationRepository;

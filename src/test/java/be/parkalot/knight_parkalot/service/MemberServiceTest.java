@@ -1,5 +1,6 @@
 package be.parkalot.knight_parkalot.service;
 
+import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.dto.*;
 import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
@@ -24,6 +25,7 @@ class MemberServiceTest {
     private MemberService memberService;
     //@Autowired
     private MemberRepository mockMemberRepository;
+
     @Autowired
     private MembershipLevelRepository mockMembershipLevelRepository;
     private LicensePlateMapper licensePlateMapper;
@@ -98,4 +100,5 @@ class MemberServiceTest {
         //then
         assertThrows(NotUniqueException.class, () -> memberService.registerMember(testDto));
     }*/
+
 }
