@@ -34,7 +34,7 @@ public class Member {
     @Column(name = "registration_date", columnDefinition = "DATE")
     private LocalDate registrationDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "membership_level_id", referencedColumnName = "id")
     private MembershipLevel membershipLevel;
 
