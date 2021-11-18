@@ -39,12 +39,4 @@ public class DivisionController {
     public DivisionDto createNewDivision(@RequestBody CreateDivisionDto divisionDto) {
         return service.createNewDivision(divisionDto);
     }
-
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public void handleIllegalArgumentException(IllegalArgumentException exception, HttpServletResponse response) throws Exception {
-        logger.error(exception.getMessage());
-        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
-    }
-
 }

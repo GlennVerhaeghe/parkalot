@@ -31,4 +31,11 @@ public class ExceptionManager {
         response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
 
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void handleIllegalArgumentException(IllegalArgumentException exception, HttpServletResponse response) throws Exception {
+        logger.error(exception.getMessage());
+        response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
+    }
+
 }
