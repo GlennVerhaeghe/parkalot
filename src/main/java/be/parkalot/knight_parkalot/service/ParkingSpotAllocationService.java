@@ -18,8 +18,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkingSpotAllocationService {
 
-    private static final int TEMP_VAR_TAKEN_PLACES = 20;
-
     private final ParkingSpotAllocationMapper parkingSpotAllocationMapper;
     private final ParkingSpotAllocationRepository parkingSpotAllocationRepository;
     private final MemberRepository memberRepository;
@@ -33,7 +31,7 @@ public class ParkingSpotAllocationService {
         this.parkingLotRepository = parkingLotRepository;
     }
 
-    public ParkingSpotAllocationDto startAllocating(CreateParkingSpotAllocationDto createParkingSpotAllocationDto){
+    public ParkingSpotAllocationDto startAllocating(CreateParkingSpotAllocationDto createParkingSpotAllocationDto) {
 
         // Check 0 -> Parking lot exists
         assertParkingLotExists(createParkingSpotAllocationDto.getParkingLotId());
@@ -56,27 +54,34 @@ public class ParkingSpotAllocationService {
 
     private void assertLicensePlateIsValid(int memberId, String licensePlateNumber) {
         Member member = memberRepository.getById(memberId);
-        if(!member.getLicensePlate().getNumber().equals(licensePlateNumber)) {
-            if(member.getMembershipLevel().getId() != 3) {
+        if (!member.getLicensePlate().getNumber().equals(licensePlateNumber)) {
+            if (member.getMembershipLevel().getId() != 3) {
                 throw new ParkingLotException("License Plate does not belong to this member");
             }
         }
     }
 
     private void assertMemberExists(int memberId) {
-        if(!memberRepository.existsById(memberId)) {
+        if (!memberRepository.existsById(memberId)) {
             throw new MemberNotFoundException("This member does not exist in our database");
         }
     }
 
     private void assertParkingLotHasFreeSpots(int parkingLotId) {
-        if(parkingLotRepository.getById(parkingLotId).getMaxCapacity() <= TEMP_VAR_TAKEN_PLACES) {
+        if (parkingLotRepository.getById(parkingLotId).getMaxCapacity() <= usedParkSpots(parkingLotId)) {
             throw new ParkingLotException("No free spaces left");
         }
     }
 
+
+    private int usedParkSpots(int parkingLotId) {
+        return (int) parkingSpotAllocationRepository.findAll().stream().filter(s -> !s.isStopNow())
+                .filter(id -> id.getParkingLot().getId() == parkingLotId)
+                .count();
+    }
+
     private void assertParkingLotExists(int parkingLotId) {
-        if(!parkingLotRepository.existsById(parkingLotId)) {
+        if (!parkingLotRepository.existsById(parkingLotId)) {
             throw new ParkingLotException("No parking lot with this id is found");
         }
     }
