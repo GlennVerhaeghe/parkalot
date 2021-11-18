@@ -8,11 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/divisions")
@@ -27,16 +26,18 @@ public class DivisionController {
     }
 
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public List<DivisionDto> showOverviewOfAllDivisions() {
+        logger.info("showOverviewOfAllDivisions() called.");
         return service.getAllDivisions();
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public DivisionDto createNewDivision(@RequestBody CreateDivisionDto divisionDto) {
+        logger.info("createNewDivision() called.");
         return service.createNewDivision(divisionDto);
     }
 }

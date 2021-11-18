@@ -7,11 +7,6 @@ import be.parkalot.knight_parkalot.dto.DivisionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 public class DivisionMapper {
     private final NameMapper nameMapper;
@@ -23,7 +18,7 @@ public class DivisionMapper {
 
     public Division toEntity(CreateDivisionDto divisionDto, Division parent) {
         Name directorName = nameMapper.toEntity(divisionDto.getDirectorName());
-        return new Division(divisionDto.getName(), divisionDto.getOldName(), directorName, parent);
+        return new Division(divisionDto.getName(), divisionDto.getOriginalName(), directorName, parent);
     }
 
     public DivisionDto toDto(Division division) {

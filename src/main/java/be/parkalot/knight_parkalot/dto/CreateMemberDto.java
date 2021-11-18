@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public class CreateMemberDto {
 
-    private final CreateNameDto nameDto;
+    private final NameDto nameDto;
     private final AddressDto addressDto;
     private final String telephoneNumber;
     private final String email;
@@ -12,7 +12,7 @@ public class CreateMemberDto {
     private final LocalDate registrationDate;
     private final int membershipLevelID;
 
-    public CreateMemberDto(CreateNameDto nameDto, AddressDto addressDto, String telephoneNumber, String email, LicensePlateDto licensePlateDto, int membershipLevelID) {
+    public CreateMemberDto(NameDto nameDto, AddressDto addressDto, String telephoneNumber, String email, LicensePlateDto licensePlateDto, int membershipLevelID) {
         this.nameDto = nameDto;
         this.addressDto = addressDto;
         this.telephoneNumber = telephoneNumber;
@@ -22,7 +22,7 @@ public class CreateMemberDto {
         this.membershipLevelID = membershipLevelID;
     }
 
-    public CreateNameDto getNameDto() {
+    public NameDto getNameDto() {
         return nameDto;
     }
 

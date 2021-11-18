@@ -3,6 +3,7 @@ package be.parkalot.knight_parkalot.service;
 import be.parkalot.knight_parkalot.domain.Division;
 import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
 import be.parkalot.knight_parkalot.dto.DivisionDto;
+import be.parkalot.knight_parkalot.exceptions.DivisionNotFoundException;
 import be.parkalot.knight_parkalot.mapper.DivisionMapper;
 import be.parkalot.knight_parkalot.repository.DivisionRepository;
 import be.parkalot.knight_parkalot.service.inputvalidation.DivisionInputValidation;
@@ -40,10 +41,14 @@ public class DivisionService {
         if (divisionDto.getParentId() == 0) {
             return false;
         }
-        if (!repository.existsById(divisionDto.getParentId())) {
-            throw new IllegalArgumentException("No division found with id: " + divisionDto.getParentId());
-        }
+        assertIdExistsInDatabase(divisionDto.getParentId());
         return true;
+    }
+
+    private void assertIdExistsInDatabase(int id) {
+        if (!repository.existsById(id)) {
+            throw new DivisionNotFoundException("No division found with id: " + id);
+        }
     }
 
     public List<DivisionDto> getAllDivisions() {
