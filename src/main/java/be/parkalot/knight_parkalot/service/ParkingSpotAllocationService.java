@@ -83,10 +83,11 @@ public class ParkingSpotAllocationService {
     }
 
     public List<ParkingSpotAllocationDto> getAll(Integer limit, String status, boolean descending) {
-        int realLimit = limit == null ? 0 : limit;
-        assertLimitGreaterThanOrEqualToZero(realLimit);
-        String realStatus = status == null ? "all" : status;
-        assertStatusIsValid(realStatus);
+        int validatedLimit = limit == null ? 0 : limit;
+        assertLimitGreaterThanOrEqualToZero(validatedLimit);
+
+        String validatedStatus = status == null ? "all" : status;
+        assertStatusIsValid(validatedStatus);
 
         List<ParkingSpotAllocation> result;
 
@@ -96,14 +97,14 @@ public class ParkingSpotAllocationService {
             result = parkingSpotAllocationRepository.findByOrderByStartingTimeAsc();
         }
 
-        if(realStatus.equalsIgnoreCase("active")) {
+        if(validatedStatus.equalsIgnoreCase("active")) {
             result = result.stream().filter(p -> !p.isStopNow()).toList();
-        } else if (realStatus.equalsIgnoreCase("passive")) {
+        } else if (validatedStatus.equalsIgnoreCase("passive")) {
             result = result.stream().filter(ParkingSpotAllocation::isStopNow).toList();
         }
 
-        if(realLimit != 0) {
-            result = result.stream().limit(realLimit).toList();
+        if(validatedLimit != 0) {
+            result = result.stream().limit(validatedLimit).toList();
         }
         return result.stream().map(parkingSpotAllocationMapper::toDto).toList();
     }
