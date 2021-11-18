@@ -25,11 +25,11 @@ public class ParkingLotInputValidation {
         }
 
         if(createParkingLotDto.getMaxCapacity() <= 0){
-            throw new MissingArgumentsException("Capacity has to be positive");
+            throw new IllegalArgumentException("Capacity has to be positive");
         }
 
         if (createParkingLotDto.getPricePerHour() < 0) {
-            throw new MissingArgumentsException("Price per hour has to be positive");
+            throw new IllegalArgumentException("Price per hour has to be positive");
         }
     }
 }
