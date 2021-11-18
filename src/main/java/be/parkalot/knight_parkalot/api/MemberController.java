@@ -36,7 +36,7 @@ public class MemberController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-//    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
+    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public List<RetrieveMemberDto> getAllMembers() {
         logger.info("getAllMembers() called");
         return memberService.getAllMembers();

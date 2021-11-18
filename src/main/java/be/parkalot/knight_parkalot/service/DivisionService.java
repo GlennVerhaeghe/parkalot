@@ -54,4 +54,9 @@ public class DivisionService {
     public List<DivisionDto> getAllDivisions() {
         return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
     }
+
+    public DivisionDto getDivisionById(int divisionId) {
+        assertIdExistsInDatabase(divisionId);
+        return mapper.toDto(repository.findById(divisionId).get());
+    }
 }

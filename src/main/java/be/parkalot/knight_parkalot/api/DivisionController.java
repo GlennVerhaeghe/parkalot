@@ -33,6 +33,14 @@ public class DivisionController {
         return service.getAllDivisions();
     }
 
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{divisionId}")
+    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
+    public DivisionDto getDivision(@PathVariable int divisionId){
+        return service.getDivisionById(divisionId);
+    }
+
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
