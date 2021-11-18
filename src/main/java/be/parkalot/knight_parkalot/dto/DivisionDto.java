@@ -1,5 +1,7 @@
 package be.parkalot.knight_parkalot.dto;
 
+import java.util.Objects;
+
 public class DivisionDto {
     private int id;
     private String name;
@@ -36,6 +38,19 @@ public class DivisionDto {
 
     public int getParentId() {
         return parentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DivisionDto that = (DivisionDto) o;
+        return id == that.id && parentId == that.parentId && Objects.equals(name, that.name) && Objects.equals(originalName, that.originalName) && Objects.equals(directorName, that.directorName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, originalName, directorName, parentId);
     }
 
     public static class Builder {
