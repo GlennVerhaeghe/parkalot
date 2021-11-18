@@ -108,7 +108,7 @@ public class MemberService {
 
     private void assertIdExistsInDatabase(int id) {
         if (!memberRepository.existsById(id)) {
-            throw new MemberNotFoundException("No division found with id: " + id);
+            throw new MemberNotFoundException("No member found with id: " + id);
         }
     }
 
