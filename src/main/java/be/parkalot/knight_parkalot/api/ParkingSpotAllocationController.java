@@ -35,7 +35,7 @@ public class ParkingSpotAllocationController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
-    public List<ParkingSpotAllocationDto> getAllParkingAllocations(@RequestParam(required = false) int limit,
+    public List<ParkingSpotAllocationDto> getAllParkingAllocations(@RequestParam(required = false) Integer limit,
                                                                    @RequestParam(required = false) String status,
                                                                    @RequestParam(required = false) boolean descending) {
         return parkingSpotAllocationService.getAll(limit, status, descending);

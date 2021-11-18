@@ -82,16 +82,16 @@ public class ParkingSpotAllocationService {
         }
     }
 
-    public List<ParkingSpotAllocationDto> getAll(int limit, String status, boolean descending) {
+    public List<ParkingSpotAllocationDto> getAll(Integer limit, String status, boolean descending) {
         assertLimitGreaterThanOrEqualToZero(limit);
         assertStatusIsValid(status);
 
         List<ParkingSpotAllocation> result;
 
         if(descending) {
-            result = parkingSpotAllocationRepository.findAllOrderByStartingTimeDesc();
+            result = parkingSpotAllocationRepository.findByOrderByStartingTimeDesc();
         } else {
-            result = parkingSpotAllocationRepository.findAllOrderByStartingTimeAsc();
+            result = parkingSpotAllocationRepository.findByOrderByStartingTimeAsc();
         }
 
         if(status.equalsIgnoreCase("active")) {
