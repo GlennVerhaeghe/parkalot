@@ -1,6 +1,7 @@
 package be.parkalot.knight_parkalot.domain;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "contact_person")
@@ -60,5 +61,18 @@ public class ContactPerson {
 
     public Address getAddress() {
         return address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactPerson that = (ContactPerson) o;
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(mobilePhoneNumber, that.mobilePhoneNumber) && Objects.equals(telephoneNumber, that.telephoneNumber) && Objects.equals(email, that.email) && Objects.equals(address, that.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, mobilePhoneNumber, telephoneNumber, email, address);
     }
 }
