@@ -39,6 +39,14 @@ public class ParkingSpotAllocation {
     public ParkingSpotAllocation() {
     }
 
+    public ParkingSpotAllocation(int id, Member member, LicensePlate licensePlate, ParkingLot parkingLot) {
+        this.id = id;
+        this.member = member;
+        this.licensePlate = licensePlate;
+        this.parkingLot = parkingLot;
+        this.startingTime = LocalDateTime.now();
+    }
+
     public int getId() {
         return id;
     }
