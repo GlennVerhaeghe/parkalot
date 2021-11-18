@@ -32,13 +32,19 @@ public class ExceptionManager {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public void handleIllegalArgumentException(IllegalArgumentException exception, HttpServletResponse response) throws Exception {
+    protected void handleIllegalArgumentException(IllegalArgumentException exception, HttpServletResponse response) throws Exception {
         logger.error(exception.getMessage());
         response.sendError(HttpStatus.BAD_REQUEST.value(), exception.getMessage());
     }
 
     @ExceptionHandler(DivisionNotFoundException.class)
-    public void divisionNotFoundException(DivisionNotFoundException exception, HttpServletResponse response) throws Exception {
+    protected void divisionNotFoundException(DivisionNotFoundException exception, HttpServletResponse response) throws Exception {
+        logger.error(exception.getMessage());
+        response.sendError(exception.getStatus().value(), exception.getMessage());
+    }
+
+    @ExceptionHandler(MemberNotFoundException.class)
+    protected void memberNotFoundException(MemberNotFoundException exception, HttpServletResponse response) throws Exception {
         logger.error(exception.getMessage());
         response.sendError(exception.getStatus().value(), exception.getMessage());
     }

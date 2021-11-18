@@ -6,6 +6,8 @@ import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.domain.PostalCode;
 import be.parkalot.knight_parkalot.dto.*;
 import be.parkalot.knight_parkalot.exceptions.DatabaseProblemException;
+import be.parkalot.knight_parkalot.exceptions.DivisionNotFoundException;
+import be.parkalot.knight_parkalot.exceptions.MemberNotFoundException;
 import be.parkalot.knight_parkalot.exceptions.NotUniqueException;
 import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
 import be.parkalot.knight_parkalot.mapper.MemberMapper;
@@ -104,7 +106,19 @@ public class MemberService {
         }
     }
 
+    private void assertIdExistsInDatabase(int id) {
+        if (!memberRepository.existsById(id)) {
+            throw new MemberNotFoundException("No division found with id: " + id);
+        }
+    }
+
+
     public List<RetrieveMemberDto> getAllMembers() {
         return memberRepository.findAll().stream().map(memberMapper::toRetrieveMemberDto).collect(Collectors.toList());
+    }
+
+    public MemberDto getMemberById(int memberId) {
+        assertIdExistsInDatabase(memberId);
+        return memberMapper.toDto(memberRepository.findById(memberId).get());
     }
 }

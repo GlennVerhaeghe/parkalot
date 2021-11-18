@@ -41,4 +41,12 @@ public class MemberController {
         logger.info("getAllMembers() called");
         return memberService.getAllMembers();
     }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{memberId}")
+    @ResponseStatus(HttpStatus.OK)
+    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
+    public MemberDto getMember(@PathVariable int memberId) {
+        logger.info("getMember() called");
+        return memberService.getMemberById(memberId);
+    }
 }
