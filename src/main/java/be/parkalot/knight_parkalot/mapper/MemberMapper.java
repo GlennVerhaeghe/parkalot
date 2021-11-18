@@ -31,7 +31,6 @@ public class MemberMapper {
                 createMemberDto.getTelephoneNumber(),
                 createMemberDto.getEmail(),
                 licensePlateMapper.toEntity(createMemberDto.getLicensePlateDto()),
-                createMemberDto.getRegistrationDate(),
                 membershipLevel);
     }
 

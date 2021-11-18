@@ -42,13 +42,13 @@ public class Member {
     public Member() {
     }
 
-    public Member(Name name, Address address, String telephoneNumber, String email, LicensePlate licensePlate, LocalDate registrationDate, MembershipLevel membershipLevel) {
+    public Member(Name name, Address address, String telephoneNumber, String email, LicensePlate licensePlate, MembershipLevel membershipLevel) {
         this.name = name;
         this.address = address;
         this.telephoneNumber = telephoneNumber;
         this.email = email;
         this.licensePlate = licensePlate;
-        this.registrationDate = registrationDate;
+        this.registrationDate = LocalDate.now();
         this.membershipLevel = membershipLevel;
     }
 
