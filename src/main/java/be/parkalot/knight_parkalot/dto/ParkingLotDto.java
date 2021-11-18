@@ -10,6 +10,9 @@ public class ParkingLotDto {
     private int parkingLotCategoryId;
     private int divisionId;
 
+    public ParkingLotDto() {
+    }
+
     public ParkingLotDto(Builder builder) {
         id = builder.id;;
         name = builder.name;

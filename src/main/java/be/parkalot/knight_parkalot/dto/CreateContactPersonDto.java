@@ -8,6 +8,17 @@ public class CreateContactPersonDto {
     private String email;
     private AddressDto addressDto;
 
+    public CreateContactPersonDto() {
+    }
+
+    public CreateContactPersonDto(NameDto nameDto, String mobilePhoneNumber, String telephoneNumber, String email, AddressDto addressDto) {
+        this.nameDto = nameDto;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+        this.telephoneNumber = telephoneNumber;
+        this.email = email;
+        this.addressDto = addressDto;
+    }
+
     public NameDto getNameDto() {
         return nameDto;
     }
