@@ -4,26 +4,19 @@ public class ParkingLotDto {
     private int id;
     private String name;
     private int maxCapacity;
-    private ContactPersonDto contactPersonDto;
-    private AddressDto addressDto;
-    private double pricePerHour;
-    private int parkingLotCategoryId;
-    private int divisionId;
+    private String contactPersonEmail;
+    private String contactPersonPhoneNumber;
 
     public ParkingLotDto() {
     }
 
     public ParkingLotDto(Builder builder) {
-        id = builder.id;;
+        id = builder.id;
         name = builder.name;
         maxCapacity = builder.maxCapacity;
-        contactPersonDto = builder.contactPersonDto;
-        addressDto = builder.addressDto;
-        pricePerHour = builder.pricePerHour;
-        parkingLotCategoryId = builder.parkingLotCategoryId;
-        divisionId = builder.divisionId;
+        contactPersonEmail = builder.contactPersonEmail;
+        contactPersonPhoneNumber = builder.contactPersonPhoneNumber;
     }
-
 
     public int getId() {
         return id;
@@ -37,35 +30,20 @@ public class ParkingLotDto {
         return maxCapacity;
     }
 
-    public ContactPersonDto getContactPersonDto() {
-        return contactPersonDto;
+    public String getContactPersonEmail() {
+        return contactPersonEmail;
     }
 
-    public AddressDto getAddressDto() {
-        return addressDto;
-    }
-
-    public double getPricePerHour() {
-        return pricePerHour;
-    }
-
-    public int getParkingLotCategoryId() {
-        return parkingLotCategoryId;
-    }
-
-    public int getDivisionId() {
-        return divisionId;
+    public String getContactPersonPhoneNumber() {
+        return contactPersonPhoneNumber;
     }
 
     public static class Builder {
         private int id;
         private String name;
         private int maxCapacity;
-        private ContactPersonDto contactPersonDto;
-        private AddressDto addressDto;
-        private double pricePerHour;
-        private int parkingLotCategoryId;
-        private int divisionId;
+        private String contactPersonEmail;
+        private String contactPersonPhoneNumber;
 
         public Builder withId(int id) {
             this.id = id;
@@ -82,28 +60,13 @@ public class ParkingLotDto {
             return this;
         }
 
-        public Builder withContactPersonDto(ContactPersonDto contactPersonDto) {
-            this.contactPersonDto = contactPersonDto;
+        public Builder withContactPersonEmail(String contactPersonEmail) {
+            this.contactPersonEmail = contactPersonEmail;
             return this;
         }
 
-        public Builder withAddressDto(AddressDto addressDto) {
-            this.addressDto = addressDto;
-            return this;
-        }
-
-        public Builder withPricePerHour(double pricePerHour) {
-            this.pricePerHour = pricePerHour;
-            return this;
-        }
-
-        public Builder withParkingLotCategoryId(int parkingLotCategoryId) {
-            this.parkingLotCategoryId = parkingLotCategoryId;
-            return this;
-        }
-
-        public Builder withDivisionId(int divisionId) {
-            this.divisionId = divisionId;
+        public Builder withContactPersonPhoneNumber(String contactPersonPhoneNumber) {
+            this.contactPersonPhoneNumber = contactPersonPhoneNumber;
             return this;
         }
 

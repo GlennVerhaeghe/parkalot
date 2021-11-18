@@ -64,7 +64,7 @@ class ParkingLotServiceTest {
         Mockito.when(mockPostalCodeService.getPostalCode(Mockito.any(PostalCodeDto.class))).thenReturn(new PostalCode());
         Mockito.when(mockParkingLotMapper.toEntity(Mockito.any(CreateParkingLotDto.class), Mockito.any(PostalCode.class),
                 Mockito.any(PostalCode.class), Mockito.any(ParkingLotCategory.class), Mockito.any(Division.class))).thenReturn(new ParkingLot());
-        Mockito.when(mockParkingLotMapper.toDto(Mockito.any(ParkingLot.class))).thenReturn(new ParkingLotDto());
+        Mockito.when(mockParkingLotMapper.toDetailsDto(Mockito.any(ParkingLot.class))).thenReturn(new ParkingLotDetailsDto());
         Mockito.when(mockDivisionService.getDivisionById(Mockito.anyInt())).thenReturn(new Division());
         Mockito.when(mockParkingLotCategoryRepository.getById(Mockito.anyInt())).thenReturn(new ParkingLotCategory());
         Mockito.when(mockParkingLotCategoryRepository.existsById(Mockito.anyInt())).thenReturn(true);

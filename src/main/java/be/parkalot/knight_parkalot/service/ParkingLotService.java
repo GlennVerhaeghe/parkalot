@@ -5,6 +5,7 @@ import be.parkalot.knight_parkalot.domain.ParkingLot;
 import be.parkalot.knight_parkalot.domain.ParkingLotCategory;
 import be.parkalot.knight_parkalot.domain.PostalCode;
 import be.parkalot.knight_parkalot.dto.CreateParkingLotDto;
+import be.parkalot.knight_parkalot.dto.ParkingLotDetailsDto;
 import be.parkalot.knight_parkalot.dto.ParkingLotDto;
 import be.parkalot.knight_parkalot.exceptions.ParkingLotCategoryNotFoundException;
 import be.parkalot.knight_parkalot.exceptions.ParkingLotNotFoundException;
@@ -43,7 +44,7 @@ public class ParkingLotService {
         this.categoryRepository = categoryRepository;
     }
 
-    public ParkingLotDto createNewParkingLot(CreateParkingLotDto createParkingLotDto) {
+    public ParkingLotDetailsDto createNewParkingLot(CreateParkingLotDto createParkingLotDto) {
 
         assertValidParkingLotDto(createParkingLotDto);
 
@@ -53,7 +54,7 @@ public class ParkingLotService {
         Division division = divisionService.getDivisionById(createParkingLotDto.getDivisionId());
 
         ParkingLot newParkingLot = mapper.toEntity(createParkingLotDto, postalCodeContactPerson, postalCodeParkingLot, parkingLotCategory, division);
-        return mapper.toDto(repository.save(newParkingLot));
+        return mapper.toDetailsDto(repository.save(newParkingLot));
     }
 
     private void assertValidParkingLotDto(CreateParkingLotDto parkingLotDto) {
@@ -77,9 +78,9 @@ public class ParkingLotService {
         return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
-    public ParkingLotDto getParkingLotById(int parkingLotID) {
+    public ParkingLotDetailsDto getParkingLotById(int parkingLotID) {
         assertIdExistsInDatabase(parkingLotID);
-        return mapper.toDto(repository.getById(parkingLotID));
+        return mapper.toDetailsDto(repository.getById(parkingLotID));
     }
 
     private void assertIdExistsInDatabase(int parkingLotID) {
