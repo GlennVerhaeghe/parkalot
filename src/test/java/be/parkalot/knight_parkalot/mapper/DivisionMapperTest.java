@@ -25,19 +25,20 @@ class DivisionMapperTest {
         assertEquals(expected, result);
     }
 
-    /*@Test
+    @Test
     void toDto() {
         //given
         Division division = new Division("Name", "Old name", new Name("Tom", "Hanks"), null);
         DivisionDto expected = new DivisionDto.Builder()
                 .withId(division.getId())
-                .withName("Old")
+                .withName("Name")
                 .withOldName("Old name")
                 .withDirectorName(new NameDto("Tom", "Hanks"))
+                .withParentId(0)
                 .build();
         //when
         DivisionDto result = divisionMapper.toDto(division);
         //then
         assertEquals(expected, result);
-    }*/
+    }
 }
