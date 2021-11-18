@@ -1,6 +1,8 @@
 package be.parkalot.knight_parkalot.dto;
 
 
+import java.util.Objects;
+
 public class AddressDto {
     private final String streetName;
     private final String houseNumber;
