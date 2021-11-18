@@ -9,7 +9,8 @@ import javax.persistence.*;
 public class ContactPerson {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "contact_person_seq", sequenceName = "CONTACT_PERSON_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_person_seq")
     private int id;
 
     @Embedded

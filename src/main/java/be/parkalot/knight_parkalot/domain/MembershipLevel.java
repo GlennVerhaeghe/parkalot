@@ -6,8 +6,9 @@ import javax.persistence.*;
 @Table(name="membership_level")
 public class MembershipLevel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @SequenceGenerator(name = "membership_level_seq", sequenceName = "MEMBERSHIP_LEVEL_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "membership_level_seq")
     private int id;
 
     @Column(name = "name")
