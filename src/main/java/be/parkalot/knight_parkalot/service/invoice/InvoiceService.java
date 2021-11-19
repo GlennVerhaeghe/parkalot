@@ -17,7 +17,7 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final InvoiceItemService invoiceItemService;
     private final InvoiceMapper invoiceMapper;
-
+    private final MemberService memberService;
 
     @Autowired
     public InvoiceService(InvoiceRepository invoiceRepository, InvoiceItemService invoiceItemService, InvoiceMapper invoiceMapper, MemberService memberService) {
