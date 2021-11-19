@@ -99,12 +99,11 @@ public class ParkingSpotAllocationService {
         }
     }
 
-    public List<ParkingSpotAllocationDto> getAllParkingAllocations(Integer limit, String status, boolean descending) {
+    public List<ParkingSpotAllocationDto> getAllParkingAllocations(Integer limit, String allocationStatus, boolean descending) {
         int validatedLimit = limit == null ? 0 : limit;
         assertLimitGreaterThanOrEqualToZero(validatedLimit);
 
-        String validatedStatus = status == null ? "all" : status;
-        assertStatusIsValid(validatedStatus);
+        String validatedStatus = getValidatedAllocationStatus(allocationStatus);
 
         List<ParkingSpotAllocation> result;
 
@@ -114,11 +113,7 @@ public class ParkingSpotAllocationService {
             result = parkingSpotAllocationRepository.findByOrderByStartingTimeAsc();
         }
 
-        if (validatedStatus.equalsIgnoreCase("active")) {
-            result = result.stream().filter(p -> p.getStatus().isActive()).toList();
-        } else if (validatedStatus.equalsIgnoreCase("passive")) {
-            result = result.stream().filter(p -> !p.getStatus().isActive()).toList();
-        }
+        result = getFilteredParkingLotListByAllocationStatus(result, validatedStatus);
 
         if (validatedLimit != 0) {
             result = result.stream().limit(validatedLimit).toList();
@@ -142,13 +137,7 @@ public class ParkingSpotAllocationService {
         assertParkingSpotAllocationExists(parkingSpotAllocationId);
         ParkingSpotAllocation parkingSpotAllocation = parkingSpotAllocationRepository.getById(parkingSpotAllocationId);
 
-        if (parkingSpotAllocation.getMember().getId() != memberId) {
-            throw new ParkingLotException("The provided member has to be the owner of the parking spot!");
-        }
-
-        if (!parkingSpotAllocation.getStatus().isActive()) {
-            throw new ParkingLotException("The provided parking spot is already inactive!");
-        }
+        assertCanStopAllocatingParkingSpot(parkingSpotAllocation, memberId);
 
         parkingSpotAllocation.setStatus(ParkingSpotAllocationStatus.INACTIVE);
         parkingSpotAllocation.setEndingTime(LocalDateTime.now());
@@ -156,16 +145,49 @@ public class ParkingSpotAllocationService {
         return parkingSpotAllocationMapper.toDto(parkingSpotAllocation);
     }
 
-    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(int memberId, boolean showActiveAllocations, boolean showAllStoppedAllocations) {
+    public void assertCanStopAllocatingParkingSpot(ParkingSpotAllocation parkingSpotAllocation, int memberId) {
+        if (parkingSpotAllocation.getMember().getId() != memberId) {
+            throw new ParkingLotException("The provided member has to be the owner of the parking spot!");
+        }
+
+        if (!parkingSpotAllocation.getStatus().isActive()) {
+            throw new ParkingLotException("The provided parking spot is already inactive!");
+        }
+    }
+
+
+    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(int memberId, String allocationStatus) {
         assertMemberExists(memberId);
+        String validatedStatus = getValidatedAllocationStatus(allocationStatus);
 
         Member member = memberRepository.getById(memberId);
-        List<ParkingSpotAllocation> parkingSpotAllocations = parkingSpotAllocationRepository.findAllByMember(member);
+        List<ParkingSpotAllocation> parkingSpotAllocations = getFilteredParkingLotListByAllocationStatus(parkingSpotAllocationRepository.findAllByMember(member), validatedStatus);
 
-        List<ParkingSpotAllocation> parkingSpotAllocationsFiltered = parkingSpotAllocations.stream()
-                .filter(p1 -> !p1.getStatus().isActive() && showAllStoppedAllocations)
-                .filter(p2 -> p2.getStatus().isActive() && showActiveAllocations)
-                .collect(Collectors.toList());
-        return parkingSpotAllocationsFiltered.stream().map(parkingSpotAllocationMapper::toDto).collect(Collectors.toList());
+        return parkingSpotAllocations.stream().map(parkingSpotAllocationMapper::toDto).collect(Collectors.toList());
+    }
+
+    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByParkingLot(int parkingLotId, String allocationStatus) {
+        assertParkingLotExists(parkingLotId);
+        ParkingLot parkingLot = parkingLotRepository.getById(parkingLotId);
+
+        String validatedStatus = getValidatedAllocationStatus(allocationStatus);
+        List<ParkingSpotAllocation> parkingSpotAllocations = getFilteredParkingLotListByAllocationStatus(parkingSpotAllocationRepository.findAllByParkingLot(parkingLot), validatedStatus);
+
+        return parkingSpotAllocations.stream().map(parkingSpotAllocationMapper::toDto).collect(Collectors.toList());
+    }
+
+    public List<ParkingSpotAllocation> getFilteredParkingLotListByAllocationStatus(List<ParkingSpotAllocation> baseParkingSpotAllocationList, String allocationStatus) {
+        if (allocationStatus.equalsIgnoreCase("active")) {
+            return baseParkingSpotAllocationList.stream().filter(p -> p.getStatus().isActive()).toList();
+        } else if (allocationStatus.equalsIgnoreCase("passive")) {
+            return baseParkingSpotAllocationList.stream().filter(p -> !p.getStatus().isActive()).toList();
+        }
+        return baseParkingSpotAllocationList;
+    }
+
+    public String getValidatedAllocationStatus(String allocationStatus) {
+        String validatedStatus = allocationStatus == null ? "all" : allocationStatus;
+        assertStatusIsValid(validatedStatus);
+        return validatedStatus;
     }
 }

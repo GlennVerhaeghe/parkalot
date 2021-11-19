@@ -49,14 +49,20 @@ public class ParkingSpotAllocationController {
         return parkingSpotAllocationService.stopAllocating(memberId, parkingSpotAllocationId);
     }
 
-
-    @GetMapping(path = "/{memberId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "member/{memberId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(@PathVariable int memberId,
-                                                                           @RequestParam(required = false) boolean showActiveAllocations,
-                                                                           @RequestParam(required = false) boolean showAllStoppedAllocations) {
-        return parkingSpotAllocationService.getAllParkingAllocationsByMember(memberId, showActiveAllocations, showAllStoppedAllocations);
+                                                                           @RequestParam(required = false) String allocationStatus) {
+        return parkingSpotAllocationService.getAllParkingAllocationsByMember(memberId, allocationStatus);
+    }
+
+    @GetMapping(path = "parkinglot/{parkinglotId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
+    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByParkingLot(@PathVariable int parkinglotId,
+                                                                           @RequestParam(required = false) String allocationStatus) {
+        return parkingSpotAllocationService.getAllParkingAllocationsByParkingLot(parkinglotId, allocationStatus);
     }
 
 
