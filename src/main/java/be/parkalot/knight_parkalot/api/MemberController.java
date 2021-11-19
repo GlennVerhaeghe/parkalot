@@ -2,7 +2,7 @@ package be.parkalot.knight_parkalot.api;
 
 import be.parkalot.knight_parkalot.dto.CreateMemberDto;
 import be.parkalot.knight_parkalot.dto.MemberDto;
-import be.parkalot.knight_parkalot.dto.RetrieveMemberDto;
+import be.parkalot.knight_parkalot.dto.MemberDetailsDto;
 import be.parkalot.knight_parkalot.service.MemberService;
 import be.parkalot.knight_parkalot.switchsecure.SecurityGuard;
 import org.slf4j.Logger;
@@ -37,7 +37,7 @@ public class MemberController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
-    public List<RetrieveMemberDto> getAllMembers() {
+    public List<MemberDetailsDto> getAllMembers() {
         logger.info("getAllMembers() called");
         return memberService.getAllMembers();
     }

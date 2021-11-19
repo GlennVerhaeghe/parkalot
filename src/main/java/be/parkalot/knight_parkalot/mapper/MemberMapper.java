@@ -4,7 +4,7 @@ import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.domain.PostalCode;
 import be.parkalot.knight_parkalot.dto.CreateMemberDto;
 import be.parkalot.knight_parkalot.dto.MemberDto;
-import be.parkalot.knight_parkalot.dto.RetrieveMemberDto;
+import be.parkalot.knight_parkalot.dto.MemberDetailsDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import be.parkalot.knight_parkalot.domain.Member;
 import org.springframework.stereotype.Component;
@@ -44,8 +44,8 @@ public class MemberMapper {
                 membershipLevelMapper.toDto(member.getMembershipLevel()));
     }
 
-    public RetrieveMemberDto toRetrieveMemberDto(Member member) {
-        return new RetrieveMemberDto(member.getId(),
+    public MemberDetailsDto toRetrieveMemberDto(Member member) {
+        return new MemberDetailsDto(member.getId(),
                 nameMapper.toDto(member.getName()),
                 member.getLicensePlate().getNumber(),
                 member.getTelephoneNumber(),

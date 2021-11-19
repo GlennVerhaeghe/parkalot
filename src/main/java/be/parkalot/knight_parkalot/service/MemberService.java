@@ -10,10 +10,8 @@ import be.parkalot.knight_parkalot.exceptions.MemberNotFoundException;
 import be.parkalot.knight_parkalot.exceptions.NotUniqueException;
 import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
 import be.parkalot.knight_parkalot.mapper.MemberMapper;
-import be.parkalot.knight_parkalot.mapper.PostalCodeMapper;
 import be.parkalot.knight_parkalot.repository.MemberRepository;
 import be.parkalot.knight_parkalot.repository.MembershipLevelRepository;
-import be.parkalot.knight_parkalot.repository.PostalCodeRepository;
 import be.parkalot.knight_parkalot.service.inputvalidation.MemberInputValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,7 +100,7 @@ public class MemberService {
         }
     }
 
-    public List<RetrieveMemberDto> getAllMembers() {
+    public List<MemberDetailsDto> getAllMembers() {
         return memberRepository.findAll().stream().map(memberMapper::toRetrieveMemberDto).collect(Collectors.toList());
     }
 

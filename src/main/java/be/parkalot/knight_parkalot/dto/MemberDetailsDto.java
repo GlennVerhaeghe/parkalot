@@ -2,7 +2,7 @@ package be.parkalot.knight_parkalot.dto;
 
 import java.time.LocalDate;
 
-public class RetrieveMemberDto {
+public class MemberDetailsDto {
 
     private final int id;
     private final NameDto nameDto;
@@ -11,7 +11,7 @@ public class RetrieveMemberDto {
     private final String email;
     private final LocalDate registrationDate;
 
-    public RetrieveMemberDto(int id, NameDto nameDto, String licensePlateNumber, String telephoneNumber, String email, LocalDate registrationDate) {
+    public MemberDetailsDto(int id, NameDto nameDto, String licensePlateNumber, String telephoneNumber, String email, LocalDate registrationDate) {
         this.id = id;
         this.nameDto = nameDto;
         this.licensePlateNumber = licensePlateNumber;
