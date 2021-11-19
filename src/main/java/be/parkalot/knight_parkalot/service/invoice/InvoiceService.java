@@ -1,8 +1,11 @@
 package be.parkalot.knight_parkalot.service.invoice;
 
+import be.parkalot.knight_parkalot.domain.Invoice;
 import be.parkalot.knight_parkalot.domain.InvoiceItem;
 import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.dto.invoice.InvoiceDto;
+import be.parkalot.knight_parkalot.exceptions.InvoiceException;
+import be.parkalot.knight_parkalot.exceptions.ParkingLotException;
 import be.parkalot.knight_parkalot.mapper.invoice.InvoiceMapper;
 import be.parkalot.knight_parkalot.repository.InvoiceRepository;
 import be.parkalot.knight_parkalot.service.MemberService;
@@ -39,4 +42,21 @@ public class InvoiceService {
         return invoiceRepository.findAll().stream().map(invoiceMapper::toDto).collect(Collectors.toList());
     }
 
+    public InvoiceDto closeInvoice(int invoiceId) {
+
+        assertInvoiceExists(invoiceId);
+        Invoice invoice = invoiceRepository.getById(invoiceId);
+
+        if (invoice.isClosed()) {
+            throw new InvoiceException("This invoice is already closed");
+        }
+        invoice.setClosed(true);
+        return invoiceMapper.toDto(invoice);
+    }
+
+    private void assertInvoiceExists(int invoiceId) {
+        if (!invoiceRepository.existsById(invoiceId)) {
+            throw new InvoiceException("No invoice found with id: " + invoiceId);
+        }
+    }
 }
