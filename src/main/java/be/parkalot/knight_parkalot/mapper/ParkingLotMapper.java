@@ -1,5 +1,6 @@
 package be.parkalot.knight_parkalot.mapper;
 
+import be.parkalot.knight_parkalot.domain.ContactPerson;
 import be.parkalot.knight_parkalot.domain.Division;
 import be.parkalot.knight_parkalot.domain.ParkingLot;
 import be.parkalot.knight_parkalot.domain.ParkingLotCategory;
@@ -24,11 +25,11 @@ public class ParkingLotMapper {
         this.divisionMapper = divisionMapper;
     }
 
-    public ParkingLot toEntity(CreateParkingLotDto createParkingLotDto, PostalCode postalCodeContact, PostalCode postalCodeParkingLot, ParkingLotCategory parkingLotCategory, Division division) {
+    public ParkingLot toEntity(CreateParkingLotDto createParkingLotDto, ContactPerson contactPerson, PostalCode postalCodeParkingLot, ParkingLotCategory parkingLotCategory, Division division) {
         return new ParkingLot(
                 createParkingLotDto.getName(),
                 createParkingLotDto.getMaxCapacity(),
-                contactPersonMapper.toEntity(createParkingLotDto.getContactPersonDto(), postalCodeContact),
+                contactPerson,
                 addressMapper.toEntity(createParkingLotDto.getAddressDto(), postalCodeParkingLot),
                 createParkingLotDto.getPricePerHour(),
                 parkingLotCategory,

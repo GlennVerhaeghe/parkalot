@@ -19,7 +19,7 @@ public class ParkingLot {
     @Column(name = "max_capacity")
     private int maxCapacity;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "contact_id",referencedColumnName = "id")
     private ContactPerson contactPerson;
 
