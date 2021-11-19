@@ -42,4 +42,10 @@ public class ParkingSpotAllocationController {
         return parkingSpotAllocationService.getAll(limit, status, descending);
     }
 
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    //@SecurityGuard(SecurityGuard.ApiUserRole.MEMBER)
+    public ParkingSpotAllocationDto stopAllocating(@RequestParam Integer memberId, @RequestParam Integer parkingSpotAllocationId){
+        return parkingSpotAllocationService.stopAllocating(memberId, parkingSpotAllocationId);
+    }
 }

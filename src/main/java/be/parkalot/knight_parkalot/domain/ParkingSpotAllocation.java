@@ -16,15 +16,15 @@ public class ParkingSpotAllocation {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name ="member_id",referencedColumnName = "id")
+    @JoinColumn(name = "member_id", referencedColumnName = "id")
     private Member member;
 
     @ManyToOne
-    @JoinColumn(name = "license_plate_number" , referencedColumnName = "number")
+    @JoinColumn(name = "license_plate_number", referencedColumnName = "number")
     private LicensePlate licensePlate;
 
     @ManyToOne
-    @JoinColumn(name = "parking_lot_id",referencedColumnName = "id")
+    @JoinColumn(name = "parking_lot_id", referencedColumnName = "id")
     private ParkingLot parkingLot;
 
     @Column(name = "starting_time", columnDefinition = "TIMESTAMP")
@@ -72,5 +72,13 @@ public class ParkingSpotAllocation {
 
     public boolean isInactive() {
         return inactive;
+    }
+
+    public void setInactive(boolean inactive) {
+        this.inactive = inactive;
+    }
+
+    public void setEndingTime(LocalDateTime endingTime) {
+        this.endingTime = endingTime;
     }
 }

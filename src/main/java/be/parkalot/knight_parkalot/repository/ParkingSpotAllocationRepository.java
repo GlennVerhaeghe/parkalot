@@ -10,4 +10,6 @@ import java.util.List;
 public interface ParkingSpotAllocationRepository extends JpaRepository<ParkingSpotAllocation, Integer> {
     List<ParkingSpotAllocation> findByOrderByStartingTimeAsc();
     List<ParkingSpotAllocation> findByOrderByStartingTimeDesc();
+
+    List<ParkingSpotAllocation> findAllByLicensePlate();
 }

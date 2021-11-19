@@ -11,10 +11,13 @@ import be.parkalot.knight_parkalot.repository.ParkingLotRepository;
 import be.parkalot.knight_parkalot.repository.ParkingSpotAllocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class ParkingSpotAllocationService {
 
     private final ParkingSpotAllocationMapper parkingSpotAllocationMapper;
@@ -52,6 +55,11 @@ public class ParkingSpotAllocationService {
                 throw new ParkingLotException("License Plate does not belong to this member");
             }
         }
+
+        ParkingSpotAllocation parkingSpotAllocation = parkingSpotAllocationRepository.findAllByLicensePlate().stream().filter(s -> !s.isInactive()).findFirst().orElse(null);
+        if(parkingSpotAllocation != null){
+            throw new ParkingLotException("License Plate already has an allocated parking spot");
+        }
     }
 
     private void assertMemberExists(int memberId) {
@@ -75,7 +83,13 @@ public class ParkingSpotAllocationService {
 
     private void assertParkingLotExists(int parkingLotId) {
         if (!parkingLotRepository.existsById(parkingLotId)) {
-            throw new ParkingLotException("No parking lot with this id is found");
+            throw new ParkingLotException("No parking lot with this id is found " + parkingLotId);
+        }
+    }
+
+    private void assertParkingSpotAllocationExists(int parkingSpotAllocationId) {
+        if (!parkingSpotAllocationRepository.existsById(parkingSpotAllocationId)) {
+            throw new ParkingLotException("No parking spot with this id is found " + parkingSpotAllocationId);
         }
     }
 
@@ -116,5 +130,23 @@ public class ParkingSpotAllocationService {
         if (limit < 0) {
             throw new IllegalArgumentException("Limit must be greater than 0");
         }
+    }
+
+    public ParkingSpotAllocationDto stopAllocating(Integer memberId, Integer parkingSpotAllocationId) {
+        assertParkingSpotAllocationExists(parkingSpotAllocationId);
+        ParkingSpotAllocation parkingSpotAllocation = parkingSpotAllocationRepository.getById(parkingSpotAllocationId);
+
+        if (parkingSpotAllocation.getMember().getId() != memberId) {
+            throw new ParkingLotException("The provided member has to be the owner of the parking spot!");
+        }
+
+        if (parkingSpotAllocation.isInactive()) {
+            throw new ParkingLotException("The provided parking spot is already inactive!");
+        }
+
+        parkingSpotAllocation.setInactive(true);
+        parkingSpotAllocation.setEndingTime(LocalDateTime.now());
+
+        return parkingSpotAllocationMapper.toDto(parkingSpotAllocation);
     }
 }

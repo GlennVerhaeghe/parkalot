@@ -96,11 +96,11 @@ public class Member {
             return false;
         }
         Member member = (Member) o;
-        return id == member.id && Objects.equals(name, member.name) && Objects.equals(address, member.address) && Objects.equals(telephoneNumber, member.telephoneNumber) && Objects.equals(email, member.email) && Objects.equals(licensePlate, member.licensePlate) && Objects.equals(registrationDate, member.registrationDate) && Objects.equals(membershipLevel, member.membershipLevel);
+        return id == member.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address, telephoneNumber, email, licensePlate, registrationDate, membershipLevel);
+        return Objects.hash(id);
     }
 }
