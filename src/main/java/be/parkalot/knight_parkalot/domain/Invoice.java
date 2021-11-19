@@ -63,4 +63,24 @@ public class Invoice {
     public double getTotalPrice() {
         return totalPrice;
     }
+
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public void setClosed(boolean closed) {
+        this.closed = closed;
+    }
+
+    public void setDateOfPayment(LocalDate dateOfPayment) {
+        this.dateOfPayment = dateOfPayment;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }
