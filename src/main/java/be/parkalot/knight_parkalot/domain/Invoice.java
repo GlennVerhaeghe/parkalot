@@ -2,6 +2,7 @@ package be.parkalot.knight_parkalot.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,9 +15,10 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_seq")
     private int id;
 
-    @OneToMany
-    @JoinTable(name = "invoice_item", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "invoice_id"))
-    private List<InvoiceItem> invoiceItems;
+    /*@OneToMany(mappedBy = "invoice", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)*/
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "invoice_id")
+    private List<InvoiceItem> invoiceItems = new ArrayList<>();
 
     @Column(name = "creation_date")
     private LocalDate creationDate;

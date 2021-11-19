@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import java.util.List;
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
+    private final Logger logger = LoggerFactory.getLogger(InvoiceController.class);
 
     @Autowired
     public InvoiceController(InvoiceService invoiceService) {
@@ -25,6 +28,7 @@ public class InvoiceController {
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MEMBER)
     public InvoiceDto getInvoice(@PathVariable int memberId) {
+        logger.info("getInvoice() called");
         return invoiceService.getInvoiceForMemberId(memberId);
     }
 
@@ -32,6 +36,7 @@ public class InvoiceController {
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public List<InvoiceDto> getAllInvoices() {
+        logger.info("getAllInvoices() called");
         return invoiceService.getAllInvoices();
     }
 
@@ -39,6 +44,7 @@ public class InvoiceController {
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public InvoiceDto closeInvoice(@PathVariable int invoiceId) {
+        logger.info("closeInvoice() called");
         return invoiceService.closeInvoice(invoiceId);
     }
 }

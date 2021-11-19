@@ -22,6 +22,8 @@ public class InvoiceMapper {
                 .withClosed(invoice.isClosed())
                 .withExpirationDate(invoice.getExpirationDate())
                 .withInvoiceItems(invoice.getInvoiceItems().stream().map(invoiceItemMapper::toDto).toList())
+                .withDateOfPayment(invoice.getDateOfPayment())
+                .withTotalPrice(invoice.getTotalPrice())
                 .build();
     }
 }

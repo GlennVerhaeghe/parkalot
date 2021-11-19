@@ -3,6 +3,7 @@ package be.parkalot.knight_parkalot.domain;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @Entity
@@ -84,4 +85,16 @@ public class ParkingSpotAllocation {
         this.endingTime = endingTime;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParkingSpotAllocation that = (ParkingSpotAllocation) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
