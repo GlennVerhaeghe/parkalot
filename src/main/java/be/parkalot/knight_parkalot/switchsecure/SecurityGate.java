@@ -53,7 +53,7 @@ public class SecurityGate implements HandlerInterceptor {
             userSecurityInformation.setName(getUserNameFromJwtToken(getJWT(request)));
             return true;
         } else {
-            response.sendError(401);
+            response.sendError(401, "You don't have permission to do this.");
             return false;
         }
 
