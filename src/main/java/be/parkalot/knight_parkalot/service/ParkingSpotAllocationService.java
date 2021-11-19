@@ -168,4 +168,8 @@ public class ParkingSpotAllocationService {
                 .collect(Collectors.toList());
         return parkingSpotAllocationsFiltered.stream().map(parkingSpotAllocationMapper::toDto).collect(Collectors.toList());
     }
+
+    public List<ParkingSpotAllocation> getAllInactiveParkingAllocationsByMember(Member member) {
+        return null;
+    }
 }

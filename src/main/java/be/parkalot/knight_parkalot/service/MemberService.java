@@ -108,7 +108,7 @@ public class MemberService {
         return memberMapper.toDto(getMemberById(memberId));
     }
 
-    private Member getMemberById(int memberId) {
+    public Member getMemberById(int memberId) {
         assertIdExistsInDatabase(memberId);
         return memberRepository.findById(memberId).get();
     }

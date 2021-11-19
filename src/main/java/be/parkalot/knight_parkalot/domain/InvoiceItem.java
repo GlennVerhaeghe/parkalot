@@ -33,6 +33,10 @@ public class InvoiceItem {
         return parkingSpotAllocation;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public double getPrice() {
         return price;
     }
