@@ -64,7 +64,10 @@ public class ParkingSpotAllocationService {
 
     private void assertLicensePlateIsValid(int memberId, LicensePlateDto licensePlate) {
         Member member = memberRepository.getById(memberId);
-        if (!member.getLicensePlate().equals(licensePlateMapper.toEntity(licensePlate))) {
+
+        System.out.println(member.getLicensePlate().getNumber() + " -> " + licensePlate.getNumber());
+
+        if (!member.getLicensePlate().getNumber().equals(licensePlate.getNumber())) {
             if (member.getMembershipLevel().getId() != MembershipLevel.GOLD_ID) {
                 throw new ParkingLotException("License Plate does not belong to this member");
             }
