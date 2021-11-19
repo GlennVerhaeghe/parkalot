@@ -82,7 +82,8 @@ public class ParkingSpotAllocationService {
 
 
     private int usedParkSpots(int parkingLotId) {
-        return (int) parkingSpotAllocationRepository.findAll().stream().filter(s -> !s.getStatus().isActive())
+        return (int) parkingSpotAllocationRepository.findAll().stream()
+                .filter(s -> s.getStatus().isActive())
                 .filter(id -> id.getParkingLot().getId() == parkingLotId)
                 .count();
     }
