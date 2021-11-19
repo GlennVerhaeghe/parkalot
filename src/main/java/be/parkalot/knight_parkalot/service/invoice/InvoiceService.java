@@ -12,6 +12,7 @@ import be.parkalot.knight_parkalot.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,8 +35,19 @@ public class InvoiceService {
     public InvoiceDto getInvoiceForMemberId(int memberId) {
         Member member = memberService.getMemberById(memberId);
         List<InvoiceItem> invoiceItems = invoiceItemService.getAllInvoiceItemsByMember(member);
+        Invoice invoice = new Invoice();
+        invoiceItems.forEach(invoice::addInvoiceItem);
+        invoice.setClosed(false);
+        invoice.setCreationDate(LocalDate.now());
+        invoice.setExpirationDate(LocalDate.now().plusDays(30));
+        invoice.setTotalPrice(calculateTotalPrice(invoice));
+        return invoiceMapper.toDto(invoiceRepository.save(invoice));
+    }
 
-        return null;
+    private double calculateTotalPrice(Invoice invoice) {
+        return invoice.getInvoiceItems().stream()
+                .map(InvoiceItem::getPrice)
+                .reduce(0.0, Double::sum);
     }
 
     public List<InvoiceDto> getAllInvoices() {
@@ -51,6 +63,7 @@ public class InvoiceService {
             throw new InvoiceException("This invoice is already closed");
         }
         invoice.setClosed(true);
+        invoice.setDateOfPayment(LocalDate.now());
         return invoiceMapper.toDto(invoice);
     }
 

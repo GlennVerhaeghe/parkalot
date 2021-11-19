@@ -83,4 +83,8 @@ public class Invoice {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public void addInvoiceItem (InvoiceItem invoiceItem) {
+        this.invoiceItems.add(invoiceItem);
+    }
 }

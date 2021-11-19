@@ -192,6 +192,6 @@ public class ParkingSpotAllocationService {
     }
 
     public List<ParkingSpotAllocation> getAllInactiveParkingAllocationsByMember(Member member) {
-        return null;
+        return parkingSpotAllocationRepository.findAllByMemberAndStatus(member, ParkingSpotAllocationStatus.INACTIVE);
     }
 }

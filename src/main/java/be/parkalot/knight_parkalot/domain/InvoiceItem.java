@@ -44,4 +44,9 @@ public class InvoiceItem {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public InvoiceItem setParkingSpotAllocation(ParkingSpotAllocation parkingSpotAllocation) {
+        this.parkingSpotAllocation = parkingSpotAllocation;
+        return this;
+    }
 }

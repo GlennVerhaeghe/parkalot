@@ -1,3 +1,3 @@
 insert into membership_level (id, max_allowed_allocation_hours, monthly_cost, name, reduction_percentage) values (1, 4, 0, 'Bronze', 0);
-insert into membership_level (id, max_allowed_allocation_hours, monthly_cost, name, reduction_percentage) values (2, 6, 10, 'Silver', 20);
-insert into membership_level (id, max_allowed_allocation_hours, monthly_cost, name, reduction_percentage) values (3, 24, 40, 'Gold', 30);
+insert into membership_level (id, max_allowed_allocation_hours, monthly_cost, name, reduction_percentage) values (2, 6, 10, 'Silver', 0.2);
+insert into membership_level (id, max_allowed_allocation_hours, monthly_cost, name, reduction_percentage) values (3, 24, 40, 'Gold', 0.3);
