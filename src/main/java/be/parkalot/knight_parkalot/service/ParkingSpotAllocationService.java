@@ -156,13 +156,16 @@ public class ParkingSpotAllocationService {
         return parkingSpotAllocationMapper.toDto(parkingSpotAllocation);
     }
 
-/*    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(int memberId, boolean showActiveAllocations, boolean showAllStoppedAllocations) {
+    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(int memberId, boolean showActiveAllocations, boolean showAllStoppedAllocations) {
         assertMemberExists(memberId);
 
         Member member = memberRepository.getById(memberId);
         List<ParkingSpotAllocation> parkingSpotAllocations = parkingSpotAllocationRepository.findAllByMember(member);
 
-        List<ParkingSpotAllocation> parkingSpotAllocationsFiltered = parkingSpotAllocations.stream().filter(p1 -> p1.isInactive() && showAllStoppedAllocations).filter(p2 -> !p2.isInactive() && showActiveAllocations).collect(Collectors.toList());
+        List<ParkingSpotAllocation> parkingSpotAllocationsFiltered = parkingSpotAllocations.stream()
+                .filter(p1 -> !p1.getStatus().isActive() && showAllStoppedAllocations)
+                .filter(p2 -> p2.getStatus().isActive() && showActiveAllocations)
+                .collect(Collectors.toList());
         return parkingSpotAllocationsFiltered.stream().map(parkingSpotAllocationMapper::toDto).collect(Collectors.toList());
-    }*/
+    }
 }
