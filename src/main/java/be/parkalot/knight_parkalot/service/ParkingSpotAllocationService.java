@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -97,7 +98,7 @@ public class ParkingSpotAllocationService {
         }
     }
 
-    public List<ParkingSpotAllocationDto> getAll(Integer limit, String status, boolean descending) {
+    public List<ParkingSpotAllocationDto> getAllParkingAllocations(Integer limit, String status, boolean descending) {
         int validatedLimit = limit == null ? 0 : limit;
         assertLimitGreaterThanOrEqualToZero(validatedLimit);
 
@@ -152,5 +153,15 @@ public class ParkingSpotAllocationService {
         parkingSpotAllocation.setEndingTime(LocalDateTime.now());
 
         return parkingSpotAllocationMapper.toDto(parkingSpotAllocation);
+    }
+
+    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(int memberId, boolean showActiveAllocations, boolean showAllStoppedAllocations) {
+        assertMemberExists(memberId);
+
+        Member member = memberRepository.getById(memberId);
+        List<ParkingSpotAllocation> parkingSpotAllocations = parkingSpotAllocationRepository.findAllByMember(member);
+
+        List<ParkingSpotAllocation> parkingSpotAllocationsFiltered = parkingSpotAllocations.stream().filter(p1 -> p1.isInactive() && showAllStoppedAllocations).filter(p2 -> !p2.isInactive() && showActiveAllocations).collect(Collectors.toList());
+        return parkingSpotAllocationsFiltered.stream().map(parkingSpotAllocationMapper::toDto).collect(Collectors.toList());
     }
 }
