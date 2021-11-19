@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InvoiceService {
@@ -33,4 +34,9 @@ public class InvoiceService {
 
         return null;
     }
+
+    public List<InvoiceDto> getAllInvoices() {
+        return invoiceRepository.findAll().stream().map(invoiceMapper::toDto).collect(Collectors.toList());
+    }
+
 }

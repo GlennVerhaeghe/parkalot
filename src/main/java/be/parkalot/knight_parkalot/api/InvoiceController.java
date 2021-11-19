@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/invoices")
 public class InvoiceController {
@@ -28,5 +30,12 @@ public class InvoiceController {
     @SecurityGuard(SecurityGuard.ApiUserRole.MEMBER)
     public InvoiceDto getInvoice(@PathVariable int memberId) {
         return invoiceService.getInvoiceForMemberId(memberId);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
+    public List<InvoiceDto> getAllInvoices(){
+        return invoiceService.getAllInvoices();
     }
 }
