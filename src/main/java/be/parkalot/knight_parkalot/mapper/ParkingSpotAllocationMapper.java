@@ -24,8 +24,7 @@ public class ParkingSpotAllocationMapper {
 
         long parkingDurationMs = Duration.between(startTime, stopTime).toMillis();
         long amountOfSeconds = parkingDurationMs / 1000L;
-        String parkingDurationFormatted = String.format(
-                "%02d:%02d:%02d", amountOfSeconds / 3600L, (amountOfSeconds % 3600L) / 60L, amountOfSeconds % 60L);
+        String parkingDurationFormatted = String.format("%02d:%02d:%02d", amountOfSeconds / 3600L, (amountOfSeconds % 3600L) / 60L, amountOfSeconds % 60L);
 
         return new ParkingSpotAllocationDto(
                 parkingSpotAllocation.getId(),
