@@ -44,6 +44,8 @@ public class ParkingSpotAllocationService {
         LicensePlate licensePlate = member.getLicensePlate();
         ParkingLot parkingLot = parkingLotRepository.getById(createParkingSpotAllocationDto.getParkingLotId());
 
+        assertLicensePlateIsNotActiveYet(licensePlate);
+
         ParkingSpotAllocation allocation = parkingSpotAllocationMapper.toEntity(member, licensePlate, parkingLot);
         return parkingSpotAllocationMapper.toDto(parkingSpotAllocationRepository.save(allocation));
     }
@@ -55,9 +57,11 @@ public class ParkingSpotAllocationService {
                 throw new ParkingLotException("License Plate does not belong to this member");
             }
         }
+    }
 
-        ParkingSpotAllocation parkingSpotAllocation = parkingSpotAllocationRepository.findAllByLicensePlate().stream().filter(s -> !s.isInactive()).findFirst().orElse(null);
-        if(parkingSpotAllocation != null){
+    private void assertLicensePlateIsNotActiveYet(LicensePlate licensePlate) {
+        ParkingSpotAllocation parkingSpotAllocation = parkingSpotAllocationRepository.findAllByLicensePlate(licensePlate).stream().filter(s -> !s.isInactive()).findFirst().orElse(null);
+        if (parkingSpotAllocation != null) {
             throw new ParkingLotException("License Plate already has an allocated parking spot");
         }
     }

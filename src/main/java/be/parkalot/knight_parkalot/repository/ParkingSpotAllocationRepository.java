@@ -1,5 +1,6 @@
 package be.parkalot.knight_parkalot.repository;
 
+import be.parkalot.knight_parkalot.domain.LicensePlate;
 import be.parkalot.knight_parkalot.domain.ParkingSpotAllocation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,5 +12,5 @@ public interface ParkingSpotAllocationRepository extends JpaRepository<ParkingSp
     List<ParkingSpotAllocation> findByOrderByStartingTimeAsc();
     List<ParkingSpotAllocation> findByOrderByStartingTimeDesc();
 
-    List<ParkingSpotAllocation> findAllByLicensePlate();
+    List<ParkingSpotAllocation> findAllByLicensePlate(LicensePlate licensePlate);
 }
