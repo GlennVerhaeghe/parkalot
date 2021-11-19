@@ -17,5 +17,5 @@ public interface ParkingSpotAllocationRepository extends JpaRepository<ParkingSp
     List<ParkingSpotAllocation> findAllByLicensePlate(LicensePlate licensePlate);
 
     List<ParkingSpotAllocation> findAllByMember(Member member);
-
+    List<ParkingSpotAllocation> findAllByParkingLot(ParkingLot parkingLot);
 }

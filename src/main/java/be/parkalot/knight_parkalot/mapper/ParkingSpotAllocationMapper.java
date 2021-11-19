@@ -7,6 +7,9 @@ import be.parkalot.knight_parkalot.domain.ParkingSpotAllocation;
 import be.parkalot.knight_parkalot.dto.ParkingSpotAllocationDto;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 @Component
 public class ParkingSpotAllocationMapper {
 
@@ -15,11 +18,20 @@ public class ParkingSpotAllocationMapper {
     }
 
     public ParkingSpotAllocationDto toDto(ParkingSpotAllocation parkingSpotAllocation) {
+
+        LocalDateTime startTime = parkingSpotAllocation.getStartingTime();
+        LocalDateTime stopTime = parkingSpotAllocation.getEndingTime() != null ? parkingSpotAllocation.getEndingTime() : LocalDateTime.now();
+
+        long parkingDurationMs = Duration.between(startTime, stopTime).toMillis();
+        long amountOfSeconds = parkingDurationMs / 1000L;
+        String parkingDurationFormatted = String.format("%02d:%02d:%02d", amountOfSeconds / 3600L, (amountOfSeconds % 3600L) / 60L, amountOfSeconds % 60L);
+
         return new ParkingSpotAllocationDto(
                 parkingSpotAllocation.getId(),
                 parkingSpotAllocation.getParkingLot().getId(),
                 parkingSpotAllocation.getMember().getId(),
-                parkingSpotAllocation.getLicensePlate().getNumber());
+                parkingSpotAllocation.getLicensePlate().getNumber(), parkingDurationFormatted);
     }
+
 
 }
