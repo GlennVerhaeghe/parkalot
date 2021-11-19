@@ -75,14 +75,14 @@ public class ParkingSpotAllocationService {
     }
 
     private void assertParkingLotHasFreeSpots(int parkingLotId) {
-        if (parkingLotRepository.getById(parkingLotId).getMaxCapacity() < usedParkSpots(parkingLotId)) {
+        if (parkingLotRepository.getById(parkingLotId).getMaxCapacity() <= usedParkSpots(parkingLotId)) {
             throw new ParkingLotException("No free spaces left");
         }
     }
 
 
     private int usedParkSpots(int parkingLotId) {
-        return (int) parkingSpotAllocationRepository.findAll().stream().filter(s -> s.getStatus().isActive())
+        return (int) parkingSpotAllocationRepository.findAll().stream().filter(s -> !s.getStatus().isActive())
                 .filter(id -> id.getParkingLot().getId() == parkingLotId)
                 .count();
     }
