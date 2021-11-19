@@ -75,7 +75,7 @@ public class ParkingSpotAllocationService {
     }
 
     private void assertParkingLotHasFreeSpots(int parkingLotId) {
-        if (parkingLotRepository.getById(parkingLotId).getMaxCapacity() <= usedParkSpots(parkingLotId)) {
+        if (parkingLotRepository.getById(parkingLotId).getMaxCapacity() < usedParkSpots(parkingLotId)) {
             throw new ParkingLotException("No free spaces left");
         }
     }
