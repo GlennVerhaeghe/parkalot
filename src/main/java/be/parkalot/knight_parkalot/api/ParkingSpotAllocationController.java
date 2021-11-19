@@ -49,14 +49,14 @@ public class ParkingSpotAllocationController {
         return parkingSpotAllocationService.stopAllocating(memberId, parkingSpotAllocationId);
     }
 
-    @GetMapping(path = "/{memberId}", produces = MediaType.APPLICATION_JSON_VALUE)
+/*    @GetMapping(path = "/{memberId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
     public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(@PathVariable int memberId,
                                                                            @RequestParam(required = false) boolean showActiveAllocations,
                                                                            @RequestParam(required = false) boolean showAllStoppedAllocations) {
         return parkingSpotAllocationService.getAllParkingAllocationsByMember(memberId, showActiveAllocations, showAllStoppedAllocations);
-    }
+    }*/
 
 
 }

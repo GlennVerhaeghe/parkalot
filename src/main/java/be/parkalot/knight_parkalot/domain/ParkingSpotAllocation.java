@@ -33,8 +33,9 @@ public class ParkingSpotAllocation {
     @Column(name = "ending_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime endingTime;
 
-    @Column(name = "inactive")
-    private boolean inactive;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private ParkingSpotAllocationStatus status;
 
     public ParkingSpotAllocation() {
     }
@@ -70,15 +71,16 @@ public class ParkingSpotAllocation {
         return endingTime;
     }
 
-    public boolean isInactive() {
-        return inactive;
+    public ParkingSpotAllocationStatus getStatus() {
+        return status;
     }
 
-    public void setInactive(boolean inactive) {
-        this.inactive = inactive;
+    public void setStatus(ParkingSpotAllocationStatus status) {
+        this.status = status;
     }
 
     public void setEndingTime(LocalDateTime endingTime) {
         this.endingTime = endingTime;
     }
+
 }

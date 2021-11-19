@@ -61,7 +61,8 @@ public class ParkingSpotAllocationService {
     }
 
     private void assertLicensePlateIsNotActiveYet(LicensePlate licensePlate) {
-        ParkingSpotAllocation parkingSpotAllocation = parkingSpotAllocationRepository.findAllByLicensePlate(licensePlate).stream().filter(s -> !s.isInactive()).findFirst().orElse(null);
+        ParkingSpotAllocation parkingSpotAllocation = parkingSpotAllocationRepository.findAllByLicensePlate(licensePlate).stream()
+                .filter(s -> s.getStatus().isActive()).findFirst().orElse(null);
         if (parkingSpotAllocation != null) {
             throw new ParkingLotException("License Plate already has an allocated parking spot");
         }
@@ -81,7 +82,7 @@ public class ParkingSpotAllocationService {
 
 
     private int usedParkSpots(int parkingLotId) {
-        return (int) parkingSpotAllocationRepository.findAll().stream().filter(s -> !s.isInactive())
+        return (int) parkingSpotAllocationRepository.findAll().stream().filter(s -> s.getStatus().isActive())
                 .filter(id -> id.getParkingLot().getId() == parkingLotId)
                 .count();
     }
@@ -114,9 +115,9 @@ public class ParkingSpotAllocationService {
         }
 
         if (validatedStatus.equalsIgnoreCase("active")) {
-            result = result.stream().filter(p -> !p.isInactive()).toList();
+            result = result.stream().filter(p -> p.getStatus().isActive()).toList();
         } else if (validatedStatus.equalsIgnoreCase("passive")) {
-            result = result.stream().filter(ParkingSpotAllocation::isInactive).toList();
+            result = result.stream().filter(p -> !p.getStatus().isActive()).toList();
         }
 
         if (validatedLimit != 0) {
@@ -145,17 +146,17 @@ public class ParkingSpotAllocationService {
             throw new ParkingLotException("The provided member has to be the owner of the parking spot!");
         }
 
-        if (parkingSpotAllocation.isInactive()) {
+        if (!parkingSpotAllocation.getStatus().isActive()) {
             throw new ParkingLotException("The provided parking spot is already inactive!");
         }
 
-        parkingSpotAllocation.setInactive(true);
+        parkingSpotAllocation.setStatus(ParkingSpotAllocationStatus.INACTIVE);
         parkingSpotAllocation.setEndingTime(LocalDateTime.now());
 
         return parkingSpotAllocationMapper.toDto(parkingSpotAllocation);
     }
 
-    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(int memberId, boolean showActiveAllocations, boolean showAllStoppedAllocations) {
+/*    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(int memberId, boolean showActiveAllocations, boolean showAllStoppedAllocations) {
         assertMemberExists(memberId);
 
         Member member = memberRepository.getById(memberId);
@@ -163,5 +164,5 @@ public class ParkingSpotAllocationService {
 
         List<ParkingSpotAllocation> parkingSpotAllocationsFiltered = parkingSpotAllocations.stream().filter(p1 -> p1.isInactive() && showAllStoppedAllocations).filter(p2 -> !p2.isInactive() && showActiveAllocations).collect(Collectors.toList());
         return parkingSpotAllocationsFiltered.stream().map(parkingSpotAllocationMapper::toDto).collect(Collectors.toList());
-    }
+    }*/
 }
