@@ -1,17 +1,16 @@
 package be.parkalot.knight_parkalot.dto;
 
-
 import java.util.Objects;
 
 public class CreateParkingSpotAllocationDto {
 
     private final int memberId;
-    private final String licensePlateNumber;
+    private final LicensePlateDto licensePlateDto;
     private final int parkingLotId;
 
-    public CreateParkingSpotAllocationDto(int memberId, String licensePlateNumber, int parkingLotId) {
+    public CreateParkingSpotAllocationDto(int memberId, LicensePlateDto licensePlateDto, int parkingLotId) {
         this.memberId = memberId;
-        this.licensePlateNumber = licensePlateNumber;
+        this.licensePlateDto = licensePlateDto;
         this.parkingLotId = parkingLotId;
     }
 
@@ -19,8 +18,8 @@ public class CreateParkingSpotAllocationDto {
         return memberId;
     }
 
-    public String getLicensePlateNumber() {
-        return licensePlateNumber;
+    public LicensePlateDto getLicensePlateDto() {
+        return licensePlateDto;
     }
 
     public int getParkingLotId() {
@@ -29,14 +28,18 @@ public class CreateParkingSpotAllocationDto {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         CreateParkingSpotAllocationDto that = (CreateParkingSpotAllocationDto) o;
-        return memberId == that.memberId && parkingLotId == that.parkingLotId && Objects.equals(licensePlateNumber, that.licensePlateNumber);
+        return memberId == that.memberId && parkingLotId == that.parkingLotId && Objects.equals(licensePlateDto, that.licensePlateDto);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, licensePlateNumber, parkingLotId);
+        return Objects.hash(memberId, licensePlateDto, parkingLotId);
     }
 }

@@ -25,13 +25,15 @@ public class ParkingSpotAllocationService {
     private final ParkingSpotAllocationRepository parkingSpotAllocationRepository;
     private final MemberRepository memberRepository;
     private final ParkingLotRepository parkingLotRepository;
+    private final LicensePlateService licensePlateService;
 
     @Autowired
-    public ParkingSpotAllocationService(ParkingSpotAllocationMapper parkingSpotAllocationMapper, ParkingSpotAllocationRepository parkingSpotAllocationRepository, MemberRepository memberRepository, ParkingLotRepository parkingLotRepository) {
+    public ParkingSpotAllocationService(ParkingSpotAllocationMapper parkingSpotAllocationMapper, ParkingSpotAllocationRepository parkingSpotAllocationRepository, MemberRepository memberRepository, ParkingLotRepository parkingLotRepository, LicensePlateService licensePlateService) {
         this.parkingSpotAllocationMapper = parkingSpotAllocationMapper;
         this.parkingSpotAllocationRepository = parkingSpotAllocationRepository;
         this.memberRepository = memberRepository;
         this.parkingLotRepository = parkingLotRepository;
+        this.licensePlateService = licensePlateService;
     }
 
     public ParkingSpotAllocationDto startAllocating(CreateParkingSpotAllocationDto createParkingSpotAllocationDto) {
@@ -39,16 +41,21 @@ public class ParkingSpotAllocationService {
         assertParkingLotExists(createParkingSpotAllocationDto.getParkingLotId());
         assertParkingLotHasFreeSpots(createParkingSpotAllocationDto.getParkingLotId());
         assertMemberExists(createParkingSpotAllocationDto.getMemberId());
-        assertLicensePlateIsValid(createParkingSpotAllocationDto.getMemberId(), createParkingSpotAllocationDto.getLicensePlateNumber());
+        assertLicensePlateIsValid(createParkingSpotAllocationDto.getMemberId(), createParkingSpotAllocationDto.getLicensePlateDto().getNumber());
 
         Member member = memberRepository.getById(createParkingSpotAllocationDto.getMemberId());
-        LicensePlate licensePlate = member.getLicensePlate();
+
+        LicensePlate licensePlate = getLicensePlate(createParkingSpotAllocationDto);
         ParkingLot parkingLot = parkingLotRepository.getById(createParkingSpotAllocationDto.getParkingLotId());
 
         assertLicensePlateIsNotActiveYet(licensePlate);
 
         ParkingSpotAllocation allocation = parkingSpotAllocationMapper.toEntity(member, licensePlate, parkingLot);
         return parkingSpotAllocationMapper.toDto(parkingSpotAllocationRepository.save(allocation));
+    }
+
+    private LicensePlate getLicensePlate(CreateParkingSpotAllocationDto createParkingSpotAllocationDto) {
+        return licensePlateService.getLicensePlateNumber(createParkingSpotAllocationDto.getLicensePlateDto());
     }
 
     private void assertLicensePlateIsValid(int memberId, String licensePlateNumber) {
