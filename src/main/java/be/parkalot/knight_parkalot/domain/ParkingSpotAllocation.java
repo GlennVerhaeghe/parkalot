@@ -45,6 +45,7 @@ public class ParkingSpotAllocation {
         this.licensePlate = licensePlate;
         this.parkingLot = parkingLot;
         this.startingTime = LocalDateTime.now();
+        this.status = ParkingSpotAllocationStatus.ACTIVE;
     }
 
     public int getId() {
