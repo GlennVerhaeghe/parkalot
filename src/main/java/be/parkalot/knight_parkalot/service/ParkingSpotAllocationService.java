@@ -2,9 +2,11 @@ package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.*;
 import be.parkalot.knight_parkalot.dto.CreateParkingSpotAllocationDto;
+import be.parkalot.knight_parkalot.dto.LicensePlateDto;
 import be.parkalot.knight_parkalot.dto.ParkingSpotAllocationDto;
 import be.parkalot.knight_parkalot.exceptions.MemberNotFoundException;
 import be.parkalot.knight_parkalot.exceptions.ParkingLotException;
+import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
 import be.parkalot.knight_parkalot.mapper.ParkingSpotAllocationMapper;
 import be.parkalot.knight_parkalot.repository.MemberRepository;
 import be.parkalot.knight_parkalot.repository.ParkingLotRepository;
@@ -26,14 +28,16 @@ public class ParkingSpotAllocationService {
     private final MemberRepository memberRepository;
     private final ParkingLotRepository parkingLotRepository;
     private final LicensePlateService licensePlateService;
+    private final LicensePlateMapper licensePlateMapper;
 
     @Autowired
-    public ParkingSpotAllocationService(ParkingSpotAllocationMapper parkingSpotAllocationMapper, ParkingSpotAllocationRepository parkingSpotAllocationRepository, MemberRepository memberRepository, ParkingLotRepository parkingLotRepository, LicensePlateService licensePlateService) {
+    public ParkingSpotAllocationService(ParkingSpotAllocationMapper parkingSpotAllocationMapper, ParkingSpotAllocationRepository parkingSpotAllocationRepository, MemberRepository memberRepository, ParkingLotRepository parkingLotRepository, LicensePlateService licensePlateService, LicensePlateMapper licensePlateMapper) {
         this.parkingSpotAllocationMapper = parkingSpotAllocationMapper;
         this.parkingSpotAllocationRepository = parkingSpotAllocationRepository;
         this.memberRepository = memberRepository;
         this.parkingLotRepository = parkingLotRepository;
         this.licensePlateService = licensePlateService;
+        this.licensePlateMapper = licensePlateMapper;
     }
 
     public ParkingSpotAllocationDto startAllocating(CreateParkingSpotAllocationDto createParkingSpotAllocationDto) {
@@ -41,7 +45,7 @@ public class ParkingSpotAllocationService {
         assertParkingLotExists(createParkingSpotAllocationDto.getParkingLotId());
         assertParkingLotHasFreeSpots(createParkingSpotAllocationDto.getParkingLotId());
         assertMemberExists(createParkingSpotAllocationDto.getMemberId());
-        assertLicensePlateIsValid(createParkingSpotAllocationDto.getMemberId(), createParkingSpotAllocationDto.getLicensePlateDto().getNumber());
+        assertLicensePlateIsValid(createParkingSpotAllocationDto.getMemberId(), createParkingSpotAllocationDto.getLicensePlateDto());
 
         Member member = memberRepository.getById(createParkingSpotAllocationDto.getMemberId());
 
@@ -58,9 +62,9 @@ public class ParkingSpotAllocationService {
         return licensePlateService.getLicensePlateNumber(createParkingSpotAllocationDto.getLicensePlateDto());
     }
 
-    private void assertLicensePlateIsValid(int memberId, String licensePlateNumber) {
+    private void assertLicensePlateIsValid(int memberId, LicensePlateDto licensePlate) {
         Member member = memberRepository.getById(memberId);
-        if (!member.getLicensePlate().getNumber().equals(licensePlateNumber)) {
+        if (!member.getLicensePlate().equals(licensePlateMapper.toEntity(licensePlate))) {
             if (member.getMembershipLevel().getId() != MembershipLevel.GOLD_ID) {
                 throw new ParkingLotException("License Plate does not belong to this member");
             }
@@ -68,6 +72,7 @@ public class ParkingSpotAllocationService {
     }
 
     private void assertLicensePlateIsNotActiveYet(LicensePlate licensePlate) {
+        System.out.println(licensePlate.getNumber() + " " + licensePlate.getCountryCode());
         ParkingSpotAllocation parkingSpotAllocation = parkingSpotAllocationRepository.findAllByLicensePlate(licensePlate).stream()
                 .filter(s -> s.getStatus().isActive()).findFirst().orElse(null);
         if (parkingSpotAllocation != null) {

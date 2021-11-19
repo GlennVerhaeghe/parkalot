@@ -46,4 +46,12 @@ public class LicensePlate {
     public int hashCode() {
         return Objects.hash(number, countryCode);
     }
+
+    @Override
+    public String toString() {
+        return "LicensePlate{" +
+                "number='" + number + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                '}';
+    }
 }
