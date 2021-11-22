@@ -16,6 +16,8 @@ import java.util.List;
 @Transactional
 public class InvoiceItemService {
 
+    private static final double FINE_PER_HOUR_EXCEEDING_ALLOWED_PARKING_TIME = 2.5;
+
     private final ParkingSpotAllocationService parkingSpotAllocationService;
 
     @Autowired
@@ -28,9 +30,9 @@ public class InvoiceItemService {
         return generateInvoiceItems(parkingSpotAllocations);
     }
 
-    private List<InvoiceItem> generateInvoiceItems(List<ParkingSpotAllocation> parkingSpotAllocations) {
+    private List<InvoiceItem> generateInvoiceItems(List<ParkingSpotAllocation> inactiveParkingSpotAllocations) {
         List<InvoiceItem> invoiceItems = new ArrayList<>();
-        parkingSpotAllocations.forEach(parkingSpotAllocation -> {
+        inactiveParkingSpotAllocations.forEach(parkingSpotAllocation -> {
             InvoiceItem invoiceItem = new InvoiceItem();
             invoiceItem.setParkingSpotAllocation(parkingSpotAllocation);
             invoiceItem.setPrice(calculatePrice(parkingSpotAllocation));
@@ -51,7 +53,7 @@ public class InvoiceItemService {
 
     private double calculateFine(double hours, int allowedAllocationHours) {
         if (allowedAllocationHours < hours) {
-            return (hours - allowedAllocationHours) * 2.5;
+            return (hours - allowedAllocationHours) * FINE_PER_HOUR_EXCEEDING_ALLOWED_PARKING_TIME;
         }
         return 0;
     }

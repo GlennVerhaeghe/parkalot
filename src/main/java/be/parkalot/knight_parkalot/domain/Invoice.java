@@ -15,7 +15,6 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_seq")
     private int id;
 
-    /*@OneToMany(mappedBy = "invoice", cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)*/
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "invoice_id")
     private List<InvoiceItem> invoiceItems = new ArrayList<>();
