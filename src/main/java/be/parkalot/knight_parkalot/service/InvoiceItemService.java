@@ -30,13 +30,13 @@ public class InvoiceItemService {
 
     private List<InvoiceItem> generateInvoiceItems(List<ParkingSpotAllocation> parkingSpotAllocations) {
         List<InvoiceItem> invoiceItems = new ArrayList<>();
-        for (ParkingSpotAllocation parkingSpotAllocation : parkingSpotAllocations) {
+        parkingSpotAllocations.forEach(parkingSpotAllocation -> {
             InvoiceItem invoiceItem = new InvoiceItem();
             invoiceItem.setParkingSpotAllocation(parkingSpotAllocation);
             invoiceItem.setPrice(calculatePrice(parkingSpotAllocation));
             parkingSpotAllocation.setStatus(ParkingSpotAllocationStatus.INVOICED);
             invoiceItems.add(invoiceItem);
-        }
+        });
         return invoiceItems;
     }
 
