@@ -49,7 +49,7 @@ public class InvoiceService {
         invoice.setClosed(false);
         logger.info("Invoice set to closed = false");
         invoice.setCreationDate(LocalDate.now());
-        logger.info("Invoice creationdate set");
+        logger.info("Invoice creationDate set");
         invoice.setExpirationDate(LocalDate.now().plusDays(7));
         logger.info("Invoice expirationDate set");
         invoice.setTotalPrice(calculateTotalPrice(invoice));

@@ -89,19 +89,4 @@ class MemberServiceTest {
         //then
         assertThrows(MissingArgumentsException.class, () -> memberService.registerMember(testDto));
     }
-
-  /*  @Test
-    void addNewMember_whenMailAlreadyExists_throwsException() {
-        //given
-        CreateMemberDto testDto = new CreateMemberDto(new CreateNameDto("Jean", "Paul"),
-                new AddressDto("Beerstraat", "69", new PostalCodeDto(1000, "Brussel")),
-                "0469696969",
-                "69@soixanteneu.be",
-                new LicensePlateDto("1-ABC-985", "FR"),
-                1);
-        Mockito.when(memberService.registerMember(testDto)).thenThrow(NotUniqueException.class);
-        //then
-        assertThrows(NotUniqueException.class, () -> memberService.registerMember(testDto));
-    }*/
-
 }
