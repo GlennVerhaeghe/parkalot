@@ -1,4 +1,5 @@
 package be.parkalot.knight_parkalot.switchsecure;
+
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.security.SecurityScheme;
@@ -29,7 +30,8 @@ public class VerySecureSecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public OpenAPI addJWTAuthorizationHeaderToSwagger() {
-        https://github.com/springdoc/springdoc-openapi/issues/49
+        https:
+//github.com/springdoc/springdoc-openapi/issues/49
         return new OpenAPI().components(new Components().addSecuritySchemes("bearer-key",
                 new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
     }

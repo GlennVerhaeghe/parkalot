@@ -1,6 +1,6 @@
 package be.parkalot.knight_parkalot.dto.invoice;
 
-import be.parkalot.knight_parkalot.dto.ParkingSpotAllocationDto;
+import be.parkalot.knight_parkalot.dto.parkingSpotAllocation.ParkingSpotAllocationDto;
 
 public class InvoiceItemDto {
     private final int id;

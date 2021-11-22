@@ -1,8 +1,8 @@
 package be.parkalot.knight_parkalot.api;
 
-import be.parkalot.knight_parkalot.dto.CreateMemberDto;
-import be.parkalot.knight_parkalot.dto.MemberDto;
-import be.parkalot.knight_parkalot.dto.MemberDetailsDto;
+import be.parkalot.knight_parkalot.dto.member.CreateMemberDto;
+import be.parkalot.knight_parkalot.dto.member.MemberDetailsDto;
+import be.parkalot.knight_parkalot.dto.member.MemberDto;
 import be.parkalot.knight_parkalot.service.MemberService;
 import be.parkalot.knight_parkalot.switchsecure.SecurityGuard;
 import org.slf4j.Logger;

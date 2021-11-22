@@ -2,7 +2,7 @@ package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.ContactPerson;
 import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.CreateParkingLotDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.CreateParkingLotDto;
 import be.parkalot.knight_parkalot.mapper.ContactPersonMapper;
 import be.parkalot.knight_parkalot.repository.ContactPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;

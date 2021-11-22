@@ -86,7 +86,7 @@ public class Invoice {
         this.totalPrice = totalPrice;
     }
 
-    public void addInvoiceItem (InvoiceItem invoiceItem) {
+    public void addInvoiceItem(InvoiceItem invoiceItem) {
         this.invoiceItems.add(invoiceItem);
     }
 }

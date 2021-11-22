@@ -1,7 +1,7 @@
 package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.PostalCodeDto;
+import be.parkalot.knight_parkalot.dto.address.PostalCodeDto;
 import be.parkalot.knight_parkalot.mapper.PostalCodeMapper;
 import be.parkalot.knight_parkalot.repository.PostalCodeRepository;
 import org.slf4j.Logger;

@@ -1,13 +1,9 @@
 package be.parkalot.knight_parkalot.mapper;
 
-import be.parkalot.knight_parkalot.domain.ContactPerson;
-import be.parkalot.knight_parkalot.domain.Division;
-import be.parkalot.knight_parkalot.domain.ParkingLot;
-import be.parkalot.knight_parkalot.domain.ParkingLotCategory;
-import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.CreateParkingLotDto;
-import be.parkalot.knight_parkalot.dto.ParkingLotDetailsDto;
-import be.parkalot.knight_parkalot.dto.ParkingLotDto;
+import be.parkalot.knight_parkalot.domain.*;
+import be.parkalot.knight_parkalot.dto.parkingLot.CreateParkingLotDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.ParkingLotDetailsDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.ParkingLotDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

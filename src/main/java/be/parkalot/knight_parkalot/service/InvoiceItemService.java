@@ -1,10 +1,9 @@
-package be.parkalot.knight_parkalot.service.invoice;
+package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.InvoiceItem;
 import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.ParkingSpotAllocation;
 import be.parkalot.knight_parkalot.domain.ParkingSpotAllocationStatus;
-import be.parkalot.knight_parkalot.service.ParkingSpotAllocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +41,7 @@ public class InvoiceItemService {
     }
 
     private double calculatePrice(ParkingSpotAllocation parkingSpotAllocation) {
-        double hours = Math.ceil(Duration.between(parkingSpotAllocation.getStartingTime(), parkingSpotAllocation.getEndingTime()).toMillis()/ 1000d / 60 /60);
+        double hours = Math.ceil(Duration.between(parkingSpotAllocation.getStartingTime(), parkingSpotAllocation.getEndingTime()).toMillis() / 1000d / 60 / 60);
         double pricePerHour = parkingSpotAllocation.getParkingLot().getPricePerHour();
         double reduction = parkingSpotAllocation.getMember().getMembershipLevel().getReductionPercentage();
         double fine = calculateFine(hours, parkingSpotAllocation.getMember().getMembershipLevel().getMaxAllowedAllocationHours());

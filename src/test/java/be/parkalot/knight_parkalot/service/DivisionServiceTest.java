@@ -2,7 +2,7 @@ package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.Division;
 import be.parkalot.knight_parkalot.domain.Name;
-import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
+import be.parkalot.knight_parkalot.dto.division.CreateDivisionDto;
 import be.parkalot.knight_parkalot.dto.NameDto;
 import be.parkalot.knight_parkalot.exceptions.DivisionNotFoundException;
 import be.parkalot.knight_parkalot.mapper.DivisionMapper;

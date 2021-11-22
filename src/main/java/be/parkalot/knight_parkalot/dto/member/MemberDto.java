@@ -1,4 +1,7 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.member;
+
+import be.parkalot.knight_parkalot.dto.NameDto;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
 
 import java.time.LocalDate;
 

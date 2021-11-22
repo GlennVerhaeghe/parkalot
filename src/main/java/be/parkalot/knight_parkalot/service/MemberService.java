@@ -4,7 +4,10 @@ package be.parkalot.knight_parkalot.service;
 import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.*;
+import be.parkalot.knight_parkalot.dto.member.CreateMemberDto;
+import be.parkalot.knight_parkalot.dto.member.LicensePlateDto;
+import be.parkalot.knight_parkalot.dto.member.MemberDetailsDto;
+import be.parkalot.knight_parkalot.dto.member.MemberDto;
 import be.parkalot.knight_parkalot.exceptions.DatabaseProblemException;
 import be.parkalot.knight_parkalot.exceptions.MemberNotFoundException;
 import be.parkalot.knight_parkalot.exceptions.NotUniqueException;
@@ -63,6 +66,26 @@ public class MemberService {
         memberInputValidation.validate();
     }
 
+    public List<MemberDetailsDto> getAllMembers() {
+        return memberRepository.findAll().stream().map(memberMapper::toRetrieveMemberDto).collect(Collectors.toList());
+    }
+
+    public MemberDto getMemberDtoById(int memberId) {
+        return memberMapper.toDto(getMemberById(memberId));
+    }
+
+    public Member getMemberById(int memberId) {
+        assertIdExistsInDatabase(memberId);
+        return memberRepository.findById(memberId).get();
+    }
+
+    public MemberDto changeMembershipLevel(int memberId, int newMembershipLevelId) {
+        MembershipLevel membershipLevel = getMembershipLevel(newMembershipLevelId);
+        Member member = getMemberById(memberId);
+        member.setMembershipLevel(membershipLevel);
+        return memberMapper.toDto(member);
+    }
+
     private MembershipLevel getMembershipLevel(int membershipId) {
         logger.info("getMembershipLevel() called");
         Optional<MembershipLevel> membershipLevelOptional = membershipLevelRepository.findById(membershipId);
@@ -98,25 +121,5 @@ public class MemberService {
         if (!memberRepository.existsById(id)) {
             throw new MemberNotFoundException("No member found with id: " + id);
         }
-    }
-
-    public List<MemberDetailsDto> getAllMembers() {
-        return memberRepository.findAll().stream().map(memberMapper::toRetrieveMemberDto).collect(Collectors.toList());
-    }
-
-    public MemberDto getMemberDtoById(int memberId) {
-        return memberMapper.toDto(getMemberById(memberId));
-    }
-
-    public Member getMemberById(int memberId) {
-        assertIdExistsInDatabase(memberId);
-        return memberRepository.findById(memberId).get();
-    }
-
-    public MemberDto changeMembershipLevel(int memberId, int newMembershipLevelId) {
-        MembershipLevel membershipLevel = getMembershipLevel(newMembershipLevelId);
-        Member member = getMemberById(memberId);
-        member.setMembershipLevel(membershipLevel);
-        return memberMapper.toDto(member);
     }
 }

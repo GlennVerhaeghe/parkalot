@@ -1,6 +1,6 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
-import be.parkalot.knight_parkalot.dto.AddressDto;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
 import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
 
 public class AddressInputValidation {

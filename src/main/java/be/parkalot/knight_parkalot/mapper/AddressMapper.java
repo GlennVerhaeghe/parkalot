@@ -2,7 +2,7 @@ package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.Address;
 import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.AddressDto;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

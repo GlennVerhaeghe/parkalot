@@ -1,10 +1,13 @@
 package be.parkalot.knight_parkalot.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name="license_plate")
+@Table(name = "license_plate")
 public class LicensePlate {
 
     @Id

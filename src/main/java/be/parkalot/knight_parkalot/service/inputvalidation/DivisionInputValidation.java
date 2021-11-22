@@ -1,6 +1,6 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
-import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
+import be.parkalot.knight_parkalot.dto.division.CreateDivisionDto;
 import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
 
 public class DivisionInputValidation {

@@ -1,4 +1,6 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.parkingSpotAllocation;
+
+import be.parkalot.knight_parkalot.dto.member.LicensePlateDto;
 
 import java.util.Objects;
 

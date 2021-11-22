@@ -1,6 +1,7 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.member;
 
-import java.time.LocalDate;
+import be.parkalot.knight_parkalot.dto.NameDto;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
 
 public class CreateMemberDto {
 
@@ -39,7 +40,6 @@ public class CreateMemberDto {
     public LicensePlateDto getLicensePlateDto() {
         return licensePlateDto;
     }
-
 
 
     public int getMembershipLevelID() {

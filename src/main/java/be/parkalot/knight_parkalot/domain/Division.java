@@ -22,7 +22,7 @@ public class Division {
     private Name directorName;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_id",referencedColumnName = "id")
+    @JoinColumn(name = "parent_id", referencedColumnName = "id")
     private Division parentDivision;
 
     public Division() {

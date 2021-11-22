@@ -2,8 +2,8 @@ package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.ContactPerson;
 import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.ContactPersonDto;
-import be.parkalot.knight_parkalot.dto.CreateContactPersonDto;
+import be.parkalot.knight_parkalot.dto.contactPerson.ContactPersonDto;
+import be.parkalot.knight_parkalot.dto.contactPerson.CreateContactPersonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ContactPersonRepository extends JpaRepository<ContactPerson, Integer> {
 
     boolean existsByEmail(String email);
+
     ContactPerson getByEmail(String email);
 }

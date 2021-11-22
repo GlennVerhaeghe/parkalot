@@ -1,8 +1,11 @@
 package be.parkalot.knight_parkalot.service;
 
-import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.dto.*;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
+import be.parkalot.knight_parkalot.dto.address.PostalCodeDto;
+import be.parkalot.knight_parkalot.dto.member.CreateMemberDto;
+import be.parkalot.knight_parkalot.dto.member.LicensePlateDto;
 import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
 import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
 import be.parkalot.knight_parkalot.mapper.MemberMapper;

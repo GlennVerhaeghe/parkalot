@@ -1,17 +1,16 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.parkingLot;
+
+import be.parkalot.knight_parkalot.dto.contactPerson.CreateContactPersonDto;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
 
 public class CreateParkingLotDto {
-    private String name;
-    private int maxCapacity;
-    private CreateContactPersonDto contactPersonDto;
-    private AddressDto addressDto;
-    private double pricePerHour;
-    private int parkingLotCategoryId;
-    private int divisionId;
-
-    public CreateParkingLotDto(){
-
-    }
+    private final String name;
+    private final int maxCapacity;
+    private final CreateContactPersonDto contactPersonDto;
+    private final AddressDto addressDto;
+    private final double pricePerHour;
+    private final int parkingLotCategoryId;
+    private final int divisionId;
 
     public CreateParkingLotDto(String name, int maxCapacity, CreateContactPersonDto contactPersonDto,
                                AddressDto addressDto, double pricePerHour, int parkingLotCategoryId, int divisionId) {

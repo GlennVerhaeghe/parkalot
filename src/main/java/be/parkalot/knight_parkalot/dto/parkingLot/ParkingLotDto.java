@@ -1,14 +1,11 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.parkingLot;
 
 public class ParkingLotDto {
-    private int id;
-    private String name;
-    private int maxCapacity;
-    private String contactPersonEmail;
-    private String contactPersonPhoneNumber;
-
-    public ParkingLotDto() {
-    }
+    private final int id;
+    private final String name;
+    private final int maxCapacity;
+    private final String contactPersonEmail;
+    private final String contactPersonPhoneNumber;
 
     public ParkingLotDto(Builder builder) {
         id = builder.id;

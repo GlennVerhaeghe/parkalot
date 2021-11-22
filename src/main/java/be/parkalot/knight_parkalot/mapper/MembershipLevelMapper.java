@@ -1,7 +1,7 @@
 package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
-import be.parkalot.knight_parkalot.dto.MembershipLevelDto;
+import be.parkalot.knight_parkalot.dto.member.MembershipLevelDto;
 import org.springframework.stereotype.Component;
 
 @Component

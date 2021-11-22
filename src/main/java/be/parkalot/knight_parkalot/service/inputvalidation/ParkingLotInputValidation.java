@@ -1,6 +1,6 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
-import be.parkalot.knight_parkalot.dto.CreateParkingLotDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.CreateParkingLotDto;
 import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
 
 public class ParkingLotInputValidation {
@@ -20,11 +20,11 @@ public class ParkingLotInputValidation {
         addressInputValidation.validate();
         contactPersonInputValidation.validate();
 
-        if(createParkingLotDto.getName() == null || createParkingLotDto.getName().isBlank()){
+        if (createParkingLotDto.getName() == null || createParkingLotDto.getName().isBlank()) {
             throw new MissingArgumentsException("Parking lot name has to be provided");
         }
 
-        if(createParkingLotDto.getMaxCapacity() <= 0){
+        if (createParkingLotDto.getMaxCapacity() <= 0) {
             throw new IllegalArgumentException("Capacity has to be positive");
         }
 

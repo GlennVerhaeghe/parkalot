@@ -1,17 +1,17 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.contactPerson;
+
+import be.parkalot.knight_parkalot.dto.NameDto;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
 
 import java.util.Objects;
 
 public class ContactPersonDto {
-    private int id;
-    private NameDto name;
-    private String mobilePhoneNumber;
-    private String telephoneNumber;
-    private String email;
-    private AddressDto addressDto;
-
-    public ContactPersonDto() {
-    }
+    private final int id;
+    private final NameDto name;
+    private final String mobilePhoneNumber;
+    private final String telephoneNumber;
+    private final String email;
+    private final AddressDto addressDto;
 
     private ContactPersonDto(Builder builder) {
         id = builder.id;

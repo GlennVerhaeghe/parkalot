@@ -3,7 +3,7 @@ package be.parkalot.knight_parkalot.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name="membership_level")
+@Table(name = "membership_level")
 public class MembershipLevel {
 
     public static final int BRONZE_ID = 1;

@@ -1,4 +1,6 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.division;
+
+import be.parkalot.knight_parkalot.dto.NameDto;
 
 import java.util.Objects;
 

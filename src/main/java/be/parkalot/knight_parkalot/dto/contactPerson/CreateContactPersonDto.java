@@ -1,15 +1,15 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.contactPerson;
+
+import be.parkalot.knight_parkalot.dto.NameDto;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
 
 public class CreateContactPersonDto {
 
-    private NameDto nameDto;
-    private String mobilePhoneNumber;
-    private String telephoneNumber;
-    private String email;
-    private AddressDto addressDto;
-
-    public CreateContactPersonDto() {
-    }
+    private final NameDto nameDto;
+    private final String mobilePhoneNumber;
+    private final String telephoneNumber;
+    private final String email;
+    private final AddressDto addressDto;
 
     public CreateContactPersonDto(NameDto nameDto, String mobilePhoneNumber, String telephoneNumber, String email, AddressDto addressDto) {
         this.nameDto = nameDto;

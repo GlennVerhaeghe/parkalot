@@ -1,4 +1,4 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.address;
 
 import java.util.Objects;
 

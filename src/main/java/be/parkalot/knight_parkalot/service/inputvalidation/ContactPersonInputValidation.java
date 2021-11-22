@@ -1,6 +1,6 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
-import be.parkalot.knight_parkalot.dto.CreateContactPersonDto;
+import be.parkalot.knight_parkalot.dto.contactPerson.CreateContactPersonDto;
 import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
 
 public class ContactPersonInputValidation {

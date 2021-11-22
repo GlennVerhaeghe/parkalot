@@ -1,4 +1,4 @@
-package be.parkalot.knight_parkalot.mapper.invoice;
+package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.Invoice;
 import be.parkalot.knight_parkalot.dto.invoice.InvoiceDto;

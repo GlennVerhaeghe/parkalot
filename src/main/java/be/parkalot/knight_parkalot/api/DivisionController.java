@@ -1,7 +1,7 @@
 package be.parkalot.knight_parkalot.api;
 
-import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
-import be.parkalot.knight_parkalot.dto.DivisionDto;
+import be.parkalot.knight_parkalot.dto.division.CreateDivisionDto;
+import be.parkalot.knight_parkalot.dto.division.DivisionDto;
 import be.parkalot.knight_parkalot.service.DivisionService;
 import be.parkalot.knight_parkalot.switchsecure.SecurityGuard;
 import org.slf4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class DivisionController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, path = "/{divisionId}")
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
-    public DivisionDto getDivision(@PathVariable int divisionId){
+    public DivisionDto getDivision(@PathVariable int divisionId) {
         return service.getDivisionDtoById(divisionId);
     }
 

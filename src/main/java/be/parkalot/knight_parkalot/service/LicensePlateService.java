@@ -1,7 +1,7 @@
 package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.LicensePlate;
-import be.parkalot.knight_parkalot.dto.LicensePlateDto;
+import be.parkalot.knight_parkalot.dto.member.LicensePlateDto;
 import be.parkalot.knight_parkalot.mapper.LicensePlateMapper;
 import be.parkalot.knight_parkalot.repository.LicensePlateRepository;
 import org.slf4j.Logger;
@@ -31,6 +31,4 @@ public class LicensePlateService {
         Optional<LicensePlate> licensePlateOptional = licensePlateRepository.findById(licensePlateDto.getNumber());
         return licensePlateOptional.orElseGet(() -> licensePlateRepository.save(licensePlateMapper.toEntity(licensePlateDto)));
     }
-
-
 }

@@ -1,7 +1,7 @@
 package be.parkalot.knight_parkalot.api;
 
-import be.parkalot.knight_parkalot.dto.CreateParkingSpotAllocationDto;
-import be.parkalot.knight_parkalot.dto.ParkingSpotAllocationDto;
+import be.parkalot.knight_parkalot.dto.parkingSpotAllocation.CreateParkingSpotAllocationDto;
+import be.parkalot.knight_parkalot.dto.parkingSpotAllocation.ParkingSpotAllocationDto;
 import be.parkalot.knight_parkalot.service.ParkingSpotAllocationService;
 import be.parkalot.knight_parkalot.switchsecure.SecurityGuard;
 import org.slf4j.Logger;
@@ -17,8 +17,8 @@ import java.util.List;
 @RequestMapping("/parkingSpotAllocations")
 public class ParkingSpotAllocationController {
 
-    private ParkingSpotAllocationService parkingSpotAllocationService;
-    private Logger logger = LoggerFactory.getLogger(ParkingSpotAllocationController.class);
+    private final ParkingSpotAllocationService parkingSpotAllocationService;
+    private final Logger logger = LoggerFactory.getLogger(ParkingSpotAllocationController.class);
 
     @Autowired
     public ParkingSpotAllocationController(ParkingSpotAllocationService parkingSpotAllocationService) {
@@ -49,19 +49,19 @@ public class ParkingSpotAllocationController {
         return parkingSpotAllocationService.stopAllocating(memberId, parkingSpotAllocationId);
     }
 
-    @GetMapping(path = "member/{memberId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
-    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(@PathVariable int memberId,
+    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByMember(@RequestParam int memberId,
                                                                            @RequestParam(required = false) String allocationStatus) {
         return parkingSpotAllocationService.getAllParkingAllocationsByMember(memberId, allocationStatus);
     }
 
-    @GetMapping(path = "parkinglot/{parkinglotId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @SecurityGuard(SecurityGuard.ApiUserRole.MANAGER)
-    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByParkingLot(@PathVariable int parkinglotId,
-                                                                           @RequestParam(required = false) String allocationStatus) {
+    public List<ParkingSpotAllocationDto> getAllParkingAllocationsByParkingLot(@RequestParam int parkinglotId,
+                                                                               @RequestParam(required = false) String allocationStatus) {
         return parkingSpotAllocationService.getAllParkingAllocationsByParkingLot(parkinglotId, allocationStatus);
     }
 

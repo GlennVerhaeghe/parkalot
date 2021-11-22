@@ -4,7 +4,7 @@ import be.parkalot.knight_parkalot.domain.LicensePlate;
 import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.ParkingLot;
 import be.parkalot.knight_parkalot.domain.ParkingSpotAllocation;
-import be.parkalot.knight_parkalot.dto.ParkingSpotAllocationDto;
+import be.parkalot.knight_parkalot.dto.parkingSpotAllocation.ParkingSpotAllocationDto;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;

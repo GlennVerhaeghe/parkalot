@@ -1,6 +1,4 @@
-package be.parkalot.knight_parkalot.dto;
-
-import java.time.LocalTime;
+package be.parkalot.knight_parkalot.dto.parkingSpotAllocation;
 
 public class ParkingSpotAllocationDto {
 

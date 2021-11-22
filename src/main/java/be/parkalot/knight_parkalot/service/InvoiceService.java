@@ -1,13 +1,14 @@
-package be.parkalot.knight_parkalot.service.invoice;
+package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.Invoice;
 import be.parkalot.knight_parkalot.domain.InvoiceItem;
 import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.dto.invoice.InvoiceDto;
 import be.parkalot.knight_parkalot.exceptions.InvoiceException;
-import be.parkalot.knight_parkalot.mapper.invoice.InvoiceMapper;
+import be.parkalot.knight_parkalot.mapper.InvoiceMapper;
 import be.parkalot.knight_parkalot.repository.InvoiceRepository;
-import be.parkalot.knight_parkalot.service.MemberService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Service
 @Transactional
@@ -59,13 +58,6 @@ public class InvoiceService {
         return invoiceMapper.toDto(invoiceRepository.save(invoice));
     }
 
-    private double calculateTotalPrice(Invoice invoice) {
-        logger.info("calculateTotalPrice() called");
-        return invoice.getInvoiceItems().stream()
-                .mapToDouble(InvoiceItem::getPrice)
-                .sum();
-    }
-
     public List<InvoiceDto> getAllInvoices() {
         logger.info("getAllInvoices() called");
         return invoiceRepository.findAll().stream().map(invoiceMapper::toDto).collect(Collectors.toList());
@@ -89,5 +81,12 @@ public class InvoiceService {
         if (!invoiceRepository.existsById(invoiceId)) {
             throw new InvoiceException("No invoice found with id: " + invoiceId);
         }
+    }
+
+    private double calculateTotalPrice(Invoice invoice) {
+        logger.info("calculateTotalPrice() called");
+        return invoice.getInvoiceItems().stream()
+                .mapToDouble(InvoiceItem::getPrice)
+                .sum();
     }
 }

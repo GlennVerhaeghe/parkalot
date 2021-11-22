@@ -2,8 +2,8 @@ package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.Division;
 import be.parkalot.knight_parkalot.domain.Name;
-import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
-import be.parkalot.knight_parkalot.dto.DivisionDto;
+import be.parkalot.knight_parkalot.dto.division.CreateDivisionDto;
+import be.parkalot.knight_parkalot.dto.division.DivisionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

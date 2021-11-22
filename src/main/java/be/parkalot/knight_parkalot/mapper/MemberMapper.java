@@ -1,12 +1,12 @@
 package be.parkalot.knight_parkalot.mapper;
 
+import be.parkalot.knight_parkalot.domain.Member;
 import be.parkalot.knight_parkalot.domain.MembershipLevel;
 import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.CreateMemberDto;
-import be.parkalot.knight_parkalot.dto.MemberDto;
-import be.parkalot.knight_parkalot.dto.MemberDetailsDto;
+import be.parkalot.knight_parkalot.dto.member.CreateMemberDto;
+import be.parkalot.knight_parkalot.dto.member.MemberDetailsDto;
+import be.parkalot.knight_parkalot.dto.member.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import be.parkalot.knight_parkalot.domain.Member;
 import org.springframework.stereotype.Component;
 
 @Component

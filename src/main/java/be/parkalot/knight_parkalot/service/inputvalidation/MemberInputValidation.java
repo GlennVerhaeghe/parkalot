@@ -1,6 +1,6 @@
 package be.parkalot.knight_parkalot.service.inputvalidation;
 
-import be.parkalot.knight_parkalot.dto.CreateMemberDto;
+import be.parkalot.knight_parkalot.dto.member.CreateMemberDto;
 import be.parkalot.knight_parkalot.exceptions.MissingArgumentsException;
 
 public class MemberInputValidation {

@@ -1,9 +1,9 @@
 package be.parkalot.knight_parkalot.api;
 
 
-import be.parkalot.knight_parkalot.dto.CreateParkingLotDto;
-import be.parkalot.knight_parkalot.dto.ParkingLotDetailsDto;
-import be.parkalot.knight_parkalot.dto.ParkingLotDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.CreateParkingLotDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.ParkingLotDetailsDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.ParkingLotDto;
 import be.parkalot.knight_parkalot.service.ParkingLotService;
 import be.parkalot.knight_parkalot.switchsecure.SecurityGuard;
 import org.slf4j.Logger;

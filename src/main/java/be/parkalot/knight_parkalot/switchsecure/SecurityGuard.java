@@ -10,9 +10,9 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Operation(security = { @SecurityRequirement(name = "bearer-key") })
+@Operation(security = {@SecurityRequirement(name = "bearer-key")})
 public @interface SecurityGuard {
-    ApiUserRole value() ;
+    ApiUserRole value();
 
     enum ApiUserRole {
         MANAGER, MEMBER

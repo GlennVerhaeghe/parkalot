@@ -24,7 +24,7 @@ public class SecurityGate implements HandlerInterceptor {
 
     private final UserSecurityInformation userSecurityInformation;
 
-    public SecurityGate(@Qualifier("getUsernameAndRoleFromJWT")UserSecurityInformation userSecurityInformation) {
+    public SecurityGate(@Qualifier("getUsernameAndRoleFromJWT") UserSecurityInformation userSecurityInformation) {
         this.userSecurityInformation = userSecurityInformation;
     }
 
@@ -48,7 +48,7 @@ public class SecurityGate implements HandlerInterceptor {
 
 
         // if JWT does NOT contain the correct role
-        if(jwtMatchSecurityGuardRole(role, request)) {
+        if (jwtMatchSecurityGuardRole(role, request)) {
             userSecurityInformation.setRole(getRoleFromJwtToken(getJWT(request)));
             userSecurityInformation.setName(getUserNameFromJwtToken(getJWT(request)));
             return true;
@@ -60,7 +60,7 @@ public class SecurityGate implements HandlerInterceptor {
     }
 
     private boolean jwtMatchSecurityGuardRole(SecurityGuard.ApiUserRole value, HttpServletRequest request) {
-        if(getJWT(request) == null) {
+        if (getJWT(request) == null) {
             return false;
         }
         try {
@@ -72,7 +72,7 @@ public class SecurityGate implements HandlerInterceptor {
             return false;
         }
         return value.name().equals(getRoleFromJwtToken(getJWT(request)))
-               || SecurityGuard.ApiUserRole.MANAGER.name().equals(getRoleFromJwtToken(getJWT(request))) ;
+                || SecurityGuard.ApiUserRole.MANAGER.name().equals(getRoleFromJwtToken(getJWT(request)));
 
 
     }

@@ -1,8 +1,7 @@
-package be.parkalot.knight_parkalot.mapper.invoice;
+package be.parkalot.knight_parkalot.mapper;
 
 import be.parkalot.knight_parkalot.domain.InvoiceItem;
 import be.parkalot.knight_parkalot.dto.invoice.InvoiceItemDto;
-import be.parkalot.knight_parkalot.mapper.ParkingSpotAllocationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

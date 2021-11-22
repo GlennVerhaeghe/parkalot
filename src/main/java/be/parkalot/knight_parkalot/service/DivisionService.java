@@ -1,8 +1,8 @@
 package be.parkalot.knight_parkalot.service;
 
 import be.parkalot.knight_parkalot.domain.Division;
-import be.parkalot.knight_parkalot.dto.CreateDivisionDto;
-import be.parkalot.knight_parkalot.dto.DivisionDto;
+import be.parkalot.knight_parkalot.dto.division.CreateDivisionDto;
+import be.parkalot.knight_parkalot.dto.division.DivisionDto;
 import be.parkalot.knight_parkalot.exceptions.DivisionNotFoundException;
 import be.parkalot.knight_parkalot.mapper.DivisionMapper;
 import be.parkalot.knight_parkalot.repository.DivisionRepository;
@@ -38,20 +38,6 @@ public class DivisionService {
         return mapper.toDto(repository.save(division));
     }
 
-    private boolean isForSubDivision(CreateDivisionDto divisionDto) {
-        if (divisionDto.getParentId() == 0) {
-            return false;
-        }
-        assertIdExistsInDatabase(divisionDto.getParentId());
-        return true;
-    }
-
-    private void assertIdExistsInDatabase(int divisionId) {
-        if (!repository.existsById(divisionId)) {
-            throw new DivisionNotFoundException("No division found with id: " + divisionId);
-        }
-    }
-
     public List<DivisionDto> getAllDivisions() {
         return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
     }
@@ -65,4 +51,17 @@ public class DivisionService {
         return repository.findById(divisionId).get();
     }
 
+    private boolean isForSubDivision(CreateDivisionDto divisionDto) {
+        if (divisionDto.getParentId() == 0) {
+            return false;
+        }
+        assertIdExistsInDatabase(divisionDto.getParentId());
+        return true;
+    }
+
+    private void assertIdExistsInDatabase(int divisionId) {
+        if (!repository.existsById(divisionId)) {
+            throw new DivisionNotFoundException("No division found with id: " + divisionId);
+        }
+    }
 }

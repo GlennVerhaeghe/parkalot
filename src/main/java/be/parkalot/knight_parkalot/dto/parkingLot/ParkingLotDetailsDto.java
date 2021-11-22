@@ -1,4 +1,8 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.parkingLot;
+
+import be.parkalot.knight_parkalot.dto.contactPerson.ContactPersonDto;
+import be.parkalot.knight_parkalot.dto.division.DivisionDto;
+import be.parkalot.knight_parkalot.dto.address.AddressDto;
 
 public class ParkingLotDetailsDto {
     private int id;

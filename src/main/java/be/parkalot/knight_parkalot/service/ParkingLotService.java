@@ -1,18 +1,12 @@
 package be.parkalot.knight_parkalot.service;
 
-import be.parkalot.knight_parkalot.domain.ContactPerson;
-import be.parkalot.knight_parkalot.domain.Division;
-import be.parkalot.knight_parkalot.domain.ParkingLot;
-import be.parkalot.knight_parkalot.domain.ParkingLotCategory;
-import be.parkalot.knight_parkalot.domain.PostalCode;
-import be.parkalot.knight_parkalot.dto.ContactPersonDto;
-import be.parkalot.knight_parkalot.dto.CreateParkingLotDto;
-import be.parkalot.knight_parkalot.dto.ParkingLotDetailsDto;
-import be.parkalot.knight_parkalot.dto.ParkingLotDto;
+import be.parkalot.knight_parkalot.domain.*;
+import be.parkalot.knight_parkalot.dto.parkingLot.CreateParkingLotDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.ParkingLotDetailsDto;
+import be.parkalot.knight_parkalot.dto.parkingLot.ParkingLotDto;
 import be.parkalot.knight_parkalot.exceptions.ParkingLotCategoryNotFoundException;
 import be.parkalot.knight_parkalot.exceptions.ParkingLotNotFoundException;
 import be.parkalot.knight_parkalot.mapper.ParkingLotMapper;
-import be.parkalot.knight_parkalot.repository.ContactPersonRepository;
 import be.parkalot.knight_parkalot.repository.ParkingLotCategoryRepository;
 import be.parkalot.knight_parkalot.repository.ParkingLotRepository;
 import be.parkalot.knight_parkalot.service.inputvalidation.ParkingLotInputValidation;
@@ -63,6 +57,15 @@ public class ParkingLotService {
         return mapper.toDetailsDto(repository.save(newParkingLot));
     }
 
+    public List<ParkingLotDto> getAllParkingLots() {
+        return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    public ParkingLotDetailsDto getParkingLotById(int parkingLotID) {
+        assertIdExistsInDatabase(parkingLotID);
+        return mapper.toDetailsDto(repository.getById(parkingLotID));
+    }
+
     private void assertValidParkingLotDto(CreateParkingLotDto parkingLotDto) {
         logger.info("assertValidParkingLotDto called");
         ParkingLotInputValidation parkingLotInputValidation = new ParkingLotInputValidation(parkingLotDto);
@@ -78,15 +81,6 @@ public class ParkingLotService {
         if (!categoryRepository.existsById(id)) {
             throw new ParkingLotCategoryNotFoundException("No parking lot category found with id: " + id);
         }
-    }
-
-    public List<ParkingLotDto> getAllParkingLots() {
-        return repository.findAll().stream().map(mapper::toDto).collect(Collectors.toList());
-    }
-
-    public ParkingLotDetailsDto getParkingLotById(int parkingLotID) {
-        assertIdExistsInDatabase(parkingLotID);
-        return mapper.toDetailsDto(repository.getById(parkingLotID));
     }
 
     private void assertIdExistsInDatabase(int parkingLotID) {

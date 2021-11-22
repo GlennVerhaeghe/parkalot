@@ -1,4 +1,4 @@
-package be.parkalot.knight_parkalot.dto;
+package be.parkalot.knight_parkalot.dto.member;
 
 public class LicensePlateDto {
 
